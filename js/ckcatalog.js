@@ -385,13 +385,13 @@ CKCatalog.tabs['query'] = (function() {
       name: 'record-type',
       label: 'recordType:',
       placeholder: 'Record type',
-      value: 'Items'
+      value: 'Stations'
     })
     .addInputField({
       name: 'desired-keys',
       label: 'desiredKeys:',
       placeholder: 'Comma separated field names',
-      value: 'name,location,asset'
+      value: 'name,id,stopId,suburb,location'
     })
     .addMultipleFields({
       number: 2,
@@ -421,12 +421,12 @@ CKCatalog.tabs['query'] = (function() {
     .addInputField({
       name: 'latitude',
       placeholder: 'Latitude',
-      value: '37.7833'
+      value: '-33.706913'
     })
     .addInputField({
       name: 'longitude',
       placeholder: 'Longitude',
-      value: '-122.4167'
+      value: '151.0935059'
     })
     .addQueryBuilder({
       name: 'filter-by',
@@ -547,8 +547,8 @@ CKCatalog.tabs['query'] = (function() {
         // Restrict our returned fields to this array of keys.
         desiredKeys: desiredKeys,
 
-        // Fetch 5 results at a time.
-        resultsLimit: 5
+        // Fetch 200 results at a time.
+        resultsLimit: 200
 
       };
 
