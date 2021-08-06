@@ -209,7 +209,7 @@ CKCatalog.tabs['discoverability'] = (function() {
       placeholder: 'Email address',
       name: 'email',
       label: 'emailAddress:',
-      value: 'my_discoverable_user@icloud.com'
+      value: 'bannayanr@hotmail.com'
     });
 
   var recordNameInputForm = (new CKCatalog.Form)
@@ -399,7 +399,8 @@ CKCatalog.tabs['query'] = (function() {
     })
     .addInputField({
       name: 'sort-by-field',
-      placeholder: 'Field name'
+      placeholder: 'Field name',
+      value: 'location'
     })
     .addCheckboxes({
       checkboxes: [{
@@ -411,7 +412,7 @@ CKCatalog.tabs['query'] = (function() {
     .addCheckboxes({
       hidden: true,
       checkboxes: [
-        { name: 'sort-by-location', label: 'Sort this field by distance from a location' }
+        { name: 'sort-by-location', label: 'Sort this field by distance from a location', checked: true }
       ]
     })
     .addMultipleFields({
