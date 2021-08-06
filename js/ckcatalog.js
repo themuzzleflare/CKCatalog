@@ -410,14 +410,14 @@ CKCatalog.tabs['query'] = (function() {
       }]
     })
     .addCheckboxes({
-      hidden: true,
+      hidden: false,
       checkboxes: [
         { name: 'sort-by-location', label: 'Sort this field by distance from a location', checked: true }
       ]
     })
     .addMultipleFields({
       number: 2,
-      hidden: true
+      hidden: false
     })
     .addInputField({
       name: 'latitude',
