@@ -900,7 +900,7 @@ CKCatalog.tabs['records'] = (function() {
       placeholder: 'Record type',
       name: 'record-type',
       label: 'recordType:',
-      value: 'Items',
+      value: 'Stations',
       onChange: toggleShareRows
     })
     .addInputField({
@@ -1218,7 +1218,7 @@ CKCatalog.tabs['sync'] = (function() {
       placeholder: 'Zone name',
       name: 'zone',
       label: 'zoneName:',
-      value: 'myCustomZone'
+      value: 'com.apple.coredata.cloudkit.zone'
     })
     .addInputField({
       placeholder: 'Owner record name',
@@ -1689,7 +1689,7 @@ CKCatalog.tabs['subscriptions'] = (function() {
       placeholder: 'Record type',
       name: 'record-type',
       label: 'recordType:',
-      value: 'Items',
+      value: 'Stations',
       hidden: true
     })
     .addCheckboxes({
