@@ -209,7 +209,7 @@ CKCatalog.tabs['discoverability'] = (function() {
       placeholder: 'Email address',
       name: 'email',
       label: 'emailAddress:',
-      value: 'bannayanr@hotmail.com'
+      value: 'tavitianp@icloud.com'
     });
 
   var recordNameInputForm = (new CKCatalog.Form)
@@ -422,12 +422,12 @@ CKCatalog.tabs['query'] = (function() {
     .addInputField({
       name: 'latitude',
       placeholder: 'Latitude',
-      value: '-33.706913'
+      value: '-33.43078291754649'
     })
     .addInputField({
       name: 'longitude',
       placeholder: 'Longitude',
-      value: '151.0935059'
+      value: '151.3108412528859'
     })
     .addQueryBuilder({
       name: 'filter-by',
@@ -1360,8 +1360,8 @@ CKCatalog.tabs['sync'] = (function() {
       var args = {
         zoneID: zoneID,
 
-        // Limit to 5 results.
-        resultsLimit: 5
+        // Limit to 200 results.
+        resultsLimit: 200
       };
 
       if(syncToken) {
@@ -1410,8 +1410,8 @@ CKCatalog.tabs['sync'] = (function() {
 
       var opts = {
 
-        // Limit to 5 results.
-        resultsLimit: 5
+        // Limit to 200 results.
+        resultsLimit: 200
       };
 
       if(syncToken) {
