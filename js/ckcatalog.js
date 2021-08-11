@@ -18,8 +18,7 @@ CKCatalog.dialog = (function() {
   self.hide = function() {
     el.classList.add('hide');
     el.classList.remove('dismissable');
-  }
-  ;
+  };
   var createDismissButton = function() {
     var dismissBtn = document.createElement('button');
     dismissBtn.className = 'link';
@@ -59,15 +58,13 @@ CKCatalog.dialog = (function() {
       customDismissButton.onclick = function() {
         self.hide();
         dismissButtonOptions.action && dismissButtonOptions.action();
-      }
-      ;
+      };
       textEl.appendChild(customActions);
     } else {
       textEl.classList.add('no-actions');
     }
     positionTextEl();
-  }
-  ;
+  };
   self.showError = function(error) {
     el.classList.remove('hide');
     el.classList.add('dismissable');
@@ -80,11 +77,11 @@ CKCatalog.dialog = (function() {
     }
     textEl.appendChild(actions);
     positionTextEl();
-  }
-  ;
+  };
   return self;
 }
 )();
+
 CKCatalog.Table = function(heading) {
   this.el = document.createElement('div');
   this.el.className = 'table-wrapper';
@@ -93,10 +90,8 @@ CKCatalog.Table = function(heading) {
   this._heading = heading || [];
   this._rowIsSelectable = function() {
     return false;
-  }
-  ;
-  this._selectHandler = function() {}
-  ;
+  };
+  this._selectHandler = function() {};
   var table = document.createElement('table');
   if (heading && Array.isArray(heading)) {
     this._numberOfColumns = heading.length;
@@ -112,14 +107,14 @@ CKCatalog.Table = function(heading) {
     this.body = table;
   }
   this.el.appendChild(table);
-}
-;
+};
+
 CKCatalog.Table.prototype.clearAllRows = function() {
   this._rows = [];
   this.body.innerHTML = '';
   return this;
-}
-;
+};
+
 CKCatalog.Table.prototype.renderObject = function(object) {
   for (var k in object) {
     if (object.hasOwnProperty(k)) {
@@ -127,18 +122,18 @@ CKCatalog.Table.prototype.renderObject = function(object) {
     }
   }
   return this;
-}
-;
+};
+
 CKCatalog.Table.prototype.setTextForUndefinedValue = function(text) {
   this._textForUndefinedValue = text;
   return this;
-}
-;
+};
+
 CKCatalog.Table.prototype.setTextForEmptyRow = function(text) {
   this._textForEmptyRow = text;
   return this;
-}
-;
+};
+
 CKCatalog.Table.prototype._textForUndefinedValue = '-';
 CKCatalog.Table.prototype._textForEmptyRow = 'No Content';
 CKCatalog.Table.prototype._createRowWithKey = function(key) {
@@ -147,8 +142,8 @@ CKCatalog.Table.prototype._createRowWithKey = function(key) {
   th.textContent = key;
   tr.appendChild(th);
   return tr;
-}
-;
+};
+
 CKCatalog.Table.prototype._createRowWithValues = function(values, boolArray, opts) {
   var tr = document.createElement('tr');
   var that = this;
@@ -172,15 +167,15 @@ CKCatalog.Table.prototype._createRowWithValues = function(values, boolArray, opt
     tr.appendChild(td);
   });
   return tr;
-}
-;
+};
+
 CKCatalog.Table.prototype._createEmptyRow = function() {
   var tr = document.createElement('tr');
   tr.innerHTML = '<td class="light align-center" colspan="' + this._numberOfColumns + '">' + this._textForEmptyRow + '</td>';
   tr.className = 'empty';
   return tr;
-}
-;
+};
+
 CKCatalog.Table.prototype._createEmptyValueCell = function() {
   var td = document.createElement('td');
   var span = document.createElement('span');
@@ -188,8 +183,8 @@ CKCatalog.Table.prototype._createEmptyValueCell = function() {
   span.textContent = this._textForUndefinedValue;
   td.appendChild(span);
   return td;
-}
-;
+};
+
 CKCatalog.Table.prototype._prettyPrintValue = function(value) {
   if (value instanceof Date) {
     return value.toLocaleString();
@@ -198,8 +193,8 @@ CKCatalog.Table.prototype._prettyPrintValue = function(value) {
   } else {
     return value;
   }
-}
-;
+};
+
 CKCatalog.Table.prototype._createPrettyElementForTypedValue = function(value, type) {
   var el = document.createElement('div');
   el.className = 'ellipsis max-width-500';
@@ -211,8 +206,8 @@ CKCatalog.Table.prototype._createPrettyElementForTypedValue = function(value, ty
     el.textContent = value;
   }
   return el;
-}
-;
+};
+
 CKCatalog.Table.prototype._createPrettyObject = function(object, opts) {
   var el;
   opts = opts || {};
@@ -265,16 +260,16 @@ CKCatalog.Table.prototype._createPrettyObject = function(object, opts) {
     el = this._createPrettyElementForTypedValue(object, opts.type);
   }
   return el;
-}
-;
+};
+
 CKCatalog.Table.prototype._createDownloadLinkFromBase64String = function(base64String) {
   var link = document.createElement('a');
   link.setAttribute('download', '');
   link.setAttribute('href', 'data:application/octet-stream;base64,' + base64String);
   link.textContent = base64String.substr(0, 20) + '…';
   return link;
-}
-;
+};
+
 CKCatalog.Table.prototype._createRow = function(keyOrValues, value, opts) {
   var tr;
   opts = opts || {};
@@ -300,8 +295,8 @@ CKCatalog.Table.prototype._createRow = function(keyOrValues, value, opts) {
     tr.appendChild(td);
   }
   return tr;
-}
-;
+};
+
 CKCatalog.Table.prototype._createDataHash = function(keyOrValues, value) {
   var data = {};
   if (Array.isArray(keyOrValues)) {
@@ -312,8 +307,8 @@ CKCatalog.Table.prototype._createDataHash = function(keyOrValues, value) {
     data[keyOrValues] = value;
   }
   return data;
-}
-;
+};
+
 CKCatalog.Table.prototype._addHandlersToRow = function(row) {
   if (this._rowIsSelectable(row)) {
     row.el.classList.add('selectable');
@@ -323,8 +318,8 @@ CKCatalog.Table.prototype._addHandlersToRow = function(row) {
     }
     ;
   }
-}
-;
+};
+
 CKCatalog.Table.prototype.appendRow = function(keyOrValues, value, opts) {
   var tr = this._createRow(keyOrValues, value, opts);
   this.body.appendChild(tr);
@@ -335,8 +330,8 @@ CKCatalog.Table.prototype.appendRow = function(keyOrValues, value, opts) {
   this._rows.push(row);
   this._addHandlersToRow(row);
   return this;
-}
-;
+};
+
 CKCatalog.Table.prototype.prependRow = function(keyOrValues, value) {
   var tr = this._createRow(keyOrValues, value);
   this.body.insertBefore(tr, this.body.firstChild);
@@ -347,18 +342,18 @@ CKCatalog.Table.prototype.prependRow = function(keyOrValues, value) {
   this._rows.unshift(row);
   this._addHandlersToRow(row);
   return this;
-}
-;
+};
+
 CKCatalog.Table.prototype.rowIsSelectable = function(condition) {
   this._rowIsSelectable = condition;
   return this;
-}
-;
+};
+
 CKCatalog.Table.prototype.addSelectHandler = function(handler) {
   this._selectHandler = handler;
   return this;
-}
-;
+};
+
 (function() {
   var constants = {
     FIELD_TYPE_STRING: 'STRING',
@@ -399,6 +394,7 @@ CKCatalog.Table.prototype.addSelectHandler = function(handler) {
   }
 }
 )();
+
 CKCatalog.FormInputHelpers.DEFAULT = {
   valueKeys: {
     first: 'value',
@@ -435,6 +431,7 @@ CKCatalog.FormInputHelpers.DEFAULT = {
     return this.getFieldValue(opts.name + '-value');
   }
 };
+
 CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_ASSET] = {
   add: function(opts) {
     return this.addFileInputField({
@@ -447,6 +444,7 @@ CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_ASSET] = {
     return fileInput.assetValue || fileInput.files[0];
   }
 };
+
 CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_BYTES] = {
   add: function(opts) {
     return this.addFileInputField({
@@ -460,6 +458,7 @@ CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_BYTES] = {
     return fileInput.assetValue;
   }
 };
+
 CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_LOCATION] = {
   valueKeys: {
     first: 'latitude',
@@ -501,6 +500,7 @@ CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_LOCATION] = {
     };
   }
 };
+
 CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_STRING] = {
   add: function(opts) {
     return this.addTextareaField({
@@ -510,6 +510,7 @@ CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_STRING] = {
     });
   }
 };
+
 CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_REFERENCE] = {
   valueKeys: {
     first: 'record-name',
@@ -592,6 +593,7 @@ CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_REFERENCE] = {
     return reference;
   }
 };
+
 CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_SHARE_PARTICIPANT] = {
   valueKeys: {
     first: 'email',
@@ -658,6 +660,7 @@ CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_SHARE_PARTICIPANT] = {
     };
   }
 };
+
 CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_TIMESTAMP] = {
   add: function(opts) {
     return this.addInputField({
@@ -682,9 +685,11 @@ CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_TIMESTAMP] = {
     }
   }
 };
+
 CKCatalog.FormInputHelpers.Filters.DEFAULT = {
   comparators: [CKCatalog.COMPARATOR_EQUALS, CKCatalog.COMPARATOR_NOT_EQUALS, CKCatalog.COMPARATOR_IN, CKCatalog.COMPARATOR_NOT_IN]
 };
+
 CKCatalog.FormInputHelpers.Filters[CKCatalog.FIELD_TYPE_LOCATION] = {
   valueKeys: {
     last: 'distance'
@@ -744,15 +749,18 @@ CKCatalog.FormInputHelpers.Filters[CKCatalog.FIELD_TYPE_LOCATION] = {
     }
   }
 };
+
 CKCatalog.FormInputHelpers.Filters[CKCatalog.FIELD_TYPE_STRING] = {
   comparators: [CKCatalog.COMPARATOR_EQUALS, CKCatalog.COMPARATOR_NOT_EQUALS, CKCatalog.COMPARATOR_CONTAINS_ALL_TOKENS, CKCatalog.COMPARATOR_CONTAINS_ANY_TOKENS, CKCatalog.COMPARATOR_BEGINS_WITH, CKCatalog.COMPARATOR_NOT_BEGINS_WITH, CKCatalog.COMPARATOR_IN, CKCatalog.COMPARATOR_NOT_IN]
 };
+
 CKCatalog.FormInputHelpers.Filters[CKCatalog.FIELD_TYPE_INT64] = CKCatalog.FormInputHelpers.Filters[CKCatalog.FIELD_TYPE_DOUBLE] = CKCatalog.FormInputHelpers.Filters[CKCatalog.FIELD_TYPE_TIMESTAMP] = {
   comparators: [CKCatalog.COMPARATOR_EQUALS, CKCatalog.COMPARATOR_NOT_EQUALS, CKCatalog.COMPARATOR_LESS_THAN, CKCatalog.COMPARATOR_LESS_THAN_OR_EQUALS, CKCatalog.COMPARATOR_GREATER_THAN, CKCatalog.COMPARATOR_GREATER_THAN_OR_EQUALS, CKCatalog.COMPARATOR_IN, CKCatalog.COMPARATOR_NOT_IN],
   serialize: function(opts) {
     return CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_TIMESTAMP].serialize.call(this, opts);
   }
 };
+
 CKCatalog.FormInputHelpers.Filters[CKCatalog.FIELD_TYPE_REFERENCE] = {
   add: function(opts) {
     var name = opts.name;
@@ -778,6 +786,7 @@ CKCatalog.FormInputHelpers.Filters[CKCatalog.FIELD_TYPE_REFERENCE] = {
     });
   }
 };
+
 CKCatalog.Form = function Form() {
   this.el = document.createElement('form');
   this.el.setAttribute('action', '#');
@@ -795,8 +804,8 @@ CKCatalog.Form = function Form() {
   this._multipleFields = 0;
   this._multipleFieldsContainer = null;
   this._pointer = null;
-}
-;
+};
+
 CKCatalog.Form.prototype.formHelperForType = function(type) {
   var helper = CKCatalog.FormInputHelpers[type] || {};
   var defaultHelper = CKCatalog.FormInputHelpers.DEFAULT;
@@ -823,35 +832,35 @@ CKCatalog.Form.prototype.formHelperForType = function(type) {
       return f.call(that, opts);
     }
   };
-}
-;
+};
+
 CKCatalog.Form.prototype._id = 0;
 CKCatalog.Form.prototype.addMultipleFields = function(opts) {
   this._multipleFieldsContainer = this._createFieldContainer(opts);
   this._multipleFields = opts.number;
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype._insertRow = function(row) {
   if (!this._pointer) {
     this._pointer = this.table.appendChild(row);
   } else {
     this._pointer = this.table.insertBefore(row, this._pointer.nextSibling);
   }
-}
-;
+};
+
 CKCatalog.Form.prototype.focusField = function(name) {
   var field = this.fields[name];
   if (field) {
     field.focus();
   }
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype._createRelativeId = function(name) {
   return this.el.id + '-' + name;
-}
-;
+};
+
 CKCatalog.Form.prototype._createFieldContainer = function(opts) {
   opts = opts || {};
   if (this._multipleFields) {
@@ -907,8 +916,8 @@ CKCatalog.Form.prototype._createFieldContainer = function(opts) {
   }
   tr.appendChild(removeButtonContainer);
   return td;
-}
-;
+};
+
 CKCatalog.Form.prototype.addInputField = function(opts) {
   var fieldContainer = this._createFieldContainer(opts);
   var borderContainer = document.createElement('div');
@@ -939,8 +948,8 @@ CKCatalog.Form.prototype.addInputField = function(opts) {
   fieldContainer.appendChild(borderContainer);
   this._insertRow(fieldContainer.parentNode);
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype.setFieldValue = function(key, value) {
   var field = this.fields[key];
   var oldValue;
@@ -969,8 +978,8 @@ CKCatalog.Form.prototype.setFieldValue = function(key, value) {
   } else if (typeof value == 'object') {
     this._addDynamicFieldsFromFieldsMap(key, value);
   }
-}
-;
+};
+
 CKCatalog.Form.prototype.getFieldValue = function(key) {
   var field = this.fields[key];
   if (field) {
@@ -982,8 +991,8 @@ CKCatalog.Form.prototype.getFieldValue = function(key) {
   } else {
     return this._serializeDynamicFields(key);
   }
-}
-;
+};
+
 CKCatalog.Form.prototype.addTextareaField = function(opts) {
   opts.classNames = opts.classNames || [];
   var borderContainer = document.createElement('div');
@@ -1010,8 +1019,8 @@ CKCatalog.Form.prototype.addTextareaField = function(opts) {
   fieldContainer.appendChild(borderContainer);
   this._insertRow(fieldContainer.parentNode);
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype.addFileInputField = function(opts) {
   var fieldContainer = this._createFieldContainer(opts);
   var borderContainer = document.createElement('div');
@@ -1042,12 +1051,10 @@ CKCatalog.Form.prototype.addFileInputField = function(opts) {
           base64 = base64.substr(base64.indexOf(';base64,') + 8);
           input.assetValue = base64;
           CKCatalog.dialog.hide();
-        }
-        ;
+        };
         fileReader.onerror = function(error) {
           CKCatalog.dialog.showError(error);
-        }
-        ;
+        };
         fileReader.readAsDataURL(file);
       } else {
         input.assetValue = null;
@@ -1072,8 +1079,8 @@ CKCatalog.Form.prototype.addFileInputField = function(opts) {
   this.fields[opts.name] = input;
   this._insertRow(fieldContainer.parentNode);
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype.addSelectField = function(opts) {
   var fieldContainer = this._createFieldContainer(opts);
   var borderContainer = document.createElement('div');
@@ -1106,8 +1113,8 @@ CKCatalog.Form.prototype.addSelectField = function(opts) {
   fieldContainer.appendChild(borderContainer);
   this._insertRow(fieldContainer.parentNode);
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype.addEmptyField = function() {
   var fieldContainer = this._createFieldContainer();
   var emptyField = document.createElement('div');
@@ -1115,8 +1122,8 @@ CKCatalog.Form.prototype.addEmptyField = function() {
   fieldContainer.appendChild(emptyField);
   this._insertRow(fieldContainer.parentNode);
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype.addHiddenField = function(opts) {
   var input = document.createElement('input');
   input.style.display = 'none';
@@ -1128,8 +1135,8 @@ CKCatalog.Form.prototype.addHiddenField = function(opts) {
   this.fields[opts.name] = input;
   this.el.appendChild(input);
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype.addLabel = function(opts) {
   var fieldContainer = this._createFieldContainer();
   var container = document.createElement('div');
@@ -1144,8 +1151,8 @@ CKCatalog.Form.prototype.addLabel = function(opts) {
   this._insertRow(fieldContainer.parentNode);
   this.fields[opts.name + '-label'] = label;
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype.addCheckboxes = function(opts) {
   var fieldContainer = this._createFieldContainer(opts);
   var checkboxesContainer = document.createElement('div');
@@ -1178,16 +1185,15 @@ CKCatalog.Form.prototype.addCheckboxes = function(opts) {
   fieldContainer.appendChild(checkboxesContainer);
   this._insertRow(fieldContainer.parentNode);
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype.onSubmit = function(handler) {
   this.el.onsubmit = function(e) {
     e.preventDefault();
     handler();
-  }
-  ;
-}
-;
+  };
+};
+
 CKCatalog.Form.prototype.getFieldRowForFieldName = function(fieldName) {
   var field = this.fields[fieldName];
   if (field) {
@@ -1200,8 +1206,8 @@ CKCatalog.Form.prototype.getFieldRowForFieldName = function(fieldName) {
     }
   }
   return null;
-}
-;
+};
+
 CKCatalog.Form.prototype.addButton = function(opts) {
   var container = this._createFieldContainer(opts);
   var borderContainer = document.createElement('div');
@@ -1224,22 +1230,22 @@ CKCatalog.Form.prototype.addButton = function(opts) {
   container.appendChild(borderContainer);
   this._insertRow(container.parentNode);
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype.movePointerTo = function(name) {
   this._pointer = this.getFieldRowForFieldName(name);
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype.resetPointer = function() {
   this._pointer = null;
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype.createDynamicFieldName = function(name, index) {
   return name + '-' + index;
-}
-;
+};
+
 CKCatalog.Form.prototype.addDynamicFields = function(opts) {
   var dynamicFieldsIndex = 0;
   var that = this;
@@ -1289,21 +1295,21 @@ CKCatalog.Form.prototype.addDynamicFields = function(opts) {
     title: 'Add field…',
     action: addField
   });
-}
-;
+};
+
 CKCatalog.Form.prototype._getValueKey = function(opts) {
   var position = opts.position || 'first';
   return opts.name + '-' + this.formHelperForType(opts.type).valueKeys[position];
-}
-;
+};
+
 CKCatalog.Form.prototype._addFieldValueForType = function(opts) {
   return this.formHelperForType(opts.type).add(opts);
-}
-;
+};
+
 CKCatalog.Form.prototype.isNumberType = function(type) {
   return /NUMBER/.test(type) || type === CKCatalog.FIELD_TYPE_TIMESTAMP;
-}
-;
+};
+
 CKCatalog.Form.prototype.addArrayField = function(opts) {
   return this._addDynamicField({
     name: opts.name,
@@ -1315,8 +1321,8 @@ CKCatalog.Form.prototype.addArrayField = function(opts) {
     placeholder: opts.placeholder,
     buttonTitle: opts.buttonTitle
   });
-}
-;
+};
+
 CKCatalog.Form.prototype.toggleRow = function(fieldName, bool) {
   var row = this.getFieldRowForFieldName(fieldName);
   if (row) {
@@ -1326,13 +1332,13 @@ CKCatalog.Form.prototype.toggleRow = function(fieldName, bool) {
       row.classList.add('hide');
     }
   }
-}
-;
+};
+
 CKCatalog.Form.prototype.toggleArrayField = function(name, bool) {
   this.toggleRow(name + '-add-item', bool);
   this.toggleArrayItems(name, bool);
-}
-;
+};
+
 CKCatalog.Form.prototype.toggleArrayItems = function(name, bool) {
   var arrayFieldName = this.dynamicFieldNames[name];
   if (arrayFieldName && Array.isArray(arrayFieldName.value)) {
@@ -1341,26 +1347,26 @@ CKCatalog.Form.prototype.toggleArrayItems = function(name, bool) {
       that._toggleDynamicField(arrayValue, bool);
     });
   }
-}
-;
+};
+
 CKCatalog.Form.prototype._toggleDynamicField = function(opts, bool) {
   this.formHelperForType(opts.type).toggle(opts, bool);
-}
-;
+};
+
 CKCatalog.Form.prototype.removeRowByFieldName = function(name) {
   try {
     this.table.removeChild(this.getFieldRowForFieldName(name));
   } catch (e) {}
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype.removeHiddenInputByFieldName = function(name) {
   try {
     this.el.removeChild(this.fields[name]);
   } catch (e) {}
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype._removeFieldValue = function(value) {
   if (Array.isArray(value)) {
     var that = this;
@@ -1371,8 +1377,8 @@ CKCatalog.Form.prototype._removeFieldValue = function(value) {
     this.formHelperForType(value.type).remove(value);
   }
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype._removeFieldKey = function(opts) {
   var name = opts.key;
   this.removeRowByFieldName(name + '-key');
@@ -1388,8 +1394,8 @@ CKCatalog.Form.prototype._removeFieldKey = function(opts) {
     };
   }
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype._removeLabel = function(opts) {
   delete this.fields[this._getValueKey({
     type: opts.type,
@@ -1397,16 +1403,16 @@ CKCatalog.Form.prototype._removeLabel = function(opts) {
     position: 'first'
   }) + '-label'];
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype.removeArrayItem = function(opts) {
   return this._removeFieldValue(opts)._removeLabel(opts);
-}
-;
+};
+
 CKCatalog.Form.prototype._removeDynamicField = function(opts) {
   return this._removeFieldValue(opts.value)._removeFieldKey(opts);
-}
-;
+};
+
 CKCatalog.Form.prototype.addArrayItem = function(opts) {
   var number = opts.type === CKCatalog.FIELD_TYPE_LOCATION ? 3 : 2;
   if (!this.dynamicFieldNames[opts.name]) {
@@ -1474,8 +1480,8 @@ CKCatalog.Form.prototype.addArrayItem = function(opts) {
     name: indexedName,
     position: 'first'
   }));
-}
-;
+};
+
 CKCatalog.Form.prototype._addDynamicField = function(opts) {
   var that = this;
   var number = opts.type === CKCatalog.FIELD_TYPE_LOCATION ? 3 : 2;
@@ -1531,20 +1537,20 @@ CKCatalog.Form.prototype._addDynamicField = function(opts) {
       value: opts.key
     })._addFieldValueForType(opts).focusField(opts.name + '-key');
   }
-}
-;
+};
+
 CKCatalog.Form.prototype._removeDynamicFields = function() {
   for (var key in this.dynamicFieldNames) {
     this._removeDynamicField(this.dynamicFieldNames[key]);
   }
-}
-;
+};
+
 CKCatalog.Form.prototype.reset = function() {
   this.el.reset();
   this._removeDynamicFields();
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype._addDynamicFieldsFromFieldsMap = function(name, fieldsMap) {
   var dynamicFieldsIndex = 0;
   this.movePointerTo(name + '-add-field-button');
@@ -1583,8 +1589,8 @@ CKCatalog.Form.prototype._addDynamicFieldsFromFieldsMap = function(name, fieldsM
     }
   }
   return this;
-}
-;
+};
+
 CKCatalog.Form.prototype._addArrayItems = function(array, opts) {
   if (Array.isArray(array)) {
     var that = this;
@@ -1597,12 +1603,12 @@ CKCatalog.Form.prototype._addArrayItems = function(array, opts) {
       });
     });
   }
-}
-;
+};
+
 CKCatalog.Form.prototype._getValueFromTypedField = function(opts) {
   return this.formHelperForType(opts.type).serialize(opts);
-}
-;
+};
+
 CKCatalog.Form.prototype._serializeDynamicFields = function(prefix) {
   var object = {};
   if (!prefix)
@@ -1636,8 +1642,8 @@ CKCatalog.Form.prototype._serializeDynamicFields = function(prefix) {
     }
   }
   return object;
-}
-;
+};
+
 CKCatalog.renderUtils = (function() {
   var renderRecords = function(table, title, records, displayFields) {
     var content = document.createElement('div');
@@ -1743,6 +1749,7 @@ CKCatalog.renderUtils = (function() {
   };
 }
 )();
+
 CKCatalog.QueryString = (function() {
   var qs = window.location.search.substr(1).split('&').reduce(function(previousValue, currentValue) {
     var kv = currentValue.split('=');
@@ -1757,6 +1764,7 @@ CKCatalog.QueryString = (function() {
   };
 }
 )();
+
 CKCatalog.Form.prototype._getFilterHelperForType = function(name, type, isList) {
   var helper = CKCatalog.FormInputHelpers.Filters[type] || {};
   var defaultHelper = {};
@@ -1903,13 +1911,14 @@ CKCatalog.Form.prototype._getFilterHelperForType = function(name, type, isList) 
       return json;
     }
   };
-}
-;
+};
+
 CKCatalog.Form.prototype._comparatorRequiresListValues = function(comparator) {
   return [CKCatalog.COMPARATOR_IN, CKCatalog.COMPARATOR_NOT_IN, CKCatalog.COMPARATOR_LIST_CONTAINS_ALL, CKCatalog.COMPARATOR_NOT_LIST_CONTAINS_ALL, CKCatalog.COMPARATOR_NOT_LIST_CONTAINS_ANY].indexOf(comparator) > -1;
-}
-;
+};
+
 CKCatalog.Form.prototype._comparatorsForListField = [CKCatalog.COMPARATOR_LIST_CONTAINS, CKCatalog.COMPARATOR_NOT_LIST_CONTAINS, CKCatalog.COMPARATOR_LIST_CONTAINS_ALL, CKCatalog.COMPARATOR_NOT_LIST_CONTAINS_ANY, CKCatalog.COMPARATOR_NOT_LIST_CONTAINS_ALL, CKCatalog.COMPARATOR_LIST_MEMBER_BEGINS_WITH, CKCatalog.COMPARATOR_NOT_LIST_MEMBER_BEGINS_WITH];
+
 CKCatalog.Form.prototype.addQueryBuilder = function(opts) {
   var name = opts.name;
   this.dynamicFieldNames[name] = {
@@ -1965,15 +1974,15 @@ CKCatalog.Form.prototype.addQueryBuilder = function(opts) {
       that.focusField(indexedName + '-' + helper.valueKeys.first);
     }
   });
-}
-;
+};
+
 CKCatalog.Form.prototype._serializeFilters = function(filters) {
   var that = this;
   return filters.value.map(function(filter) {
     return that._getFilterHelperForType(filters.key, filter.type).serialize(filter);
   });
-}
-;
+};
+
 CKCatalog.Form.prototype.toggleFilters = function(name, bool) {
   var filters = this.dynamicFieldNames[name];
   var that = this;
