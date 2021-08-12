@@ -5,8 +5,8 @@
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-122946443-37');
+      gtag("js", new Date());
+      gtag("config", "UA-122946443-37");
     </script>
     <meta charset="utf-8">
     <title>CloudKit Catalog</title>
@@ -336,7 +336,7 @@
           <h3>Option #2 - Load CloudKit JS asynchronously</h3>
           <pre><code>&lt;!-- Listen for the cloudkitloaded event on the window object. --&gt;
             &lt;script&gt;
-            window.addEventListener('cloudkitloaded', function() {
+            window.addEventListener("cloudkitloaded", function() {
             // Now the global namespace CloudKit is defined and you can proceed
             // to configure your application.
             });
@@ -347,31 +347,31 @@
           <h2>Configuring CloudKit JS</h2>
           <p>The first use of the CloudKit namespace in your javascript app should be configuration code.</p>
           <pre><code>CloudKit.configure({
-            locale: 'en-us',
+            locale: "en-us",
             
             containers: [{
             
             // Change this to a container identifier you own.
-            containerIdentifier: 'com.example.apple-samplecode.cloudkit-catalog',
+            containerIdentifier: "iCloud.cloud.tavitian.commute",
             
             apiTokenAuth: {
             // And generate a web token through CloudKit Dashboard.
-            apiToken: '&lt;insert your token here&gt;',
+            apiToken: "&lt;insert your token here&gt;",
             
             persist: true, // Sets a cookie.
             
             signInButton: {
-            id: 'apple-sign-in-button',
-            theme: 'black' // Other options: 'white', 'white-with-outline'.
+            id: "apple-sign-in-button",
+            theme: "black" // Other options: "white", "white-with-outline".
             },
             
             signOutButton: {
-            id: 'apple-sign-out-button',
-            theme: 'black'
+            id: "apple-sign-out-button",
+            theme: "black"
             }
             },
             
-            environment: 'development'
+            environment: "production"
             }]
           });</code></pre>
           <p>Change the container identifier to one that you own.
@@ -410,8 +410,8 @@
           </code></pre>
           <h2>Configuring CloudKit JS in a node script</h2>
           <p>Create a script file in your working directory and add the following configuration code.</p>
-          <pre><code class="javascript">var fetch = require('node-fetch');
-            var CloudKit = require('./cloudkit');
+          <pre><code class="javascript">var fetch = require("node-fetch");
+            var CloudKit = require("./cloudkit");
             
             CloudKit.configure({
             services: {
@@ -421,18 +421,18 @@
             containers: [{
             
             // Change this to a container identifier that you own.
-            containerIdentifier: 'com.example.apple-samplecode.cloudkit-catalog',
+            containerIdentifier: "iCloud.cloud.tavitian.commute",
             
-            environment: 'development',
+            environment: "production",
             
             serverToServerKeyAuth: {
             
             // This is the key ID you generated in CloudKit Dashboard.
-            keyID: '&lt;insert key ID&gt;',
+            keyID: "&lt;insert key ID&gt;",
             
             // This should reference the private key file that you used to
             // generate the above key ID.
-            privateKeyFile: __dirname + '/eckey.pem'
+            privateKeyFile: __dirname + "/eckey.pem"
             
             }
             }]
@@ -456,12 +456,12 @@
             // The userInfo is that of the user who created the key in CloudKit Dashboard.
             // If this user has permission to write a record of type Item to the
             // public database, the following call will succeed.
-            return database.saveRecords({ recordType: 'Item' });
+            return database.saveRecords({ recordType: "Stations" });
             
             }).then(function(response) {
             
             var savedRecord = response.records[0];
-            console.log('Record name:', savedRecord.recordName);
+            console.log("Record name:", savedRecord.recordName);
             
             process.exit(0);
             
@@ -477,21 +477,21 @@
       </div>
     </div>
     <script>
-      if(typeof CKCatalog === 'undefined') {
+      if(typeof CKCatalog === "undefined") {
         CKCatalog = {};
       }
       
-      if(typeof CKCatalog.tabs === 'undefined') {
+      if(typeof CKCatalog.tabs === "undefined") {
         CKCatalog.tabs = {
-          'readme': [
-            { title: 'CloudKit on the web' },
-            { title: 'Server-side CloudKit with node.js' }
+          "readme": [
+            { title: "CloudKit on the web" },
+            { title: "Server-side CloudKit with node.js" }
           ],
-          'not-found': [{}]
+          "not-found": [{}]
         };
       }
       
-      if(typeof CKCatalog.FormInputHelpers === 'undefined') {
+      if(typeof CKCatalog.FormInputHelpers === "undefined") {
         CKCatalog.FormInputHelpers = {
           Filters: {}
         };

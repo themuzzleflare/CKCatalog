@@ -1,59 +1,59 @@
 CKCatalog.dialog = (function() {
   var self = {};
-  var el = document.getElementById('dialog');
-  el.setAttribute('tabindex', '0');
-  el.addEventListener('click', function(ev) {
+  var el = document.getElementById("dialog");
+  el.setAttribute("tabindex", "0");
+  el.addEventListener("click", function(ev) {
     var target = ev.target;
-    if (target && target.id === 'dialog' && target.classList.contains('dismissable')) {
+    if (target && target.id === "dialog" && target.classList.contains("dismissable")) {
       self.hide();
     }
   });
-  document.addEventListener('keyup', function(ev) {
+  document.addEventListener("keyup", function(ev) {
     var code = ev.which || ev.keyCode;
-    if (code == 27 && el.classList.contains('dismissable')) {
+    if (code == 27 && el.classList.contains("dismissable")) {
       self.hide();
     }
   });
-  var textEl = document.getElementById('dialog-text');
+  var textEl = document.getElementById("dialog-text");
   self.hide = function() {
-    el.classList.add('hide');
-    el.classList.remove('dismissable');
+    el.classList.add("hide");
+    el.classList.remove("dismissable");
   };
   var createDismissButton = function() {
-    var dismissBtn = document.createElement('button');
-    dismissBtn.className = 'link';
-    dismissBtn.textContent = 'Close';
+    var dismissBtn = document.createElement("button");
+    dismissBtn.className = "link";
+    dismissBtn.textContent = "Close";
     dismissBtn.onclick = self.hide;
-    dismissBtn.setAttribute('tabindex', '1');
+    dismissBtn.setAttribute("tabindex", "1");
     return dismissBtn;
   };
-  var actions = document.createElement('div');
-  actions.className = 'actions';
+  var actions = document.createElement("div");
+  actions.className = "actions";
   actions.appendChild(createDismissButton());
-  var customDismissButton = document.createElement('button');
-  customDismissButton.className = 'link default-action';
-  customDismissButton.setAttribute('tabindex', '0');
-  var customActions = document.createElement('div');
-  customActions.className = 'actions';
+  var customDismissButton = document.createElement("button");
+  customDismissButton.className = "link default-action";
+  customDismissButton.setAttribute("tabindex", "0");
+  var customActions = document.createElement("div");
+  customActions.className = "actions";
   customActions.appendChild(createDismissButton());
   customActions.appendChild(customDismissButton);
   var positionTextEl = function() {
     var rect = textEl.getBoundingClientRect();
-    textEl.style.left = 'calc(50% - ' + (rect.width / 2) + 'px)';
-    textEl.style.top = 'calc(50% - ' + (rect.height / 2) + 'px)';
+    textEl.style.left = "calc(50% - " + (rect.width / 2) + "px)";
+    textEl.style.top = "calc(50% - " + (rect.height / 2) + "px)";
   };
   self.show = function(textOrElement, dismissButtonOptions) {
-    el.classList.remove('hide');
+    el.classList.remove("hide");
     el.focus();
-    if (typeof textOrElement === 'string') {
+    if (typeof textOrElement === "string") {
       textEl.innerHTML = textOrElement;
     } else {
-      textEl.innerHTML = '';
+      textEl.innerHTML = "";
       textEl.appendChild(textOrElement);
     }
     if (dismissButtonOptions) {
-      textEl.classList.remove('no-actions');
-      el.classList.add('dismissable');
+      textEl.classList.remove("no-actions");
+      el.classList.add("dismissable");
       customDismissButton.textContent = dismissButtonOptions.title;
       customDismissButton.onclick = function() {
         self.hide();
@@ -61,19 +61,19 @@ CKCatalog.dialog = (function() {
       };
       textEl.appendChild(customActions);
     } else {
-      textEl.classList.add('no-actions');
+      textEl.classList.add("no-actions");
     }
     positionTextEl();
   };
   self.showError = function(error) {
-    el.classList.remove('hide');
-    el.classList.add('dismissable');
-    textEl.classList.remove('no-actions');
+    el.classList.remove("hide");
+    el.classList.add("dismissable");
+    textEl.classList.remove("no-actions");
     if (error.ckErrorCode) {
-      textEl.innerHTML = '<h2>Error: <span class="error-code">' + error.ckErrorCode + '</span></h2>' + '<p class="error">' + (error.reason ? 'Reason: ' + error.reason : (error.message || 'An error occurred.')) + '</p>';
+      textEl.innerHTML = "<h2>Error: <span class=\"error-code\">" + error.ckErrorCode + "</span></h2>" + "<p class=\"error\">" + (error.reason ? "Reason: " + error.reason : (error.message || "An error occurred.")) + "</p>";
     } else {
-      var message = error.message || 'An unexpected error occurred.';
-      textEl.innerHTML = '<h2>Error</h2>' + '<p class="error">' + message + '</p>';
+      var message = error.message || "An unexpected error occurred.";
+      textEl.innerHTML = "<h2>Error</h2>" + "<p class=\"error\">" + message + "</p>";
     }
     textEl.appendChild(actions);
     positionTextEl();
@@ -83,8 +83,8 @@ CKCatalog.dialog = (function() {
 )();
 
 CKCatalog.Table = function(heading) {
-  this.el = document.createElement('div');
-  this.el.className = 'table-wrapper';
+  this.el = document.createElement("div");
+  this.el.className = "table-wrapper";
   this._numberOfColumns = 2;
   this._rows = [];
   this._heading = heading || [];
@@ -92,17 +92,17 @@ CKCatalog.Table = function(heading) {
     return false;
   };
   this._selectHandler = function() {};
-  var table = document.createElement('table');
+  var table = document.createElement("table");
   if (heading && Array.isArray(heading)) {
     this._numberOfColumns = heading.length;
-    var head = table.appendChild(document.createElement('thead'));
-    var tr = head.appendChild(document.createElement('tr'));
+    var head = table.appendChild(document.createElement("thead"));
+    var tr = head.appendChild(document.createElement("tr"));
     heading.forEach(function(name) {
-      var th = document.createElement('th');
+      var th = document.createElement("th");
       th.textContent = name;
       tr.appendChild(th);
     });
-    this.body = table.appendChild(document.createElement('tbody'));
+    this.body = table.appendChild(document.createElement("tbody"));
   } else {
     this.body = table;
   }
@@ -111,7 +111,7 @@ CKCatalog.Table = function(heading) {
 
 CKCatalog.Table.prototype.clearAllRows = function() {
   this._rows = [];
-  this.body.innerHTML = '';
+  this.body.innerHTML = "";
   return this;
 };
 
@@ -134,18 +134,18 @@ CKCatalog.Table.prototype.setTextForEmptyRow = function(text) {
   return this;
 };
 
-CKCatalog.Table.prototype._textForUndefinedValue = '-';
-CKCatalog.Table.prototype._textForEmptyRow = 'No Content';
+CKCatalog.Table.prototype._textForUndefinedValue = "-";
+CKCatalog.Table.prototype._textForEmptyRow = "No Content";
 CKCatalog.Table.prototype._createRowWithKey = function(key) {
-  var tr = document.createElement('tr');
-  var th = document.createElement('th');
+  var tr = document.createElement("tr");
+  var th = document.createElement("th");
   th.textContent = key;
   tr.appendChild(th);
   return tr;
 };
 
 CKCatalog.Table.prototype._createRowWithValues = function(values, boolArray, opts) {
-  var tr = document.createElement('tr');
+  var tr = document.createElement("tr");
   var that = this;
   opts = opts || {};
   values.forEach(function(value, index) {
@@ -153,9 +153,9 @@ CKCatalog.Table.prototype._createRowWithValues = function(values, boolArray, opt
     if (value === null || value === undefined) {
       td = that._createEmptyValueCell();
     } else {
-      td = document.createElement('td');
+      td = document.createElement("td");
       if (boolArray && !boolArray[index]) {
-        if (typeof value === 'object' && !(value instanceof Date)) {
+        if (typeof value === "object" && !(value instanceof Date)) {
           td.appendChild(that._createPrettyObject(value));
         } else {
           td.appendChild(that._createPrettyElementForTypedValue(value, opts.type));
@@ -170,16 +170,16 @@ CKCatalog.Table.prototype._createRowWithValues = function(values, boolArray, opt
 };
 
 CKCatalog.Table.prototype._createEmptyRow = function() {
-  var tr = document.createElement('tr');
-  tr.innerHTML = '<td class="light align-center" colspan="' + this._numberOfColumns + '">' + this._textForEmptyRow + '</td>';
-  tr.className = 'empty';
+  var tr = document.createElement("tr");
+  tr.innerHTML = "<td class=\"light align-center\" colspan=\"" + this._numberOfColumns + "\">" + this._textForEmptyRow + "</td>";
+  tr.className = "empty";
   return tr;
 };
 
 CKCatalog.Table.prototype._createEmptyValueCell = function() {
-  var td = document.createElement('td');
-  var span = document.createElement('span');
-  span.className = 'light';
+  var td = document.createElement("td");
+  var span = document.createElement("span");
+  span.className = "light";
   span.textContent = this._textForUndefinedValue;
   td.appendChild(span);
   return td;
@@ -188,16 +188,16 @@ CKCatalog.Table.prototype._createEmptyValueCell = function() {
 CKCatalog.Table.prototype._prettyPrintValue = function(value) {
   if (value instanceof Date) {
     return value.toLocaleString();
-  } else if (typeof value === 'object') {
-    return JSON.stringify(value, null, '  ').replace(/^{\n/, '').replace(/}$/, '');
+  } else if (typeof value === "object") {
+    return JSON.stringify(value, null, "  ").replace(/^{\n/, "").replace(/}$/, "");
   } else {
     return value;
   }
 };
 
 CKCatalog.Table.prototype._createPrettyElementForTypedValue = function(value, type) {
-  var el = document.createElement('div');
-  el.className = 'ellipsis max-width-500';
+  var el = document.createElement("div");
+  el.className = "ellipsis max-width-500";
   if (type === CKCatalog.FIELD_TYPE_BYTES) {
     el.appendChild(this._createDownloadLinkFromBase64String(value));
   } else if (type === CKCatalog.FIELD_TYPE_TIMESTAMP) {
@@ -214,40 +214,40 @@ CKCatalog.Table.prototype._createPrettyObject = function(object, opts) {
   if (Array.isArray(object)) {
     var that = this;
     if (object.length) {
-      el = document.createElement('ol');
-      el.className = 'object array';
+      el = document.createElement("ol");
+      el.className = "object array";
       object.forEach(function(item) {
-        var li = document.createElement('li');
-        if (typeof item !== 'string' && typeof item !== 'number') {
-          li.className = 'array-item';
+        var li = document.createElement("li");
+        if (typeof item !== "string" && typeof item !== "number") {
+          li.className = "array-item";
         }
         li.appendChild(that._createPrettyObject(item, opts));
         el.appendChild(li);
       });
     } else {
-      el = document.createElement('div');
+      el = document.createElement("div");
       el.textContent = this._textForUndefinedValue;
     }
-  } else if (typeof object === 'object') {
-    el = document.createElement('div');
-    el.className = 'object';
+  } else if (typeof object === "object") {
+    el = document.createElement("div");
+    el.className = "object";
     for (var k in object) {
       if (object.hasOwnProperty(k)) {
-        var wrapper = document.createElement('div');
-        var key = document.createElement('span');
-        key.className = 'object-key';
-        key.textContent = k + ':';
+        var wrapper = document.createElement("div");
+        var key = document.createElement("span");
+        key.className = "object-key";
+        key.textContent = k + ":";
         var val;
-        if (typeof object[k] === 'object' && !(object[k]instanceof Date)) {
-          val = document.createElement('pre');
+        if (typeof object[k] === "object" && !(object[k]instanceof Date)) {
+          val = document.createElement("pre");
         } else {
-          val = document.createElement('span');
+          val = document.createElement("span");
         }
-        val.className = 'object-value';
-        if (k === 'downloadURL' && object[k]) {
-          val.classList.add('download-url');
-          wrapper.classList.add('max-width-500');
-          val.innerHTML = '<a class="link" href="' + object[k] + '" download>' + object[k] + '</a>';
+        val.className = "object-value";
+        if (k === "downloadURL" && object[k]) {
+          val.classList.add("download-url");
+          wrapper.classList.add("max-width-500");
+          val.innerHTML = "<a class=\"link\" href=\"" + object[k] + "\" download>" + object[k] + "</a>";
         } else {
           val.textContent = this._prettyPrintValue(object[k]);
         }
@@ -263,10 +263,10 @@ CKCatalog.Table.prototype._createPrettyObject = function(object, opts) {
 };
 
 CKCatalog.Table.prototype._createDownloadLinkFromBase64String = function(base64String) {
-  var link = document.createElement('a');
-  link.setAttribute('download', '');
-  link.setAttribute('href', 'data:application/octet-stream;base64,' + base64String);
-  link.textContent = base64String.substr(0, 20) + '…';
+  var link = document.createElement("a");
+  link.setAttribute("download", "");
+  link.setAttribute("href", "data:application/octet-stream;base64," + base64String);
+  link.textContent = base64String.substr(0, 20) + "…";
   return link;
 };
 
@@ -285,8 +285,8 @@ CKCatalog.Table.prototype._createRow = function(keyOrValues, value, opts) {
     if (value === null || value === undefined) {
       td = this._createEmptyValueCell();
     } else {
-      td = document.createElement('td');
-      if (typeof value === 'object' && !(value instanceof Date)) {
+      td = document.createElement("td");
+      if (typeof value === "object" && !(value instanceof Date)) {
         td.appendChild(this._createPrettyObject(value, opts));
       } else {
         td.appendChild(this._createPrettyElementForTypedValue(value, opts.type));
@@ -311,7 +311,7 @@ CKCatalog.Table.prototype._createDataHash = function(keyOrValues, value) {
 
 CKCatalog.Table.prototype._addHandlersToRow = function(row) {
   if (this._rowIsSelectable(row)) {
-    row.el.classList.add('selectable');
+    row.el.classList.add("selectable");
     var handler = this._selectHandler;
     row.el.onclick = function() {
       handler(row);
@@ -356,38 +356,38 @@ CKCatalog.Table.prototype.addSelectHandler = function(handler) {
 
 (function() {
   var constants = {
-    FIELD_TYPE_STRING: 'STRING',
-    FIELD_TYPE_LOCATION: 'LOCATION',
-    FIELD_TYPE_ASSET: 'ASSETID',
-    FIELD_TYPE_REFERENCE: 'REFERENCE',
-    FIELD_TYPE_BYTES: 'BYTES',
-    FIELD_TYPE_DOUBLE: 'NUMBER_DOUBLE',
-    FIELD_TYPE_INT64: 'NUMBER_INT64',
-    FIELD_TYPE_TIMESTAMP: 'TIMESTAMP',
-    FIELD_TYPE_FILTER: 'FILTER',
-    FIELD_TYPE_SHARE_PARTICIPANT: 'SHARE_PARTICIPANT',
-    COMPARATOR_EQUALS: 'EQUALS',
-    COMPARATOR_NOT_EQUALS: 'NOT_EQUALS',
-    COMPARATOR_LESS_THAN: 'LESS_THAN',
-    COMPARATOR_LESS_THAN_OR_EQUALS: 'LESS_THAN_OR_EQUALS',
-    COMPARATOR_GREATER_THAN: 'GREATER_THAN',
-    COMPARATOR_GREATER_THAN_OR_EQUALS: 'GREATER_THAN_OR_EQUALS',
-    COMPARATOR_NEAR: 'NEAR',
-    COMPARATOR_CONTAINS_ALL_TOKENS: 'CONTAINS_ALL_TOKENS',
-    COMPARATOR_IN: 'IN',
-    COMPARATOR_NOT_IN: 'NOT_IN',
-    COMPARATOR_CONTAINS_ANY_TOKENS: 'CONTAINS_ANY_TOKENS',
-    COMPARATOR_LIST_CONTAINS: 'LIST_CONTAINS',
-    COMPARATOR_NOT_LIST_CONTAINS: 'NOT_LIST_CONTAINS',
-    COMPARATOR_NOT_LIST_CONTAINS_ANY: 'NOT_LIST_CONTAINS_ANY',
-    COMPARATOR_BEGINS_WITH: 'BEGINS_WITH',
-    COMPARATOR_NOT_BEGINS_WITH: 'NOT_BEGINS_WITH',
-    COMPARATOR_LIST_MEMBER_BEGINS_WITH: 'LIST_MEMBER_BEGINS_WITH',
-    COMPARATOR_NOT_LIST_MEMBER_BEGINS_WITH: 'NOT_LIST_MEMBER_BEGINS_WITH',
-    COMPARATOR_LIST_CONTAINS_ALL: 'LIST_CONTAINS_ALL',
-    COMPARATOR_NOT_LIST_CONTAINS_ALL: 'NOT_LIST_CONTAINS_ALL',
-    SHARE_RECORD_TYPE_NAME: 'cloudkit.share',
-    DEFAULT_ZONE_NAME: '_defaultZone'
+    FIELD_TYPE_STRING: "STRING",
+    FIELD_TYPE_LOCATION: "LOCATION",
+    FIELD_TYPE_ASSET: "ASSETID",
+    FIELD_TYPE_REFERENCE: "REFERENCE",
+    FIELD_TYPE_BYTES: "BYTES",
+    FIELD_TYPE_DOUBLE: "NUMBER_DOUBLE",
+    FIELD_TYPE_INT64: "NUMBER_INT64",
+    FIELD_TYPE_TIMESTAMP: "TIMESTAMP",
+    FIELD_TYPE_FILTER: "FILTER",
+    FIELD_TYPE_SHARE_PARTICIPANT: "SHARE_PARTICIPANT",
+    COMPARATOR_EQUALS: "EQUALS",
+    COMPARATOR_NOT_EQUALS: "NOT_EQUALS",
+    COMPARATOR_LESS_THAN: "LESS_THAN",
+    COMPARATOR_LESS_THAN_OR_EQUALS: "LESS_THAN_OR_EQUALS",
+    COMPARATOR_GREATER_THAN: "GREATER_THAN",
+    COMPARATOR_GREATER_THAN_OR_EQUALS: "GREATER_THAN_OR_EQUALS",
+    COMPARATOR_NEAR: "NEAR",
+    COMPARATOR_CONTAINS_ALL_TOKENS: "CONTAINS_ALL_TOKENS",
+    COMPARATOR_IN: "IN",
+    COMPARATOR_NOT_IN: "NOT_IN",
+    COMPARATOR_CONTAINS_ANY_TOKENS: "CONTAINS_ANY_TOKENS",
+    COMPARATOR_LIST_CONTAINS: "LIST_CONTAINS",
+    COMPARATOR_NOT_LIST_CONTAINS: "NOT_LIST_CONTAINS",
+    COMPARATOR_NOT_LIST_CONTAINS_ANY: "NOT_LIST_CONTAINS_ANY",
+    COMPARATOR_BEGINS_WITH: "BEGINS_WITH",
+    COMPARATOR_NOT_BEGINS_WITH: "NOT_BEGINS_WITH",
+    COMPARATOR_LIST_MEMBER_BEGINS_WITH: "LIST_MEMBER_BEGINS_WITH",
+    COMPARATOR_NOT_LIST_MEMBER_BEGINS_WITH: "NOT_LIST_MEMBER_BEGINS_WITH",
+    COMPARATOR_LIST_CONTAINS_ALL: "LIST_CONTAINS_ALL",
+    COMPARATOR_NOT_LIST_CONTAINS_ALL: "NOT_LIST_CONTAINS_ALL",
+    SHARE_RECORD_TYPE_NAME: "cloudkit.share",
+    DEFAULT_ZONE_NAME: "_defaultZone"
   };
   for (var key in constants) {
     CKCatalog[key] = constants[key];
@@ -397,50 +397,50 @@ CKCatalog.Table.prototype.addSelectHandler = function(handler) {
 
 CKCatalog.FormInputHelpers.DEFAULT = {
   valueKeys: {
-    first: 'value',
-    last: 'value'
+    first: "value",
+    last: "value"
   },
   add: function(opts) {
     var name = opts.name;
     var value = opts.value;
     if (this.isNumberType(opts.type)) {
       return this.addInputField({
-        placeholder: 'Field value',
-        name: name + '-value',
+        placeholder: "Field value",
+        name: name + "-value",
         value: value
       });
     }
     return this.addInputField({
       placeholder: opts.placeholder,
-      name: name + '-value',
+      name: name + "-value",
       type: opts.type,
       value: value
     });
   },
   toggle: function(opts, bool) {
-    this.toggleRow(opts.name + '-value', bool);
+    this.toggleRow(opts.name + "-value", bool);
     return this;
   },
   remove: function(opts) {
     var name = opts.name;
-    this.removeRowByFieldName(name + '-value');
-    delete this.fields[name + '-value'];
+    this.removeRowByFieldName(name + "-value");
+    delete this.fields[name + "-value"];
     return this;
   },
   serialize: function(opts) {
-    return this.getFieldValue(opts.name + '-value');
+    return this.getFieldValue(opts.name + "-value");
   }
 };
 
 CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_ASSET] = {
   add: function(opts) {
     return this.addFileInputField({
-      name: opts.name + '-value',
+      name: opts.name + "-value",
       value: opts.value
     });
   },
   serialize: function(opts) {
-    var fileInput = this.fields[opts.name + '-value'];
+    var fileInput = this.fields[opts.name + "-value"];
     return fileInput.assetValue || fileInput.files[0];
   }
 };
@@ -448,49 +448,49 @@ CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_ASSET] = {
 CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_BYTES] = {
   add: function(opts) {
     return this.addFileInputField({
-      name: opts.name + '-value',
+      name: opts.name + "-value",
       value: opts.value,
       base64: true
     });
   },
   serialize: function(opts) {
-    var fileInput = this.fields[opts.name + '-value'];
+    var fileInput = this.fields[opts.name + "-value"];
     return fileInput.assetValue;
   }
 };
 
 CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_LOCATION] = {
   valueKeys: {
-    first: 'latitude',
-    last: 'longitude'
+    first: "latitude",
+    last: "longitude"
   },
   add: function(opts) {
     var name = opts.name;
     var value = opts.value;
     return this.addInputField({
-      placeholder: 'Latitude',
-      name: name + '-latitude',
+      placeholder: "Latitude",
+      name: name + "-latitude",
       value: value && value.latitude
     }).addInputField({
-      placeholder: 'Longitude',
-      name: name + '-longitude',
+      placeholder: "Longitude",
+      name: name + "-longitude",
       value: value && value.longitude
     });
   },
   toggle: function(opts, bool) {
-    this.toggleRow(opts.name + '-latitude', bool);
+    this.toggleRow(opts.name + "-latitude", bool);
     return this;
   },
   remove: function(opts) {
     var name = opts.name;
-    this.removeRowByFieldName(name + '-longitude');
-    delete this.fields[name + '-longitude'];
-    delete this.fields[name + '-latitude'];
+    this.removeRowByFieldName(name + "-longitude");
+    delete this.fields[name + "-longitude"];
+    delete this.fields[name + "-latitude"];
     return this;
   },
   serialize: function(opts) {
-    var lat = this.fields[opts.name + '-latitude'].value;
-    var long = this.fields[opts.name + '-longitude'].value;
+    var lat = this.fields[opts.name + "-latitude"].value;
+    var long = this.fields[opts.name + "-longitude"].value;
     if (isNaN(lat) || isNaN(long)) {
       return null;
     }
@@ -504,8 +504,8 @@ CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_LOCATION] = {
 CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_STRING] = {
   add: function(opts) {
     return this.addTextareaField({
-      placeholder: 'Field value',
-      name: opts.name + '-value',
+      placeholder: "Field value",
+      name: opts.name + "-value",
       value: opts.value
     });
   }
@@ -513,78 +513,78 @@ CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_STRING] = {
 
 CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_REFERENCE] = {
   valueKeys: {
-    first: 'record-name',
-    last: 'action'
+    first: "record-name",
+    last: "action"
   },
   add: function(opts) {
     var name = opts.name;
     var value = opts.value;
-    var classNames = opts.arrayItem ? ['array-item'] : [];
+    var classNames = opts.arrayItem ? ["array-item"] : [];
     return this.addInputField({
-      placeholder: 'Record name',
-      name: name + '-record-name',
+      placeholder: "Record name",
+      name: name + "-record-name",
       value: value && value.recordName
     }).addMultipleFields({
       number: 2,
       classNames: classNames
     }).addEmptyField().addInputField({
-      placeholder: 'Zone name',
-      name: name + '-zone-name',
+      placeholder: "Zone name",
+      name: name + "-zone-name",
       value: value && value.zoneID && value.zoneID.zoneName
     }).addMultipleFields({
       number: 2,
       classNames: classNames
     }).addEmptyField().addInputField({
-      placeholder: 'Owner record name',
-      name: name + '-owner-record-name',
+      placeholder: "Owner record name",
+      name: name + "-owner-record-name",
       value: value && value.zoneID && value.zoneID.ownerRecordName
     }).addMultipleFields({
       number: 2,
       classNames: classNames
     }).addEmptyField().addSelectField({
-      name: name + '-action',
+      name: name + "-action",
       value: value && value.action,
       options: [{
-        value: 'NONE',
-        title: 'No delete action'
+        value: "NONE",
+        title: "No delete action"
       }, {
-        value: 'DELETE_SELF'
+        value: "DELETE_SELF"
       }, {
-        value: 'VALIDATE'
+        value: "VALIDATE"
       }]
     });
   },
   remove: function(opts) {
     var name = opts.name;
-    this.removeRowByFieldName(name + '-record-name').removeRowByFieldName(name + '-owner-record-name').removeRowByFieldName(name + '-action').removeRowByFieldName(name + '-zone-name');
-    delete this.fields[name + '-record-name'];
-    delete this.fields[name + '-owner-record-name'];
-    delete this.fields[name + '-action'];
-    delete this.fields[name + '-zone-name'];
+    this.removeRowByFieldName(name + "-record-name").removeRowByFieldName(name + "-owner-record-name").removeRowByFieldName(name + "-action").removeRowByFieldName(name + "-zone-name");
+    delete this.fields[name + "-record-name"];
+    delete this.fields[name + "-owner-record-name"];
+    delete this.fields[name + "-action"];
+    delete this.fields[name + "-zone-name"];
     return this;
   },
   toggle: function(opts, bool) {
-    this.toggleRow(opts.name + '-record-name', bool);
-    this.toggleRow(opts.name + '-zone-name', bool);
-    this.toggleRow(opts.name + '-owner-record-name', bool);
-    this.toggleRow(opts.name + '-action', bool);
+    this.toggleRow(opts.name + "-record-name", bool);
+    this.toggleRow(opts.name + "-zone-name", bool);
+    this.toggleRow(opts.name + "-owner-record-name", bool);
+    this.toggleRow(opts.name + "-action", bool);
     return this;
   },
   serialize: function(opts) {
     var fields = this.fields;
-    var recordName = fields[opts.name + '-record-name'].value;
+    var recordName = fields[opts.name + "-record-name"].value;
     if (!recordName)
       return null;
     var reference = {
       recordName: recordName,
-      action: fields[opts.name + '-action'].value
+      action: fields[opts.name + "-action"].value
     };
-    var zoneName = fields[opts.name + '-zone-name'].value;
+    var zoneName = fields[opts.name + "-zone-name"].value;
     if (zoneName) {
       var zoneID = {
-        zoneName: fields[opts.name + '-zone-name'].value
+        zoneName: fields[opts.name + "-zone-name"].value
       };
-      var ownerRecordName = fields[opts.name + '-owner-record-name'].value;
+      var ownerRecordName = fields[opts.name + "-owner-record-name"].value;
       if (ownerRecordName) {
         zoneID.ownerRecordName = ownerRecordName;
       }
@@ -596,67 +596,67 @@ CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_REFERENCE] = {
 
 CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_SHARE_PARTICIPANT] = {
   valueKeys: {
-    first: 'email',
-    last: 'permission'
+    first: "email",
+    last: "permission"
   },
   add: function(opts) {
     var name = opts.name;
     var value = opts.value;
-    var classNames = opts.arrayItem ? ['array-item'] : [];
+    var classNames = opts.arrayItem ? ["array-item"] : [];
     return this.addInputField({
-      placeholder: 'Email',
-      type: 'email',
-      name: name + '-email',
+      placeholder: "Email",
+      type: "email",
+      name: name + "-email",
       value: value && value.userIdentity && value.userIdentity.lookupInfo && value.userIdentity.lookupInfo.emailAddress
     }).addMultipleFields({
       number: 3,
       classNames: classNames
     }).addEmptyField().addLabel({
-      label: 'permission:',
-      name: name + '-permission'
+      label: "permission:",
+      name: name + "-permission"
     }).addSelectField({
-      name: name + '-permission',
+      name: name + "-permission",
       value: value && value.permission,
       options: [{
-        value: 'NONE'
+        value: "NONE"
       }, {
-        value: 'READ_ONLY'
+        value: "READ_ONLY"
       }, {
-        value: 'READ_WRITE'
+        value: "READ_WRITE"
       }]
     }).addHiddenField({
-      name: name + '-type',
+      name: name + "-type",
       value: value && value.type || CloudKit.ShareParticipantType.UNKNOWN
     }).addHiddenField({
-      name: name + '-acceptance-status',
+      name: name + "-acceptance-status",
       value: value && value.acceptanceStatus || CloudKit.ShareParticipantAcceptanceStatus.UNKNOWN
     });
   },
   remove: function(opts) {
     var name = opts.name;
-    this.removeRowByFieldName(name + '-email').removeRowByFieldName(name + '-permission').removeHiddenInputByFieldName(name + '-type').removeHiddenInputByFieldName(name + '-acceptance-status');
-    delete this.fields[name + '-email'];
-    delete this.fields[name + '-permission-label'];
-    delete this.fields[name + '-permission'];
-    delete this.fields[name + '-type'];
-    delete this.fields[name + '-acceptance-status'];
+    this.removeRowByFieldName(name + "-email").removeRowByFieldName(name + "-permission").removeHiddenInputByFieldName(name + "-type").removeHiddenInputByFieldName(name + "-acceptance-status");
+    delete this.fields[name + "-email"];
+    delete this.fields[name + "-permission-label"];
+    delete this.fields[name + "-permission"];
+    delete this.fields[name + "-type"];
+    delete this.fields[name + "-acceptance-status"];
     return this;
   },
   toggle: function(opts, bool) {
-    this.toggleRow(opts.name + '-email', bool);
-    this.toggleRow(opts.name + '-permission', bool);
+    this.toggleRow(opts.name + "-email", bool);
+    this.toggleRow(opts.name + "-permission", bool);
     return this;
   },
   serialize: function(opts) {
     var fields = this.fields;
-    var emailAddress = fields[opts.name + '-email'].value;
+    var emailAddress = fields[opts.name + "-email"].value;
     if (!emailAddress)
       return null;
     return {
       emailAddress: emailAddress,
-      permission: fields[opts.name + '-permission'].value,
-      type: fields[opts.name + '-type'].value,
-      acceptanceStatus: fields[opts.name + '-acceptance-status'].value
+      permission: fields[opts.name + "-permission"].value,
+      type: fields[opts.name + "-type"].value,
+      acceptanceStatus: fields[opts.name + "-acceptance-status"].value
     };
   }
 };
@@ -664,13 +664,13 @@ CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_SHARE_PARTICIPANT] = {
 CKCatalog.FormInputHelpers[CKCatalog.FIELD_TYPE_TIMESTAMP] = {
   add: function(opts) {
     return this.addInputField({
-      placeholder: 'YYYY-MM-DDTHH:mm',
-      name: opts.name + '-value',
+      placeholder: "YYYY-MM-DDTHH:mm",
+      name: opts.name + "-value",
       value: opts.value
     });
   },
   serialize: function(opts) {
-    var value = this.fields[opts.name + '-value'].value;
+    var value = this.fields[opts.name + "-value"].value;
     if (!value)
       return value;
     if (isNaN(value)) {
@@ -692,7 +692,7 @@ CKCatalog.FormInputHelpers.Filters.DEFAULT = {
 
 CKCatalog.FormInputHelpers.Filters[CKCatalog.FIELD_TYPE_LOCATION] = {
   valueKeys: {
-    last: 'distance'
+    last: "distance"
   },
   comparators: [CKCatalog.COMPARATOR_NEAR, CKCatalog.COMPARATOR_IN, CKCatalog.COMPARATOR_NOT_IN],
   add: function(opts) {
@@ -700,7 +700,7 @@ CKCatalog.FormInputHelpers.Filters[CKCatalog.FIELD_TYPE_LOCATION] = {
     var that = this;
     var whenNearFilterSelected = function(bool) {
       return function() {
-        return (that.getFieldValue(name + '-comparator') === CKCatalog.COMPARATOR_NEAR) === bool;
+        return (that.getFieldValue(name + "-comparator") === CKCatalog.COMPARATOR_NEAR) === bool;
       }
       ;
     };
@@ -709,13 +709,13 @@ CKCatalog.FormInputHelpers.Filters[CKCatalog.FIELD_TYPE_LOCATION] = {
     }).formHelperForType(CKCatalog.FIELD_TYPE_LOCATION).add(opts).addMultipleFields({
       number: 2,
       hidden: whenNearFilterSelected(false),
-      classNames: ['filter', 'distance']
+      classNames: ["filter", "distance"]
     }).addLabel({
-      label: 'Within',
-      name: name + '-distance'
+      label: "Within",
+      name: name + "-distance"
     }).addInputField({
-      name: name + '-distance',
-      placeholder: 'Distance (m)'
+      name: name + "-distance",
+      placeholder: "Distance (m)"
     })
   },
   toggle: function(opts, bool) {
@@ -723,22 +723,22 @@ CKCatalog.FormInputHelpers.Filters[CKCatalog.FIELD_TYPE_LOCATION] = {
     var showDistanceRow = false;
     var name = opts.name;
     if (bool === true) {
-      showDistanceRow = this.getFieldValue(name + '-comparator') === CKCatalog.COMPARATOR_NEAR;
+      showDistanceRow = this.getFieldValue(name + "-comparator") === CKCatalog.COMPARATOR_NEAR;
     }
-    this.toggleRow(name + '-distance', showDistanceRow);
+    this.toggleRow(name + "-distance", showDistanceRow);
     return this;
   },
   remove: function(opts) {
     this.formHelperForType(CKCatalog.FIELD_TYPE_LOCATION).remove(opts);
     var name = opts.name;
-    this.removeRowByFieldName(name + '-distance');
-    delete this.fields[name + '-distance-label'];
-    delete this.fields[name + '-distance'];
+    this.removeRowByFieldName(name + "-distance");
+    delete this.fields[name + "-distance-label"];
+    delete this.fields[name + "-distance"];
   },
   serialize: function(opts) {
     var name = opts.name;
-    var distance = this.getFieldValue(name + '-distance');
-    var comparator = this.getFieldValue(name + '-comparator');
+    var distance = this.getFieldValue(name + "-distance");
+    var comparator = this.getFieldValue(name + "-comparator");
     if (comparator === CKCatalog.COMPARATOR_NEAR) {
       return {
         fieldValue: this.formHelperForType(CKCatalog.FIELD_TYPE_LOCATION).serialize(opts),
@@ -765,39 +765,39 @@ CKCatalog.FormInputHelpers.Filters[CKCatalog.FIELD_TYPE_REFERENCE] = {
   add: function(opts) {
     var name = opts.name;
     return this.addInputField({
-      placeholder: 'Record name',
-      name: name + '-record-name'
+      placeholder: "Record name",
+      name: name + "-record-name"
     }).addInputField({
-      placeholder: 'Zone name',
-      name: name + '-zone-name'
+      placeholder: "Zone name",
+      name: name + "-zone-name"
     }).addInputField({
-      placeholder: 'Owner record name',
-      name: name + '-owner-record-name'
+      placeholder: "Owner record name",
+      name: name + "-owner-record-name"
     }).addSelectField({
-      name: name + '-action',
+      name: name + "-action",
       options: [{
-        value: 'NONE',
-        title: 'No delete action'
+        value: "NONE",
+        title: "No delete action"
       }, {
-        value: 'DELETE_SELF'
+        value: "DELETE_SELF"
       }, {
-        value: 'VALIDATE'
+        value: "VALIDATE"
       }]
     });
   }
 };
 
 CKCatalog.Form = function Form() {
-  this.el = document.createElement('form');
-  this.el.setAttribute('action', '#');
-  this.el.setAttribute('method', 'post');
-  this.el.id = 'f' + this.constructor.prototype._id++;
-  this.el.className = 'form';
-  this.table = this.el.appendChild(document.createElement('table'));
-  var submitButton = document.createElement('input');
-  submitButton.setAttribute('type', 'submit');
-  submitButton.setAttribute('name', 'submit');
-  submitButton.style.display = 'none';
+  this.el = document.createElement("form");
+  this.el.setAttribute("action", "#");
+  this.el.setAttribute("method", "post");
+  this.el.id = "f" + this.constructor.prototype._id++;
+  this.el.className = "form";
+  this.table = this.el.appendChild(document.createElement("table"));
+  var submitButton = document.createElement("input");
+  submitButton.setAttribute("type", "submit");
+  submitButton.setAttribute("name", "submit");
+  submitButton.style.display = "none";
   this.el.appendChild(submitButton);
   this.fields = {};
   this.dynamicFieldNames = {};
@@ -858,7 +858,7 @@ CKCatalog.Form.prototype.focusField = function(name) {
 };
 
 CKCatalog.Form.prototype._createRelativeId = function(name) {
-  return this.el.id + '-' + name;
+  return this.el.id + "-" + name;
 };
 
 CKCatalog.Form.prototype._createFieldContainer = function(opts) {
@@ -867,46 +867,46 @@ CKCatalog.Form.prototype._createFieldContainer = function(opts) {
     this._multipleFields--;
     return this._multipleFieldsContainer;
   }
-  var tr = document.createElement('tr');
-  tr.className = 'field';
+  var tr = document.createElement("tr");
+  tr.className = "field";
   if (opts.hidden) {
-    if (typeof opts.hidden === 'function') {
+    if (typeof opts.hidden === "function") {
       if (opts.hidden.call(this)) {
-        tr.classList.add('hide');
+        tr.classList.add("hide");
       }
     } else {
-      tr.classList.add('hide');
+      tr.classList.add("hide");
     }
   }
   if (opts.number) {
-    tr.classList.add('multiple');
-    tr.classList.add('has-' + opts.number + '-fields');
+    tr.classList.add("multiple");
+    tr.classList.add("has-" + opts.number + "-fields");
   }
   if (Array.isArray(opts.classNames)) {
     opts.classNames.forEach(function(className) {
       tr.classList.add(className);
     });
   }
-  var labelContainer = document.createElement('th');
+  var labelContainer = document.createElement("th");
   if (opts.label) {
-    var label = document.createElement('label');
+    var label = document.createElement("label");
     label.textContent = opts.label;
     if (opts.name) {
-      label.setAttribute('for', this._createRelativeId(opts.name));
+      label.setAttribute("for", this._createRelativeId(opts.name));
     }
     labelContainer.appendChild(label);
   }
   tr.appendChild(labelContainer);
-  var td = document.createElement('td');
+  var td = document.createElement("td");
   tr.appendChild(td);
-  var removeButtonContainer = document.createElement('td');
-  removeButtonContainer.className = 'remove-button-cell';
+  var removeButtonContainer = document.createElement("td");
+  removeButtonContainer.className = "remove-button-cell";
   if (opts.removeButtonAction) {
-    var button = document.createElement('button');
-    button.className = 'link small';
-    button.innerHTML = '&#10005;';
-    button.setAttribute('tabindex', '-1');
-    button.setAttribute('type', 'button');
+    var button = document.createElement("button");
+    button.className = "link small";
+    button.innerHTML = "&#10005;";
+    button.setAttribute("tabindex", "-1");
+    button.setAttribute("type", "button");
     var that = this;
     button.onclick = function() {
       opts.removeButtonAction.call(that, opts);
@@ -920,19 +920,19 @@ CKCatalog.Form.prototype._createFieldContainer = function(opts) {
 
 CKCatalog.Form.prototype.addInputField = function(opts) {
   var fieldContainer = this._createFieldContainer(opts);
-  var borderContainer = document.createElement('div');
+  var borderContainer = document.createElement("div");
   if (Array.isArray(opts.classNames)) {
     opts.classNames.forEach(function(className) {
       borderContainer.classList.add(className);
     });
   }
-  var inputContainer = document.createElement('div');
-  inputContainer.className = 'border';
-  var input = document.createElement('input');
-  input.setAttribute('type', opts.type || 'text');
-  input.setAttribute('name', opts.name);
+  var inputContainer = document.createElement("div");
+  inputContainer.className = "border";
+  var input = document.createElement("input");
+  input.setAttribute("type", opts.type || "text");
+  input.setAttribute("name", opts.name);
   if (opts.placeholder) {
-    input.setAttribute('placeholder', opts.placeholder);
+    input.setAttribute("placeholder", opts.placeholder);
   }
   input.id = this._createRelativeId(opts.name);
   if (opts.value !== undefined) {
@@ -940,7 +940,7 @@ CKCatalog.Form.prototype.addInputField = function(opts) {
   }
   if (opts.onChange) {
     input.onValueChange = opts.onChange;
-    input.addEventListener('input', opts.onChange.bind(this));
+    input.addEventListener("input", opts.onChange.bind(this));
   }
   this.fields[opts.name] = input;
   inputContainer.appendChild(input);
@@ -954,7 +954,7 @@ CKCatalog.Form.prototype.setFieldValue = function(key, value) {
   var field = this.fields[key];
   var oldValue;
   if (field) {
-    if (typeof value == 'boolean') {
+    if (typeof value == "boolean") {
       oldValue = field.checked;
       field.checked = value;
       if (oldValue !== value && field.onValueChange) {
@@ -975,7 +975,7 @@ CKCatalog.Form.prototype.setFieldValue = function(key, value) {
         type: dynamicFieldName.arrayField
       });
     }
-  } else if (typeof value == 'object') {
+  } else if (typeof value == "object") {
     this._addDynamicFieldsFromFieldsMap(key, value);
   }
 };
@@ -983,7 +983,7 @@ CKCatalog.Form.prototype.setFieldValue = function(key, value) {
 CKCatalog.Form.prototype.getFieldValue = function(key) {
   var field = this.fields[key];
   if (field) {
-    if (field.type == 'checkbox') {
+    if (field.type == "checkbox") {
       return field.checked;
     } else {
       return field.value;
@@ -995,19 +995,19 @@ CKCatalog.Form.prototype.getFieldValue = function(key) {
 
 CKCatalog.Form.prototype.addTextareaField = function(opts) {
   opts.classNames = opts.classNames || [];
-  var borderContainer = document.createElement('div');
+  var borderContainer = document.createElement("div");
   opts.classNames.forEach(function(className) {
     borderContainer.classList.add(className);
   });
-  borderContainer.classList.add('textarea-border-container');
+  borderContainer.classList.add("textarea-border-container");
   var fieldContainer = this._createFieldContainer(opts);
-  var inputContainer = document.createElement('div');
-  inputContainer.className = 'border textarea-container';
-  var input = document.createElement('textarea');
-  input.setAttribute('spellcheck', 'false');
-  input.setAttribute('name', opts.name);
+  var inputContainer = document.createElement("div");
+  inputContainer.className = "border textarea-container";
+  var input = document.createElement("textarea");
+  input.setAttribute("spellcheck", "false");
+  input.setAttribute("name", opts.name);
   if (opts.placeholder) {
-    input.setAttribute('placeholder', opts.placeholder);
+    input.setAttribute("placeholder", opts.placeholder);
   }
   if (opts.value) {
     input.value = opts.value;
@@ -1023,32 +1023,32 @@ CKCatalog.Form.prototype.addTextareaField = function(opts) {
 
 CKCatalog.Form.prototype.addFileInputField = function(opts) {
   var fieldContainer = this._createFieldContainer(opts);
-  var borderContainer = document.createElement('div');
-  var inputContainer = document.createElement('div');
-  inputContainer.className = 'border';
-  var input = document.createElement('input');
-  input.setAttribute('type', 'file');
-  input.setAttribute('name', opts.name);
+  var borderContainer = document.createElement("div");
+  var inputContainer = document.createElement("div");
+  inputContainer.className = "border";
+  var input = document.createElement("input");
+  input.setAttribute("type", "file");
+  input.setAttribute("name", opts.name);
   input.id = this._createRelativeId(opts.name);
-  var fakeInput = document.createElement('div');
-  fakeInput.className = 'fake-file-input';
-  var selectFileButton = document.createElement('button');
-  selectFileButton.className = 'link';
+  var fakeInput = document.createElement("div");
+  fakeInput.className = "fake-file-input";
+  var selectFileButton = document.createElement("button");
+  selectFileButton.className = "link";
   var setFileButtonText = function(hasFile) {
-    hasFile ? selectFileButton.textContent = 'Replace…' : selectFileButton.textContent = 'Choose file…';
+    hasFile ? selectFileButton.textContent = "Replace…" : selectFileButton.textContent = "Choose file…";
   };
-  var span = document.createElement('span');
-  span.className = 'file-name';
-  input.addEventListener('change', function() {
+  var span = document.createElement("span");
+  span.className = "file-name";
+  input.addEventListener("change", function() {
     var file = input.files[0];
     if (file) {
-      span.textContent = CKCatalog.renderUtils.abbreviateSIUnits(file.size, 2, 'B');
+      span.textContent = CKCatalog.renderUtils.abbreviateSIUnits(file.size, 2, "B");
       if (opts.base64) {
         var fileReader = new FileReader();
-        CKCatalog.dialog.show('Converting to base64…');
+        CKCatalog.dialog.show("Converting to base64…");
         fileReader.onload = function(evt) {
           var base64 = evt.target.result;
-          base64 = base64.substr(base64.indexOf(';base64,') + 8);
+          base64 = base64.substr(base64.indexOf(";base64,") + 8);
           input.assetValue = base64;
           CKCatalog.dialog.hide();
         };
@@ -1060,14 +1060,14 @@ CKCatalog.Form.prototype.addFileInputField = function(opts) {
         input.assetValue = null;
       }
     } else {
-      span.textContent = '';
+      span.textContent = "";
     }
     setFileButtonText(file);
   });
   if (opts.value) {
     input.assetValue = opts.value;
     var size = opts.value.size || atob(opts.value).length;
-    span.textContent = CKCatalog.renderUtils.abbreviateSIUnits(size, 2, 'B');
+    span.textContent = CKCatalog.renderUtils.abbreviateSIUnits(size, 2, "B");
   }
   setFileButtonText(opts.value);
   fakeInput.appendChild(selectFileButton);
@@ -1083,20 +1083,20 @@ CKCatalog.Form.prototype.addFileInputField = function(opts) {
 
 CKCatalog.Form.prototype.addSelectField = function(opts) {
   var fieldContainer = this._createFieldContainer(opts);
-  var borderContainer = document.createElement('div');
-  var selectContainer = document.createElement('div');
-  selectContainer.className = 'border select';
-  var select = document.createElement('select');
-  select.setAttribute('name', opts.name);
+  var borderContainer = document.createElement("div");
+  var selectContainer = document.createElement("div");
+  selectContainer.className = "border select";
+  var select = document.createElement("select");
+  select.setAttribute("name", opts.name);
   select.id = this._createRelativeId(opts.name);
   opts.options.forEach(function(opt) {
-    var option = document.createElement('option');
+    var option = document.createElement("option");
     option.textContent = opt.title || opt.value;
     if (opt.value) {
-      option.setAttribute('value', opt.value);
+      option.setAttribute("value", opt.value);
     }
     if (opt.selected) {
-      option.setAttribute('selected', '');
+      option.setAttribute("selected", "");
     }
     select.appendChild(option);
   });
@@ -1106,7 +1106,7 @@ CKCatalog.Form.prototype.addSelectField = function(opts) {
   }
   if (opts.onChange) {
     select.onValueChange = opts.onChange;
-    select.addEventListener('change', opts.onChange.bind(this));
+    select.addEventListener("change", opts.onChange.bind(this));
   }
   selectContainer.appendChild(select);
   borderContainer.appendChild(selectContainer);
@@ -1117,17 +1117,17 @@ CKCatalog.Form.prototype.addSelectField = function(opts) {
 
 CKCatalog.Form.prototype.addEmptyField = function() {
   var fieldContainer = this._createFieldContainer();
-  var emptyField = document.createElement('div');
-  emptyField.className = 'empty';
+  var emptyField = document.createElement("div");
+  emptyField.className = "empty";
   fieldContainer.appendChild(emptyField);
   this._insertRow(fieldContainer.parentNode);
   return this;
 };
 
 CKCatalog.Form.prototype.addHiddenField = function(opts) {
-  var input = document.createElement('input');
-  input.style.display = 'none';
-  input.setAttribute('name', opts.name);
+  var input = document.createElement("input");
+  input.style.display = "none";
+  input.setAttribute("name", opts.name);
   input.value = opts.value;
   if (opts.onChange) {
     input.onValueChange = opts.onChange;
@@ -1139,44 +1139,44 @@ CKCatalog.Form.prototype.addHiddenField = function(opts) {
 
 CKCatalog.Form.prototype.addLabel = function(opts) {
   var fieldContainer = this._createFieldContainer();
-  var container = document.createElement('div');
-  var labelContainer = document.createElement('div');
-  labelContainer.className = 'label';
-  var label = document.createElement('label');
-  label.setAttribute('for', this._createRelativeId(opts.name));
+  var container = document.createElement("div");
+  var labelContainer = document.createElement("div");
+  labelContainer.className = "label";
+  var label = document.createElement("label");
+  label.setAttribute("for", this._createRelativeId(opts.name));
   label.textContent = opts.label;
   labelContainer.appendChild(label);
   container.appendChild(labelContainer);
   fieldContainer.appendChild(container);
   this._insertRow(fieldContainer.parentNode);
-  this.fields[opts.name + '-label'] = label;
+  this.fields[opts.name + "-label"] = label;
   return this;
 };
 
 CKCatalog.Form.prototype.addCheckboxes = function(opts) {
   var fieldContainer = this._createFieldContainer(opts);
-  var checkboxesContainer = document.createElement('div');
-  checkboxesContainer.className = 'checkboxes';
+  var checkboxesContainer = document.createElement("div");
+  checkboxesContainer.className = "checkboxes";
   var fields = this.fields;
   var that = this;
   opts.checkboxes.forEach(function(checkbox) {
-    var checkboxContainer = document.createElement('div');
-    checkboxContainer.className = 'checkbox';
+    var checkboxContainer = document.createElement("div");
+    checkboxContainer.className = "checkbox";
     if (checkbox.label) {
-      var label = document.createElement('label');
-      label.setAttribute('for', that._createRelativeId(checkbox.name));
+      var label = document.createElement("label");
+      label.setAttribute("for", that._createRelativeId(checkbox.name));
       label.textContent = checkbox.label;
       checkboxContainer.appendChild(label);
     }
-    var input = document.createElement('input');
-    input.setAttribute('type', 'checkbox');
-    input.setAttribute('name', checkbox.name);
+    var input = document.createElement("input");
+    input.setAttribute("type", "checkbox");
+    input.setAttribute("name", checkbox.name);
     if (checkbox.value) {
-      input.setAttribute('value', checkbox.value);
+      input.setAttribute("value", checkbox.value);
     }
     input.id = that._createRelativeId(checkbox.name);
     if (checkbox.checked) {
-      input.setAttribute('checked', '');
+      input.setAttribute("checked", "");
     }
     fields[checkbox.name] = input;
     checkboxContainer.appendChild(input);
@@ -1200,7 +1200,7 @@ CKCatalog.Form.prototype.getFieldRowForFieldName = function(fieldName) {
     var el = field;
     while (el.parentNode) {
       el = el.parentNode;
-      if (el.classList.contains('field')) {
+      if (el.classList.contains("field")) {
         return el;
       }
     }
@@ -1210,20 +1210,20 @@ CKCatalog.Form.prototype.getFieldRowForFieldName = function(fieldName) {
 
 CKCatalog.Form.prototype.addButton = function(opts) {
   var container = this._createFieldContainer(opts);
-  var borderContainer = document.createElement('div');
+  var borderContainer = document.createElement("div");
   if (Array.isArray(opts.classNames)) {
     opts.classNames.forEach(function(className) {
       borderContainer.classList.add(className);
     });
   }
-  var buttonContainer = document.createElement('div');
-  buttonContainer.className = 'form-button' + (opts.border ? ' border' : '');
-  var button = document.createElement('button');
-  button.setAttribute('type', 'button');
-  button.className = 'link';
+  var buttonContainer = document.createElement("div");
+  buttonContainer.className = "form-button" + (opts.border ? " border" : "");
+  var button = document.createElement("button");
+  button.setAttribute("type", "button");
+  button.className = "link";
   button.textContent = opts.title;
   button.id = this._createRelativeId(opts.name);
-  button.addEventListener('click', opts.action);
+  button.addEventListener("click", opts.action);
   this.fields[opts.name] = button;
   buttonContainer.appendChild(button);
   borderContainer.appendChild(buttonContainer);
@@ -1243,7 +1243,7 @@ CKCatalog.Form.prototype.resetPointer = function() {
 };
 
 CKCatalog.Form.prototype.createDynamicFieldName = function(name, index) {
-  return name + '-' + index;
+  return name + "-" + index;
 };
 
 CKCatalog.Form.prototype.addDynamicFields = function(opts) {
@@ -1251,55 +1251,55 @@ CKCatalog.Form.prototype.addDynamicFields = function(opts) {
   var that = this;
   var addField = function() {
     dynamicFieldsIndex++;
-    that.movePointerTo(opts.name + '-field-type-selector')._addDynamicField({
+    that.movePointerTo(opts.name + "-field-type-selector")._addDynamicField({
       name: that.createDynamicFieldName(opts.name, dynamicFieldsIndex),
-      type: that.fields[opts.name + '-field-type-selector'].value,
-      list: that.fields[opts.name + '-list-checkbox'].checked
+      type: that.fields[opts.name + "-field-type-selector"].value,
+      list: that.fields[opts.name + "-list-checkbox"].checked
     });
   };
   return this.addMultipleFields({
     number: 3,
     label: opts.label
   }).addSelectField({
-    name: opts.name + '-field-type-selector',
-    label: 'Field type:',
+    name: opts.name + "-field-type-selector",
+    label: "Field type:",
     options: [{
       value: CKCatalog.FIELD_TYPE_STRING,
-      title: 'String'
+      title: "String"
     }, {
       value: CKCatalog.FIELD_TYPE_INT64,
-      title: 'Number'
+      title: "Number"
     }, {
       value: CKCatalog.FIELD_TYPE_TIMESTAMP,
-      title: 'Timestamp'
+      title: "Timestamp"
     }, {
       value: CKCatalog.FIELD_TYPE_LOCATION,
-      title: 'Location'
+      title: "Location"
     }, {
       value: CKCatalog.FIELD_TYPE_ASSET,
-      title: 'Asset'
+      title: "Asset"
     }, {
       value: CKCatalog.FIELD_TYPE_BYTES,
-      title: 'Bytes'
+      title: "Bytes"
     }, {
       value: CKCatalog.FIELD_TYPE_REFERENCE,
-      title: 'Reference'
+      title: "Reference"
     }]
   }).addCheckboxes({
     checkboxes: [{
-      label: 'list',
-      name: opts.name + '-list-checkbox'
+      label: "list",
+      name: opts.name + "-list-checkbox"
     }]
   }).addButton({
-    name: opts.name + '-add-field-button',
-    title: 'Add field…',
+    name: opts.name + "-add-field-button",
+    title: "Add field…",
     action: addField
   });
 };
 
 CKCatalog.Form.prototype._getValueKey = function(opts) {
-  var position = opts.position || 'first';
-  return opts.name + '-' + this.formHelperForType(opts.type).valueKeys[position];
+  var position = opts.position || "first";
+  return opts.name + "-" + this.formHelperForType(opts.type).valueKeys[position];
 };
 
 CKCatalog.Form.prototype._addFieldValueForType = function(opts) {
@@ -1327,15 +1327,15 @@ CKCatalog.Form.prototype.toggleRow = function(fieldName, bool) {
   var row = this.getFieldRowForFieldName(fieldName);
   if (row) {
     if (bool) {
-      row.classList.remove('hide');
+      row.classList.remove("hide");
     } else {
-      row.classList.add('hide');
+      row.classList.add("hide");
     }
   }
 };
 
 CKCatalog.Form.prototype.toggleArrayField = function(name, bool) {
-  this.toggleRow(name + '-add-item', bool);
+  this.toggleRow(name + "-add-item", bool);
   this.toggleArrayItems(name, bool);
 };
 
@@ -1381,11 +1381,11 @@ CKCatalog.Form.prototype._removeFieldValue = function(value) {
 
 CKCatalog.Form.prototype._removeFieldKey = function(opts) {
   var name = opts.key;
-  this.removeRowByFieldName(name + '-key');
-  delete this.fields[name + '-key'];
+  this.removeRowByFieldName(name + "-key");
+  delete this.fields[name + "-key"];
   delete this.dynamicFieldNames[name];
   if (!opts.arrayField) {
-    delete this.fields[name + '-add-item'];
+    delete this.fields[name + "-add-item"];
   } else {
     this.dynamicFieldNames[name] = {
       key: opts.key,
@@ -1400,8 +1400,8 @@ CKCatalog.Form.prototype._removeLabel = function(opts) {
   delete this.fields[this._getValueKey({
     type: opts.type,
     name: opts.name,
-    position: 'first'
-  }) + '-label'];
+    position: "first"
+  }) + "-label"];
   return this;
 };
 
@@ -1423,7 +1423,7 @@ CKCatalog.Form.prototype.addArrayItem = function(opts) {
     };
   }
   var types = this.dynamicFieldNames[opts.name].value;
-  var buttonRelativeName = '-' + (opts.buttonRelativeName || 'add-item');
+  var buttonRelativeName = "-" + (opts.buttonRelativeName || "add-item");
   var button = this.fields[opts.name + buttonRelativeName];
   var index = button.arrayItemIndex || 0;
   var indexedName = this.createDynamicFieldName(opts.name, index);
@@ -1436,11 +1436,11 @@ CKCatalog.Form.prototype.addArrayItem = function(opts) {
   types.push(value);
   return this.movePointerTo(types.length > 1 ? this._getValueKey({
     name: types[types.length - 2].name,
-    position: 'last',
+    position: "last",
     type: opts.type
   }) : opts.name + buttonRelativeName).addMultipleFields({
     number: number,
-    classNames: ['array-item'],
+    classNames: ["array-item"],
     removeButtonAction: function() {
       var typeIndex = types.reduce(function(n, t, i) {
         if (t.name === indexedName) {
@@ -1457,8 +1457,8 @@ CKCatalog.Form.prototype.addArrayItem = function(opts) {
         var label = that.fields[that._getValueKey({
           type: t.type,
           name: t.name,
-          position: 'first'
-        }) + '-label'];
+          position: "first"
+        }) + "-label"];
         label.textContent = i;
       });
     }
@@ -1467,7 +1467,7 @@ CKCatalog.Form.prototype.addArrayItem = function(opts) {
     name: that._getValueKey({
       type: opts.type,
       name: indexedName,
-      position: 'first'
+      position: "first"
     })
   })._addFieldValueForType({
     name: indexedName,
@@ -1478,7 +1478,7 @@ CKCatalog.Form.prototype.addArrayItem = function(opts) {
   }).focusField(that._getValueKey({
     type: opts.type,
     name: indexedName,
-    position: 'first'
+    position: "first"
   }));
 };
 
@@ -1500,16 +1500,16 @@ CKCatalog.Form.prototype._addDynamicField = function(opts) {
           that._removeDynamicField(dynamicFieldDatum);
         }
       }).addInputField({
-        placeholder: 'Field name',
-        name: opts.name + '-key',
+        placeholder: "Field name",
+        name: opts.name + "-key",
         value: opts.key
-      }).focusField(opts.name + '-key');
+      }).focusField(opts.name + "-key");
     } else {
       dynamicFieldDatum.arrayField = opts.type;
     }
     return this.addButton({
-      title: opts.buttonTitle || 'Add item…',
-      name: opts.name + '-add-item',
+      title: opts.buttonTitle || "Add item…",
+      name: opts.name + "-add-item",
       border: true,
       hidden: opts.hidden,
       label: opts.label,
@@ -1532,10 +1532,10 @@ CKCatalog.Form.prototype._addDynamicField = function(opts) {
         that._removeDynamicField(dynamicFieldDatum);
       }
     }).addInputField({
-      placeholder: 'Field name',
-      name: opts.name + '-key',
+      placeholder: "Field name",
+      name: opts.name + "-key",
       value: opts.key
-    })._addFieldValueForType(opts).focusField(opts.name + '-key');
+    })._addFieldValueForType(opts).focusField(opts.name + "-key");
   }
 };
 
@@ -1553,16 +1553,16 @@ CKCatalog.Form.prototype.reset = function() {
 
 CKCatalog.Form.prototype._addDynamicFieldsFromFieldsMap = function(name, fieldsMap) {
   var dynamicFieldsIndex = 0;
-  this.movePointerTo(name + '-add-field-button');
+  this.movePointerTo(name + "-add-field-button");
   for (var key in fieldsMap) {
     if (fieldsMap.hasOwnProperty(key)) {
       var field = fieldsMap[key];
       var value = field.value;
       var type = field.type;
       var arrayName = this.createDynamicFieldName(name, dynamicFieldsIndex++);
-      type = type.replace('INT64_LIST', 'NUMBER_INT64');
-      type = type.replace('DOUBLE_LIST', 'NUMBER_DOUBLE');
-      type = type.replace('_LIST', '');
+      type = type.replace("INT64_LIST", "NUMBER_INT64");
+      type = type.replace("DOUBLE_LIST", "NUMBER_DOUBLE");
+      type = type.replace("_LIST", "");
       var that = this;
       if (Array.isArray(value)) {
         this._addDynamicField({
@@ -1626,9 +1626,9 @@ CKCatalog.Form.prototype._serializeDynamicFields = function(prefix) {
   }
   var fields = this.fields;
   for (var key in this.dynamicFieldNames) {
-    if (key.substr(0, prefix.length) === prefix && (key[prefix.length] === undefined || key[prefix.length] === '-')) {
+    if (key.substr(0, prefix.length) === prefix && (key[prefix.length] === undefined || key[prefix.length] === "-")) {
       var datum = this.dynamicFieldNames[key];
-      var keyField = fields[datum.key + '-key'];
+      var keyField = fields[datum.key + "-key"];
       var fieldName = keyField && keyField.value || !keyField && key;
       if (fieldName) {
         if (Array.isArray(datum.value)) {
@@ -1646,9 +1646,9 @@ CKCatalog.Form.prototype._serializeDynamicFields = function(prefix) {
 
 CKCatalog.renderUtils = (function() {
   var renderRecords = function(table, title, records, displayFields) {
-    var content = document.createElement('div');
+    var content = document.createElement("div");
     if (title) {
-      var heading = document.createElement('h2');
+      var heading = document.createElement("h2");
       heading.textContent = title;
       content.appendChild(heading);
     }
@@ -1658,12 +1658,12 @@ CKCatalog.renderUtils = (function() {
       records.forEach(function(record) {
         table.appendRow(displayFields.map(function(fieldName) {
           var fields = fieldName.match(/^fields\.(.*)/);
-          if (fields && record.hasOwnProperty('fields') && typeof record.fields == 'object') {
+          if (fields && record.hasOwnProperty("fields") && typeof record.fields == "object") {
             var field = record.fields[fields[1]];
             if (field) {
               return field.value;
             }
-          } else if (fieldName === 'created' || fieldName === 'modified') {
+          } else if (fieldName === "created" || fieldName === "modified") {
             var value = record[fieldName];
             if (value) {
               return {
@@ -1682,15 +1682,15 @@ CKCatalog.renderUtils = (function() {
     return content;
   };
   var renderRecord = function(title, record) {
-    var content = document.createElement('div');
+    var content = document.createElement("div");
     if (title) {
-      var heading = document.createElement('h2');
+      var heading = document.createElement("h2");
       heading.textContent = title;
       content.appendChild(heading);
     }
-    var table = (new CKCatalog.Table).setTextForUndefinedValue('None');
-    var specialFields = ['created', 'modified', 'fields', 'share', 'rootRecord'];
-    ['created', 'modified'].forEach(function(key) {
+    var table = (new CKCatalog.Table).setTextForUndefinedValue("None");
+    var specialFields = ["created", "modified", "fields", "share", "rootRecord"];
+    ["created", "modified"].forEach(function(key) {
       var value = record[key];
       if (value) {
         table.appendRow(key, {
@@ -1701,16 +1701,16 @@ CKCatalog.renderUtils = (function() {
       }
     });
     Object.keys(record).forEach(function(key) {
-      if (specialFields.indexOf(key) < 0 || key === 'share' && !record.share.participants) {
+      if (specialFields.indexOf(key) < 0 || key === "share" && !record.share.participants) {
         table.appendRow(key, record[key]);
       }
     });
-    if (record.hasOwnProperty('fields') && typeof record.fields == 'object') {
+    if (record.hasOwnProperty("fields") && typeof record.fields == "object") {
       Object.keys(record.fields).forEach(function(fieldName) {
         var field = record.fields[fieldName];
         if (field) {
           table.appendRow(fieldName, field.value, {
-            type: field.type.replace('_LIST', '')
+            type: field.type.replace("_LIST", "")
           });
         }
       });
@@ -1729,15 +1729,15 @@ CKCatalog.renderUtils = (function() {
       return Math.round(x * multiplier) / multiplier;
     };
     if (number >= peta) {
-      return round(number / peta) + ' P' + unit;
+      return round(number / peta) + " P" + unit;
     } else if (number >= tera) {
-      return round(number / tera) + ' T' + unit;
+      return round(number / tera) + " T" + unit;
     } else if (number >= giga) {
-      return round(number / giga) + ' G' + unit;
+      return round(number / giga) + " G" + unit;
     } else if (number >= mega) {
-      return round(number / mega) + ' M' + unit;
+      return round(number / mega) + " M" + unit;
     } else if (number >= kilo) {
-      return round(number / kilo) + ' K' + unit;
+      return round(number / kilo) + " K" + unit;
     } else {
       return round(number) + unit;
     }
@@ -1751,8 +1751,8 @@ CKCatalog.renderUtils = (function() {
 )();
 
 CKCatalog.QueryString = (function() {
-  var qs = window.location.search.substr(1).split('&').reduce(function(previousValue, currentValue) {
-    var kv = currentValue.split('=');
+  var qs = window.location.search.substr(1).split("&").reduce(function(previousValue, currentValue) {
+    var kv = currentValue.split("=");
     previousValue[kv[0]] = kv[1] ? decodeURIComponent(kv[1]) : true;
     return previousValue;
   }, {});
@@ -1789,11 +1789,11 @@ CKCatalog.Form.prototype._getFilterHelperForType = function(name, type, isList) 
   };
   var remove = function(opts) {
     var indexedName = opts.name;
-    that.removeRowByFieldName(indexedName + '-field-name');
-    that.removeRowByFieldName(indexedName + '-add-value-button');
-    delete that.fields[indexedName + '-field-name'];
-    delete that.fields[indexedName + '-comparator'];
-    delete that.fields[indexedName + '-add-value-button'];
+    that.removeRowByFieldName(indexedName + "-field-name");
+    that.removeRowByFieldName(indexedName + "-add-value-button");
+    delete that.fields[indexedName + "-field-name"];
+    delete that.fields[indexedName + "-comparator"];
+    delete that.fields[indexedName + "-add-value-button"];
     removeHelper.call(that, opts);
     removeArrayItems(indexedName);
     var arrayOfValues = that.dynamicFieldNames[name] && that.dynamicFieldNames[name].value;
@@ -1812,7 +1812,7 @@ CKCatalog.Form.prototype._getFilterHelperForType = function(name, type, isList) 
   };
   return {
     valueKeys: {
-      first: 'field-name',
+      first: "field-name",
       last: helper.valueKeys && helper.valueKeys.last || defaultHelper.valueKeys.last
     },
     add: function(opts) {
@@ -1824,14 +1824,14 @@ CKCatalog.Form.prototype._getFilterHelperForType = function(name, type, isList) 
       });
       var whenComparatorRequiresListValues = function(bool) {
         return function() {
-          return that._comparatorRequiresListValues(that.getFieldValue(indexedName + '-comparator')) == bool;
+          return that._comparatorRequiresListValues(that.getFieldValue(indexedName + "-comparator")) == bool;
         }
         ;
       };
       var toggleAddValueButton = function() {
         var comparatorRequiresListValues = whenComparatorRequiresListValues(true)();
         toggleHelper.call(that, opts, !comparatorRequiresListValues);
-        that.toggleRow(indexedName + '-add-value-button', comparatorRequiresListValues);
+        that.toggleRow(indexedName + "-add-value-button", comparatorRequiresListValues);
         if (!comparatorRequiresListValues) {
           removeArrayItems(indexedName);
         }
@@ -1844,10 +1844,10 @@ CKCatalog.Form.prototype._getFilterHelperForType = function(name, type, isList) 
           });
         }
       }).addInputField({
-        name: indexedName + '-field-name',
-        placeholder: 'Field name'
+        name: indexedName + "-field-name",
+        placeholder: "Field name"
       }).addSelectField({
-        name: indexedName + '-comparator',
+        name: indexedName + "-comparator",
         options: (isList && that._comparatorsForListField || helper.comparators || CKCatalog.FormInputHelpers.Filters.DEFAULT.comparators).map(function(comparator) {
           return {
             value: comparator
@@ -1857,40 +1857,40 @@ CKCatalog.Form.prototype._getFilterHelperForType = function(name, type, isList) 
       });
       addHelper.call(that, opts);
       that.addButton({
-        title: 'Add value…',
+        title: "Add value…",
         border: true,
         hidden: whenComparatorRequiresListValues(false),
         action: function() {
           that.addArrayItem({
             name: indexedName,
             type: type,
-            placeholder: 'List value',
-            buttonRelativeName: 'add-value-button'
+            placeholder: "List value",
+            buttonRelativeName: "add-value-button"
           });
         },
-        name: indexedName + '-add-value-button'
+        name: indexedName + "-add-value-button"
       });
       return that;
     },
     remove: remove,
     toggle: function(opts, bool) {
       var name = opts.name;
-      var comparator = that.getFieldValue(name + '-comparator');
-      that.toggleRow(name + '-field-name', bool);
+      var comparator = that.getFieldValue(name + "-comparator");
+      that.toggleRow(name + "-field-name", bool);
       if (bool === true) {
         toggleHelper.call(that, opts, !that._comparatorRequiresListValues(comparator));
-        that.toggleRow(name + '-add-value-button', that._comparatorRequiresListValues(comparator));
+        that.toggleRow(name + "-add-value-button", that._comparatorRequiresListValues(comparator));
       } else {
         toggleHelper.call(that, opts, bool);
-        that.toggleRow(name + '-add-value-button', bool);
+        that.toggleRow(name + "-add-value-button", bool);
       }
       that.toggleArrayItems(name, bool);
     },
     serialize: function(opts) {
       var name = opts.name;
-      var comparator = that.fields[name + '-comparator'].value;
+      var comparator = that.fields[name + "-comparator"].value;
       var dynamicFieldNames = that.dynamicFieldNames[name];
-      var fieldName = that.fields[name + '-field-name'].value;
+      var fieldName = that.fields[name + "-field-name"].value;
       var json = {
         comparator: comparator
       };
@@ -1932,46 +1932,46 @@ CKCatalog.Form.prototype.addQueryBuilder = function(opts) {
     label: opts.label,
     hidden: opts.hidden
   }).addSelectField({
-    name: name + '-field-type-selector',
-    label: 'Field type:',
+    name: name + "-field-type-selector",
+    label: "Field type:",
     options: [{
       value: CKCatalog.FIELD_TYPE_STRING,
-      title: 'String'
+      title: "String"
     }, {
       value: CKCatalog.FIELD_TYPE_INT64,
-      title: 'Number'
+      title: "Number"
     }, {
       value: CKCatalog.FIELD_TYPE_TIMESTAMP,
-      title: 'Timestamp'
+      title: "Timestamp"
     }, {
       value: CKCatalog.FIELD_TYPE_LOCATION,
-      title: 'Location'
+      title: "Location"
     }, {
       value: CKCatalog.FIELD_TYPE_REFERENCE,
-      title: 'Reference'
+      title: "Reference"
     }]
   }).addCheckboxes({
     checkboxes: [{
-      label: 'list',
-      name: name + '-list-checkbox'
+      label: "list",
+      name: name + "-list-checkbox"
     }]
   }).addButton({
-    name: name + '-add-filter-button',
-    title: 'Add filter…',
+    name: name + "-add-filter-button",
+    title: "Add filter…",
     action: function() {
-      var isList = that.getFieldValue(name + '-list-checkbox');
-      var fieldType = that.getFieldValue(name + '-field-type-selector');
-      var button = that.fields[name + '-add-filter-button'];
+      var isList = that.getFieldValue(name + "-list-checkbox");
+      var fieldType = that.getFieldValue(name + "-field-type-selector");
+      var button = that.fields[name + "-add-filter-button"];
       var index = button.arrayItemIndex || 0;
       var indexedName = that.createDynamicFieldName(name, index);
       button.arrayItemIndex = index + 1;
       var helper = that._getFilterHelperForType(name, fieldType, isList);
-      that.movePointerTo(name + '-add-filter-button');
+      that.movePointerTo(name + "-add-filter-button");
       helper.add({
         name: indexedName,
         type: fieldType
       });
-      that.focusField(indexedName + '-' + helper.valueKeys.first);
+      that.focusField(indexedName + "-" + helper.valueKeys.first);
     }
   });
 };
@@ -1995,35 +1995,35 @@ CKCatalog.Form.prototype.toggleFilters = function(name, bool) {
       });
     }
   }
-  this.toggleRow(name + '-add-filter-button', bool);
+  this.toggleRow(name + "-add-filter-button", bool);
 };
 
-CKCatalog.tabs['authentication'] = (function() {
+CKCatalog.tabs["authentication"] = (function() {
   
   var displayUserName = function(name) {
-    var userNameEl = document.getElementById('username');
+    var userNameEl = document.getElementById("username");
     userNameEl.textContent = name;
-    var displayedUserName = document.getElementById('displayed-username');
+    var displayedUserName = document.getElementById("displayed-username");
     if (displayedUserName) {
       displayedUserName.textContent = name;
     }
   };
   
   var createButtonContainersHTML = function() {
-    return '<div>' + '<h2 id="displayed-username"></h2>' + '<div style="width: 280px;">' + '<div id="apple-sign-in-button"></div>' + '<div id="apple-sign-out-button"></div>' + '</div>' + '</div>';
+    return "<div>" + "<h2 id=\"displayed-username\"></h2>" + "<div style=\"width: 280px;\">" + "<div id=\"apple-sign-in-button\"></div>" + "<div id=\"apple-sign-out-button\"></div>" + "</div>" + "</div>";
   };
   
   var showDialogForPersistError = function() {
-    var html = '<h2>Unable to set a cookie</h2><p>';
+    var html = "<h2>Unable to set a cookie</h2><p>";
     
-    if (window.location.protocol === 'file:') {
-      html += 'The authentication option <code>persist = true</code> is not compatible with the <i>file://</i> protocol. ';
+    if (window.location.protocol === "file:") {
+      html += "The authentication option <code>persist = true</code> is not compatible with the <i>file://</i> protocol. ";
     }
     
-    html += 'Please edit <i>js/configure.js</i> and set <code>persist = false</code> in <i>CloudKit.configure()</i>.</p>';
+    html += "Please edit <i>js/configure.js</i> and set <code>persist = false</code> in <i>CloudKit.configure()</i>.</p>";
     
     CKCatalog.dialog.show(html, {
-      title: 'Close'
+      title: "Close"
     });
   };
   
@@ -2043,19 +2043,19 @@ CKCatalog.tabs['authentication'] = (function() {
       function gotoAuthenticatedState(userIdentity) {
         var name = userIdentity.nameComponents;
         if (name) {
-          displayUserName(name.givenName + ' ' + name.familyName);
+          displayUserName(name.givenName + " " + name.familyName);
         } else {
-          displayUserName('User record name: ' + userIdentity.userRecordName);
+          displayUserName("User record name: " + userIdentity.userRecordName);
         }
         container.whenUserSignsOut().then(gotoUnauthenticatedState);
       }
       function gotoUnauthenticatedState(error) {
         
-        if (error && error.ckErrorCode === 'AUTH_PERSIST_ERROR') {
+        if (error && error.ckErrorCode === "AUTH_PERSIST_ERROR") {
           showDialogForPersistError();
         }
         
-        displayUserName('Unauthenticated User');
+        displayUserName("Unauthenticated User");
         container.whenUserSignsIn().then(gotoAuthenticatedState).catch(gotoUnauthenticatedState);
       }
       
@@ -2079,13 +2079,13 @@ CKCatalog.tabs['authentication'] = (function() {
 }
 )();
 
-CKCatalog.tabs['discoverability'] = (function() {
+CKCatalog.tabs["discoverability"] = (function() {
   
   var renderUserIdentity = function(title, userIdentity) {
     
     // Add the user id to the recordName input form for convenience.
     if (userIdentity.userRecordName) {
-      recordNameInputForm.fields['record-name'].value = userIdentity.userRecordName;
+      recordNameInputForm.fields["record-name"].value = userIdentity.userRecordName;
     }
     
     // Now render the object.
@@ -2093,38 +2093,38 @@ CKCatalog.tabs['discoverability'] = (function() {
   };
   
   var createUserIdentitiesTable = function() {
-    return new CKCatalog.Table(['userRecordName', 'nameComponents', 'lookupInfo']).setTextForUndefinedValue('PRIVATE').setTextForEmptyRow('No discovered users');
+    return new CKCatalog.Table(["userRecordName", "nameComponents", "lookupInfo"]).setTextForUndefinedValue("PRIVATE").setTextForEmptyRow("No discovered users");
   };
   
   var renderUserIdentities = function(title, userIdentities) {
     var table = createUserIdentitiesTable();
-    return CKCatalog.renderUtils.renderRecords(table, title, userIdentities, ['userRecordName', 'nameComponents', 'lookupInfo']);
+    return CKCatalog.renderUtils.renderRecords(table, title, userIdentities, ["userRecordName", "nameComponents", "lookupInfo"]);
   };
   
   var emailInputForm = (new CKCatalog.Form).addInputField({
-    type: 'email',
-    placeholder: 'Email address',
-    name: 'email',
-    label: 'emailAddress:',
-    value: 'tavitianp@icloud.com'
+    type: "email",
+    placeholder: "Email address",
+    name: "email",
+    label: "emailAddress:",
+    value: "tavitianp@icloud.com"
   });
   
   var recordNameInputForm = (new CKCatalog.Form).addInputField({
-    placeholder: 'User record name',
-    name: 'record-name',
-    label: 'userRecordName:'
+    placeholder: "User record name",
+    name: "record-name",
+    label: "userRecordName:"
   });
   
   var fetchUserIdentitySample = {
-    title: 'fetchCurrentUserIdentity',
+    title: "fetchCurrentUserIdentity",
     sampleCode: function demoFetchCurrentUserIdentity() {
       var container = CloudKit.getDefaultContainer();
       
-      // Fetch user's info.
+      // Fetch user"s info.
       return container.fetchCurrentUserIdentity().then(function(userIdentity) {
-        var title = 'UserIdentity for current ' + (userIdentity.nameComponents ? 'discoverable' : 'non-discoverable') + ' user:';
+        var title = "UserIdentity for current " + (userIdentity.nameComponents ? "discoverable" : "non-discoverable") + " user:";
         
-        // Render the user's identity.
+        // Render the user"s identity.
         return renderUserIdentity(title, userIdentity);
       });
     }
@@ -2132,7 +2132,7 @@ CKCatalog.tabs['discoverability'] = (function() {
   };
   
   var discoverAllUserIdentitiesSample = {
-    title: 'discoverAllUserIdentities',
+    title: "discoverAllUserIdentities",
     sampleCode: function demoDiscoverAllUserIdentities() {
       var container = CloudKit.getDefaultContainer();
       
@@ -2143,7 +2143,7 @@ CKCatalog.tabs['discoverability'] = (function() {
           throw response.errors[0];
           
         } else {
-          var title = 'Discovered users from your iCloud contacts:';
+          var title = "Discovered users from your iCloud contacts:";
           
           // response.users is an array of UserIdentity objects.
           return renderUserIdentities(title, response.users);
@@ -2154,10 +2154,10 @@ CKCatalog.tabs['discoverability'] = (function() {
   };
   
   var discoverUserIdentityWithEmailAddressSample = {
-    title: 'discoverUserIdentityWithEmailAddress',
+    title: "discoverUserIdentityWithEmailAddress",
     form: emailInputForm,
     run: function() {
-      var emailAddress = this.form.getFieldValue('email');
+      var emailAddress = this.form.getFieldValue("email");
       return this.sampleCode(emailAddress);
     },
     sampleCode: function demoDiscoverUserIdentityWithEmailAddress(emailAddress) {
@@ -2170,7 +2170,7 @@ CKCatalog.tabs['discoverability'] = (function() {
           throw response.errors[0];
           
         } else {
-          var title = 'Discovered users by email address:';
+          var title = "Discovered users by email address:";
           return renderUserIdentity(title, response.users[0]);
         }
       });
@@ -2178,10 +2178,10 @@ CKCatalog.tabs['discoverability'] = (function() {
   };
   
   var discoverUserIdentityWithUserRecordNameSample = {
-    title: 'discoverUserIdentityWithUserRecordName',
+    title: "discoverUserIdentityWithUserRecordName",
     form: recordNameInputForm,
     run: function() {
-      var recordName = this.form.getFieldValue('record-name');
+      var recordName = this.form.getFieldValue("record-name");
       return this.sampleCode(recordName);
     },
     sampleCode: function demoDiscoverUserIdentityWithUserRecordName(userRecordName) {
@@ -2194,7 +2194,7 @@ CKCatalog.tabs['discoverability'] = (function() {
           throw response.errors[0];
           
         } else {
-          var title = 'Discovered users by record name:';
+          var title = "Discovered users by record name:";
           return renderUserIdentity(title, response.users[0]);
         }
       });
@@ -2206,14 +2206,14 @@ CKCatalog.tabs['discoverability'] = (function() {
 }
 )();
 
-CKCatalog.tabs['query'] = (function() {
+CKCatalog.tabs["query"] = (function() {
   
   var continuationMarker;
   
   var saveContinuationMarker = function(value) {
     if (value) {
       continuationMarker = value;
-      continuationMarkerView.classList.remove('hide');
+      continuationMarkerView.classList.remove("hide");
       continuationMarkerValueView.textContent = value;
     } else {
       removeContinuationMarker();
@@ -2222,7 +2222,7 @@ CKCatalog.tabs['query'] = (function() {
   
   var removeContinuationMarker = function() {
     continuationMarker = null;
-    continuationMarkerView.classList.add('hide');
+    continuationMarkerView.classList.add("hide");
   };
   
   var getContinuationMarker = function() {
@@ -2230,124 +2230,124 @@ CKCatalog.tabs['query'] = (function() {
   };
   
   var hideOwnerRecordName = function() {
-    return this.getFieldValue('database-scope') !== 'SHARED';
+    return this.getFieldValue("database-scope") !== "SHARED";
   };
   
   var toggleOwnerRecordName = function() {
-    this.toggleRow('owner-record-name', !hideOwnerRecordName.call(this));
+    this.toggleRow("owner-record-name", !hideOwnerRecordName.call(this));
   };
   
   var queryForm = new CKCatalog.Form().addSelectField({
-    name: 'database-scope',
-    label: 'databaseScope:',
+    name: "database-scope",
+    label: "databaseScope:",
     options: [{
-      value: 'PUBLIC'
+      value: "PUBLIC"
     }, {
-      value: 'PRIVATE'
+      value: "PRIVATE"
     }, {
-      value: 'SHARED'
+      value: "SHARED"
     }],
     onChange: toggleOwnerRecordName
   }).addInputField({
-    name: 'zone-name',
-    label: 'zoneName:',
-    placeholder: 'Zone name',
+    name: "zone-name",
+    label: "zoneName:",
+    placeholder: "Zone name",
     value: CKCatalog.DEFAULT_ZONE_NAME
   }).addInputField({
-    placeholder: 'Owner record name',
-    label: 'ownerRecordName:',
-    name: 'owner-record-name',
+    placeholder: "Owner record name",
+    label: "ownerRecordName:",
+    name: "owner-record-name",
     hidden: hideOwnerRecordName
   }).addInputField({
-    name: 'record-type',
-    label: 'recordType:',
-    placeholder: 'Record type',
-    value: 'Stations'
+    name: "record-type",
+    label: "recordType:",
+    placeholder: "Record type",
+    value: "Stations"
   }).addInputField({
-    name: 'desired-keys',
-    label: 'desiredKeys:',
-    placeholder: 'Comma separated field names',
-    value: 'name,id,stopId,suburb,location'
+    name: "desired-keys",
+    label: "desiredKeys:",
+    placeholder: "Comma separated field names",
+    value: "name,id,stopId,suburb,location"
   }).addMultipleFields({
     number: 2,
-    label: 'sortBy:'
+    label: "sortBy:"
   }).addInputField({
-    name: 'sort-by-field',
-    placeholder: 'Field name',
-    value: 'location'
+    name: "sort-by-field",
+    placeholder: "Field name",
+    value: "location"
   }).addCheckboxes({
     checkboxes: [{
-      name: 'ascending',
-      label: 'ascending',
+      name: "ascending",
+      label: "ascending",
       checked: true
     }]
   }).addCheckboxes({
     hidden: false,
     checkboxes: [{
-      name: 'sort-by-location',
-      label: 'Sort this field by distance from a location',
+      name: "sort-by-location",
+      label: "Sort this field by distance from a location",
       checked: true
     }]
   }).addMultipleFields({
     number: 2,
     hidden: false
   }).addInputField({
-    name: 'latitude',
-    placeholder: 'Latitude',
-    value: '-33.43078291754649'
+    name: "latitude",
+    placeholder: "Latitude",
+    value: "-33.43078291754649"
   }).addInputField({
-    name: 'longitude',
-    placeholder: 'Longitude',
-    value: '151.3108412528859'
+    name: "longitude",
+    placeholder: "Longitude",
+    value: "151.3108412528859"
   }).addQueryBuilder({
-    name: 'filter-by',
-    label: 'filterBy:'
+    name: "filter-by",
+    label: "filterBy:"
   });
   
-  var sortByField = queryForm.fields['sort-by-field'];
-  var sortByLocationCheckbox = queryForm.fields['sort-by-location'];
+  var sortByField = queryForm.fields["sort-by-field"];
+  var sortByLocationCheckbox = queryForm.fields["sort-by-location"];
   
   var toggleRelativeLocationContainer = function() {
-    queryForm.toggleRow('latitude', sortByLocationCheckbox.checked);
+    queryForm.toggleRow("latitude", sortByLocationCheckbox.checked);
   };
   
-  sortByField.addEventListener('input', function() {
+  sortByField.addEventListener("input", function() {
     if (sortByField.value) {
       toggleRelativeLocationContainer();
     } else {
-      queryForm.toggleRow('latitude', false);
+      queryForm.toggleRow("latitude", false);
     }
     var hasSortByValue = !!sortByField.value;
-    queryForm.toggleRow('sort-by-location', hasSortByValue);
+    queryForm.toggleRow("sort-by-location", hasSortByValue);
   });
   
-  sortByLocationCheckbox.addEventListener('change', toggleRelativeLocationContainer);
+  sortByLocationCheckbox.addEventListener("change", toggleRelativeLocationContainer);
   
   var displayFields = [];
   
-  var continuationMarkerView = document.createElement('div');
-  continuationMarkerView.className = 'hide';
-  continuationMarkerView.innerHTML = '<div class="light small">At continuation marker: </div>';
-  var deleteButton = document.createElement('button');
-  deleteButton.className = 'link small';
-  deleteButton.textContent = '(delete)';
+  var continuationMarkerView = document.createElement("div");
+  continuationMarkerView.className = "hide";
+  continuationMarkerView.innerHTML = "<div class=\"light small\">At continuation marker: </div>";
+  var deleteButton = document.createElement("button");
+  deleteButton.className = "link small";
+  deleteButton.textContent = "(delete)";
   deleteButton.onclick = function() {
     removeContinuationMarker();
   }
   ;
   continuationMarkerView.firstChild.appendChild(deleteButton);
-  var continuationMarkerValueView = document.createElement('div');
-  continuationMarkerValueView.className = 'small ellipsis';
+  var continuationMarkerValueView = document.createElement("div");
+  continuationMarkerValueView.className = "small ellipsis";
   continuationMarkerView.appendChild(continuationMarkerValueView);
   
   var renderRecords = function(records) {
     var recordsTable = new CKCatalog.Table(displayFields.map(function(fieldName) {
-      return fieldName.replace('fields.', '');
+      return fieldName.replace("fields.", "");
     }));
     var continuationMarker = getContinuationMarker();
-    var title = 'Matching records:';
+    var title = "Matching records:";
     if (continuationMarker) {
-      title = 'Matching records (run code again to get more):';
+      title = "Matching records (run code again to get more):";
     }
     var div = CKCatalog.renderUtils.renderRecords(recordsTable, title, records, displayFields);
     div.insertBefore(continuationMarkerView, div.firstChild);
@@ -2356,25 +2356,25 @@ CKCatalog.tabs['query'] = (function() {
   
   var querySample = {
     form: queryForm,
-    title: 'performQuery',
+    title: "performQuery",
     run: function() {
-      var databaseScope = this.form.getFieldValue('database-scope');
-      var recordType = this.form.getFieldValue('record-type');
-      var zoneName = this.form.getFieldValue('zone-name');
-      var ownerRecordName = databaseScope == 'SHARED' && this.form.getFieldValue('owner-record-name');
+      var databaseScope = this.form.getFieldValue("database-scope");
+      var recordType = this.form.getFieldValue("record-type");
+      var zoneName = this.form.getFieldValue("zone-name");
+      var ownerRecordName = databaseScope == "SHARED" && this.form.getFieldValue("owner-record-name");
       var sortByFieldName = sortByField.value;
-      var ascending = this.form.getFieldValue('ascending');
+      var ascending = this.form.getFieldValue("ascending");
       var lat, long;
-      if (this.form.getFieldValue('sort-by-location')) {
-        lat = parseFloat(this.form.getFieldValue('latitude'));
-        long = parseFloat(this.form.getFieldValue('longitude'));
+      if (this.form.getFieldValue("sort-by-location")) {
+        lat = parseFloat(this.form.getFieldValue("latitude"));
+        long = parseFloat(this.form.getFieldValue("longitude"));
       }
-      var filters = this.form.getFieldValue('filter-by');
-      var desiredKeys = this.form.getFieldValue('desired-keys').split(',').map(function(f) {
+      var filters = this.form.getFieldValue("filter-by");
+      var desiredKeys = this.form.getFieldValue("desired-keys").split(",").map(function(f) {
         return f.trim();
       });
-      displayFields = ['recordName'].concat(desiredKeys.map(function(f) {
-        return 'fields.' + f;
+      displayFields = ["recordName"].concat(desiredKeys.map(function(f) {
+        return "fields." + f;
       }));
       return this.sampleCode(databaseScope, zoneName, ownerRecordName, recordType, desiredKeys, sortByFieldName, ascending, lat, long, filters);
     },
@@ -2461,22 +2461,22 @@ CKCatalog.tabs['query'] = (function() {
 }
 )();
 
-CKCatalog.tabs['zones'] = (function() {
+CKCatalog.tabs["zones"] = (function() {
   
   var createZoneNameForm = function() {
     return (new CKCatalog.Form).addInputField({
-      name: 'name',
-      placeholder: 'Custom zone name',
-      label: 'zoneName:',
-      value: 'myCustomZone'
+      name: "name",
+      placeholder: "Custom zone name",
+      label: "zoneName:",
+      value: "myCustomZone"
     });
   };
   
   var renderZones = function(zones) {
-    var content = document.createElement('div');
-    var heading = document.createElement('h2');
-    heading.textContent = 'Zones:';
-    var table = new CKCatalog.Table(['zoneID', 'atomic', 'syncToken']).setTextForEmptyRow('No custom zones');
+    var content = document.createElement("div");
+    var heading = document.createElement("h2");
+    heading.textContent = "Zones:";
+    var table = new CKCatalog.Table(["zoneID", "atomic", "syncToken"]).setTextForEmptyRow("No custom zones");
     if (zones.length === 0) {
       table.appendRow([]);
     } else {
@@ -2490,9 +2490,9 @@ CKCatalog.tabs['zones'] = (function() {
   };
   
   var renderZone = function(zone) {
-    var content = document.createElement('div');
-    var heading = document.createElement('h2');
-    heading.textContent = 'Zone:';
+    var content = document.createElement("div");
+    var heading = document.createElement("h2");
+    heading.textContent = "Zone:";
     var table = new CKCatalog.Table().renderObject(zone);
     content.appendChild(heading);
     content.appendChild(table.el);
@@ -2500,12 +2500,12 @@ CKCatalog.tabs['zones'] = (function() {
   };
   
   var runSampleCode = function() {
-    var zoneName = this.form.getFieldValue('name');
+    var zoneName = this.form.getFieldValue("name");
     return this.sampleCode(zoneName);
   };
   
   var createZoneSample = {
-    title: 'saveRecordZones',
+    title: "saveRecordZones",
     form: createZoneNameForm(),
     run: runSampleCode,
     sampleCode: function demoSaveRecordZones(zoneName) {
@@ -2531,7 +2531,7 @@ CKCatalog.tabs['zones'] = (function() {
   };
   
   var deleteRecordZoneSample = {
-    title: 'deleteRecordZones',
+    title: "deleteRecordZones",
     form: createZoneNameForm(),
     run: runSampleCode,
     sampleCode: function demoDeleteRecordZones(zoneName) {
@@ -2557,7 +2557,7 @@ CKCatalog.tabs['zones'] = (function() {
   };
   
   var fetchRecordZoneSample = {
-    title: 'fetchRecordZones',
+    title: "fetchRecordZones",
     form: createZoneNameForm(),
     run: runSampleCode,
     sampleCode: function demoFetchRecordZones(zoneName) {
@@ -2583,7 +2583,7 @@ CKCatalog.tabs['zones'] = (function() {
   };
   
   var fetchAllRecordZonesSample = {
-    title: 'fetchAllRecordZones',
+    title: "fetchAllRecordZones",
     sampleCode: function demoFetchAllRecordZones() {
       var container = CloudKit.getDefaultContainer();
       var privateDB = container.privateCloudDatabase;
@@ -2608,47 +2608,47 @@ CKCatalog.tabs['zones'] = (function() {
 }
 )();
 
-CKCatalog.tabs['records'] = (function() {
+CKCatalog.tabs["records"] = (function() {
   
   var renderRecord = function(record, zoneID, databaseScope) {
-    var container = document.createElement('div');
+    var container = document.createElement("div");
     
-    var actionsContainer = document.createElement('div');
-    actionsContainer.className = 'record-actions';
+    var actionsContainer = document.createElement("div");
+    actionsContainer.className = "record-actions";
     
     if (record.shortGUID && record.recordType !== CKCatalog.SHARE_RECORD_TYPE_NAME) {
-      var shareButton = document.createElement('button');
-      shareButton.setAttribute('type', 'button');
-      shareButton.className = 'share-button link';
-      shareButton.textContent = 'Share';
+      var shareButton = document.createElement("button");
+      shareButton.setAttribute("type", "button");
+      shareButton.className = "share-button link";
+      shareButton.textContent = "Share";
       shareButton.onclick = function() {
-        CKCatalog.tabManager.navigateToCodeSample('sharing/shareWithUI', {
-          'database-scope': databaseScope,
-          'record-name': record.recordName,
-          'zone-name': zoneID && zoneID.zoneName,
-          'owner-record-name': zoneID && zoneID.ownerRecordName
+        CKCatalog.tabManager.navigateToCodeSample("sharing/shareWithUI", {
+          "database-scope": databaseScope,
+          "record-name": record.recordName,
+          "zone-name": zoneID && zoneID.zoneName,
+          "owner-record-name": zoneID && zoneID.ownerRecordName
         });
       }
       ;
       actionsContainer.appendChild(shareButton);
     }
     
-    var editButton = document.createElement('button');
-    editButton.setAttribute('type', 'button');
-    editButton.className = 'edit-button link';
-    editButton.textContent = 'Edit';
+    var editButton = document.createElement("button");
+    editButton.setAttribute("type", "button");
+    editButton.className = "edit-button link";
+    editButton.textContent = "Edit";
     editButton.onclick = function() {
-      CKCatalog.tabManager.navigateToCodeSample('records/saveRecords', {
-        'database-scope': databaseScope,
-        'record-name': record.recordName,
-        'change-tag': record.recordChangeTag,
-        'zone-name': zoneID && zoneID.zoneName,
-        'owner-record-name': zoneID && zoneID.ownerRecordName,
-        'record-type': record.recordType,
-        'parent-record-name': record.parent && record.parent.recordName,
-        'public-permission': record.publicPermission,
-        'participants': record.participants,
-        'fields': record.fields
+      CKCatalog.tabManager.navigateToCodeSample("records/saveRecords", {
+        "database-scope": databaseScope,
+        "record-name": record.recordName,
+        "change-tag": record.recordChangeTag,
+        "zone-name": zoneID && zoneID.zoneName,
+        "owner-record-name": zoneID && zoneID.ownerRecordName,
+        "record-type": record.recordType,
+        "parent-record-name": record.parent && record.parent.recordName,
+        "public-permission": record.publicPermission,
+        "participants": record.participants,
+        "fields": record.fields
       });
     }
     ;
@@ -2656,194 +2656,194 @@ CKCatalog.tabs['records'] = (function() {
     
     container.appendChild(actionsContainer);
     
-    container.appendChild(CKCatalog.renderUtils.renderRecord('Record:', record));
+    container.appendChild(CKCatalog.renderUtils.renderRecord("Record:", record));
     
     return container;
   };
   
   var renderDeletedRecord = function(record) {
-    return CKCatalog.renderUtils.renderRecord('Deleted Record:', record);
+    return CKCatalog.renderUtils.renderRecord("Deleted Record:", record);
   };
   
   var runSampleCode = function() {
-    var recordName = this.form.getFieldValue('record-id');
-    var zoneName = this.form.getFieldValue('zone-name');
-    var databaseScope = this.form.getFieldValue('database-scope');
+    var recordName = this.form.getFieldValue("record-id");
+    var zoneName = this.form.getFieldValue("zone-name");
+    var databaseScope = this.form.getFieldValue("database-scope");
     var ownerRecordName;
-    if (databaseScope === 'SHARED') {
-      ownerRecordName = this.form.getFieldValue('owner-record-name');
+    if (databaseScope === "SHARED") {
+      ownerRecordName = this.form.getFieldValue("owner-record-name");
     }
     return this.sampleCode(databaseScope, recordName, zoneName, ownerRecordName);
   };
   
   var hideShareFields = function(bool) {
     return function() {
-      return (this.getFieldValue('record-type') !== CKCatalog.SHARE_RECORD_TYPE_NAME) == bool;
+      return (this.getFieldValue("record-type") !== CKCatalog.SHARE_RECORD_TYPE_NAME) == bool;
     }
   };
   
   var toggleShareRows = function() {
-    var publicPermission = this.getFieldValue('public-permission');
-    var changeTag = this.getFieldValue('change-tag');
-    this.toggleArrayField('participants', hideShareFields(false).call(this) && publicPermission === 'NONE');
-    this.toggleRow('parent-record-name', hideShareFields(true).call(this));
-    this.toggleRow('create-short-guid', hideShareFields(true).call(this));
-    this.toggleRow('for-record-name', hideShareFields(false).call(this) && !changeTag);
-    this.toggleRow('for-record-change-tag', hideShareFields(false).call(this) && !changeTag);
-    this.toggleRow('public-permission', hideShareFields(false).call(this));
+    var publicPermission = this.getFieldValue("public-permission");
+    var changeTag = this.getFieldValue("change-tag");
+    this.toggleArrayField("participants", hideShareFields(false).call(this) && publicPermission === "NONE");
+    this.toggleRow("parent-record-name", hideShareFields(true).call(this));
+    this.toggleRow("create-short-guid", hideShareFields(true).call(this));
+    this.toggleRow("for-record-name", hideShareFields(false).call(this) && !changeTag);
+    this.toggleRow("for-record-change-tag", hideShareFields(false).call(this) && !changeTag);
+    this.toggleRow("public-permission", hideShareFields(false).call(this));
   };
   
   var toggleOwnerRecordName = function() {
-    var databaseScope = this.getFieldValue('database-scope');
-    this.toggleRow('owner-record-name', databaseScope === 'SHARED');
+    var databaseScope = this.getFieldValue("database-scope");
+    this.toggleRow("owner-record-name", databaseScope === "SHARED");
   };
   
   var hideOwnerRecordName = function() {
-    return this.getFieldValue('database-scope') !== 'SHARED';
+    return this.getFieldValue("database-scope") !== "SHARED";
   };
   
   var createRecordIDForm = function() {
     return (new CKCatalog.Form).addSelectField({
-      name: 'database-scope',
-      label: 'databaseScope:',
+      name: "database-scope",
+      label: "databaseScope:",
       onChange: toggleOwnerRecordName,
       options: [{
-        value: 'PRIVATE'
+        value: "PRIVATE"
       }, {
-        value: 'PUBLIC'
+        value: "PUBLIC"
       }, {
-        value: 'SHARED'
+        value: "SHARED"
       }]
     }).addInputField({
-      placeholder: 'Record name',
-      name: 'record-id',
-      label: 'recordName:',
-      value: 'NewItem'
+      placeholder: "Record name",
+      name: "record-id",
+      label: "recordName:",
+      value: "NewItem"
     }).addInputField({
-      placeholder: 'Zone name',
-      name: 'zone-name',
-      label: 'zoneName:',
+      placeholder: "Zone name",
+      name: "zone-name",
+      label: "zoneName:",
       value: CKCatalog.DEFAULT_ZONE_NAME
     }).addInputField({
-      placeholder: 'Owner record name',
-      name: 'owner-record-name',
-      label: 'ownerRecordName:',
+      placeholder: "Owner record name",
+      name: "owner-record-name",
+      label: "ownerRecordName:",
       hidden: hideOwnerRecordName
     });
   };
   
   var createItemForm = (new CKCatalog.Form).addSelectField({
-    label: 'databaseScope',
-    name: 'database-scope',
+    label: "databaseScope",
+    name: "database-scope",
     options: [{
-      value: 'PRIVATE'
+      value: "PRIVATE"
     }, {
-      value: 'PUBLIC'
+      value: "PUBLIC"
     }, {
-      value: 'SHARED'
+      value: "SHARED"
     }],
     onChange: toggleOwnerRecordName
   }).addInputField({
-    placeholder: 'Record name',
-    name: 'record-name',
-    label: 'recordName:'
+    placeholder: "Record name",
+    name: "record-name",
+    label: "recordName:"
   }).addInputField({
-    placeholder: 'Change tag',
-    name: 'change-tag',
-    label: 'recordChangeTag:',
+    placeholder: "Change tag",
+    name: "change-tag",
+    label: "recordChangeTag:",
     onChange: toggleShareRows
   }).addInputField({
-    placeholder: 'Record type',
-    name: 'record-type',
-    label: 'recordType:',
-    value: 'Stations',
+    placeholder: "Record type",
+    name: "record-type",
+    label: "recordType:",
+    value: "Stations",
     onChange: toggleShareRows
   }).addInputField({
-    placeholder: 'Zone name',
-    name: 'zone-name',
-    label: 'zoneName:',
+    placeholder: "Zone name",
+    name: "zone-name",
+    label: "zoneName:",
     value: CKCatalog.DEFAULT_ZONE_NAME
   }).addInputField({
-    placeholder: 'Owner record name',
-    name: 'owner-record-name',
-    label: 'ownerRecordName:',
+    placeholder: "Owner record name",
+    name: "owner-record-name",
+    label: "ownerRecordName:",
     hidden: hideOwnerRecordName
   }).addInputField({
-    placeholder: 'Name of record to share',
-    name: 'for-record-name',
-    label: 'forRecordName:',
+    placeholder: "Name of record to share",
+    name: "for-record-name",
+    label: "forRecordName:",
     hidden: hideShareFields(true)
   }).addInputField({
-    placeholder: 'Change tag of record to share',
-    name: 'for-record-change-tag',
-    label: 'forRecordChangeTag',
+    placeholder: "Change tag of record to share",
+    name: "for-record-change-tag",
+    label: "forRecordChangeTag",
     hidden: hideShareFields(true)
   }).addSelectField({
-    name: 'public-permission',
-    label: 'publicPermission:',
+    name: "public-permission",
+    label: "publicPermission:",
     hidden: hideShareFields(true),
     onChange: toggleShareRows,
     options: [{
-      value: 'NONE'
+      value: "NONE"
     }, {
-      value: 'READ_ONLY'
+      value: "READ_ONLY"
     }, {
-      value: 'READ_WRITE'
+      value: "READ_WRITE"
     }]
   }).addArrayField({
-    name: 'participants',
-    label: 'participants:',
+    name: "participants",
+    label: "participants:",
     type: CKCatalog.FIELD_TYPE_SHARE_PARTICIPANT,
-    buttonTitle: 'Add participant…',
+    buttonTitle: "Add participant…",
     hidden: hideShareFields(true)
   }).addInputField({
-    placeholder: 'Parent record name',
-    name: 'parent-record-name',
-    label: 'parent:',
+    placeholder: "Parent record name",
+    name: "parent-record-name",
+    label: "parent:",
     hidden: hideShareFields(false)
   }).addDynamicFields({
-    label: 'fields:',
-    name: 'fields'
+    label: "fields:",
+    name: "fields"
   }).addCheckboxes({
     hidden: hideShareFields(false),
     checkboxes: [{
-      name: 'create-short-guid',
-      label: 'Create short GUID'
+      name: "create-short-guid",
+      label: "Create short GUID"
     }]
   });
   
   var saveRecordSample = {
-    title: 'saveRecords',
+    title: "saveRecords",
     form: createItemForm,
     run: function() {
-      var databaseScope = this.form.getFieldValue('database-scope');
-      var recordName = this.form.getFieldValue('record-name');
-      var changeTag = this.form.getFieldValue('change-tag');
-      var zoneName = this.form.getFieldValue('zone-name');
-      var recordType = this.form.getFieldValue('record-type');
+      var databaseScope = this.form.getFieldValue("database-scope");
+      var recordName = this.form.getFieldValue("record-name");
+      var changeTag = this.form.getFieldValue("change-tag");
+      var zoneName = this.form.getFieldValue("zone-name");
+      var recordType = this.form.getFieldValue("record-type");
       
       // Dependent fields:
       var ownerRecordName, parentRecordName, forRecordName, publicPermission, participants, createShortGUID, forRecordChangeTag;
       
-      if (databaseScope === 'SHARED') {
-        ownerRecordName = this.form.getFieldValue('owner-record-name');
+      if (databaseScope === "SHARED") {
+        ownerRecordName = this.form.getFieldValue("owner-record-name");
       }
       
       if (recordType === CKCatalog.SHARE_RECORD_TYPE_NAME) {
         if (!changeTag) {
-          forRecordName = this.form.getFieldValue('for-record-name');
-          forRecordChangeTag = this.form.getFieldValue('for-record-change-tag');
+          forRecordName = this.form.getFieldValue("for-record-name");
+          forRecordChangeTag = this.form.getFieldValue("for-record-change-tag");
         }
-        publicPermission = this.form.getFieldValue('public-permission');
-        if (publicPermission === 'NONE') {
-          participants = this.form.getFieldValue('participants');
+        publicPermission = this.form.getFieldValue("public-permission");
+        if (publicPermission === "NONE") {
+          participants = this.form.getFieldValue("participants");
         }
       } else {
-        parentRecordName = this.form.getFieldValue('parent-record-name');
-        createShortGUID = this.form.getFieldValue('create-short-guid');
+        parentRecordName = this.form.getFieldValue("parent-record-name");
+        createShortGUID = this.form.getFieldValue("create-short-guid");
       }
       
-      var fields = this.form.getFieldValue('fields');
+      var fields = this.form.getFieldValue("fields");
       
       return this.sampleCode(databaseScope, recordName, changeTag, recordType, zoneName, forRecordName, forRecordChangeTag, publicPermission, ownerRecordName, participants, parentRecordName, fields, createShortGUID);
     },
@@ -2853,7 +2853,7 @@ CKCatalog.tabs['records'] = (function() {
       
       var options = {
         // By passing and fetching number fields as strings we can use large
-        // numbers (up to the server's limits).
+        // numbers (up to the server"s limits).
         numbersAsStrings: true
         
       };
@@ -2899,7 +2899,7 @@ CKCatalog.tabs['records'] = (function() {
       }
       
       // If we want to share the record via a parent reference we need to set
-      // the record's parent property.
+      // the record"s parent property.
       if (parentRecordName) {
         record.parent = {
           recordName: parentRecordName
@@ -2950,7 +2950,7 @@ CKCatalog.tabs['records'] = (function() {
   };
   
   var deleteRecordSample = {
-    title: 'deleteRecords',
+    title: "deleteRecords",
     form: createRecordIDForm(),
     run: runSampleCode,
     sampleCode: function demoDeleteRecord(databaseScope, recordName, zoneName, ownerRecordName) {
@@ -2988,7 +2988,7 @@ CKCatalog.tabs['records'] = (function() {
   };
   
   var fetchRecordSample = {
-    title: 'fetchRecords',
+    title: "fetchRecords",
     form: createRecordIDForm(),
     run: runSampleCode,
     sampleCode: function demoFetchRecord(databaseScope, recordName, zoneName, ownerRecordName) {
@@ -3030,80 +3030,80 @@ CKCatalog.tabs['records'] = (function() {
 }
 )();
 
-CKCatalog.tabs['sync'] = (function() {
+CKCatalog.tabs["sync"] = (function() {
   
   var hideOwnerRecordName = function() {
-    return this.getFieldValue('database') !== 'SHARED';
+    return this.getFieldValue("database") !== "SHARED";
   };
   
   var toggleOwnerRecordNameAndClearSyncToken = function() {
-    this.setFieldValue('sync-token', '');
-    this.toggleRow('owner-record-name', !hideOwnerRecordName.call(this));
+    this.setFieldValue("sync-token", "");
+    this.toggleRow("owner-record-name", !hideOwnerRecordName.call(this));
   };
   
   var databaseOptions = {
-    name: 'database',
-    label: 'databaseScope:',
+    name: "database",
+    label: "databaseScope:",
     options: [{
-      value: 'PRIVATE'
+      value: "PRIVATE"
     }, {
-      value: 'SHARED'
+      value: "SHARED"
     }],
     onChange: toggleOwnerRecordNameAndClearSyncToken
   };
   
   var zoneSyncForm = (new CKCatalog.Form).addSelectField(databaseOptions).addInputField({
-    placeholder: 'Zone name',
-    name: 'zone',
-    label: 'zoneName:',
-    value: 'com.apple.coredata.cloudkit.zone'
+    placeholder: "Zone name",
+    name: "zone",
+    label: "zoneName:",
+    value: "com.apple.coredata.cloudkit.zone"
   }).addInputField({
-    placeholder: 'Owner record name',
-    name: 'owner-record-name',
-    label: 'ownerRecordName:',
+    placeholder: "Owner record name",
+    name: "owner-record-name",
+    label: "ownerRecordName:",
     hidden: hideOwnerRecordName
   }).addInputField({
-    placeholder: 'Sync token',
-    name: 'sync-token',
-    label: 'syncToken:'
+    placeholder: "Sync token",
+    name: "sync-token",
+    label: "syncToken:"
   });
   
   var databaseSyncForm = (new CKCatalog.Form).addSelectField(databaseOptions).addInputField({
-    placeholder: 'Sync token',
-    name: 'sync-token',
-    label: 'syncToken:'
+    placeholder: "Sync token",
+    name: "sync-token",
+    label: "syncToken:"
   });
   
   var createSyncTokenView = function(syncToken) {
-    var p = document.createElement('p');
-    p.innerHTML = '<span class="light small">At syncToken:</span> ' + '<span class="small">' + syncToken + '</span> ';
+    var p = document.createElement("p");
+    p.innerHTML = "<span class=\"light small\">At syncToken:</span> " + "<span class=\"small\">" + syncToken + "</span> ";
     return p;
   };
   
   var renderRecords = function(databaseScope, zoneName, ownerRecordName, records, syncToken, moreComing) {
     // Populate the syncToken form field with the new syncToken:
-    zoneSyncForm.setFieldValue('sync-token', syncToken);
+    zoneSyncForm.setFieldValue("sync-token", syncToken);
     
-    var content = document.createElement('div');
-    var heading = document.createElement('h2');
-    var recordsTable = new CKCatalog.Table(['recordName', 'recordType', 'shortGUID', 'deleted']).setTextForEmptyRow('No new records').rowIsSelectable(function(row) {
+    var content = document.createElement("div");
+    var heading = document.createElement("h2");
+    var recordsTable = new CKCatalog.Table(["recordName", "recordType", "shortGUID", "deleted"]).setTextForEmptyRow("No new records").rowIsSelectable(function(row) {
       return !row.data.deleted && row.data.recordName;
     }).addSelectHandler(function(row) {
-      CKCatalog.tabManager.navigateToCodeSample('records/fetchRecords', {
-        'record-id': row.data['recordName'],
-        'zone-name': zoneName,
-        'database-scope': databaseScope,
-        'owner-record-name': ownerRecordName
+      CKCatalog.tabManager.navigateToCodeSample("records/fetchRecords", {
+        "record-id": row.data["recordName"],
+        "zone-name": zoneName,
+        "database-scope": databaseScope,
+        "owner-record-name": ownerRecordName
       });
     });
-    heading.innerHTML = 'Records in ' + zoneName + ' of ' + databaseScope.toLowerCase() + ' database' + (moreComing ? '<span id="more-records-coming">' + ' (incomplete)' + '</span>:' : ':');
+    heading.innerHTML = "Records in " + zoneName + " of " + databaseScope.toLowerCase() + " database" + (moreComing ? "<span id=\"more-records-coming\">" + " (incomplete)" + "</span>:" : ":");
     if (records.length === 0) {
       recordsTable.appendRow([]);
     } else {
       records.forEach(function(record) {
         var fields = record.fields;
-        var name = fields ? fields['name'] : undefined;
-        var location = fields ? fields['location'] : undefined;
+        var name = fields ? fields["name"] : undefined;
+        var location = fields ? fields["location"] : undefined;
         recordsTable.appendRow([record.recordName, record.recordType, record.shortGUID, record.deleted]);
       });
     }
@@ -3116,20 +3116,20 @@ CKCatalog.tabs['sync'] = (function() {
   
   var renderZones = function(databaseScope, zones, syncToken, moreComing) {
     // Populate the syncToken form field with the new syncToken:
-    databaseSyncForm.setFieldValue('sync-token', syncToken);
+    databaseSyncForm.setFieldValue("sync-token", syncToken);
     
-    var content = document.createElement('div');
-    var heading = document.createElement('h2');
-    var zonesTable = new CKCatalog.Table(['zoneID', 'syncToken', 'atomic', 'deleted']).setTextForEmptyRow('No new zones').rowIsSelectable(function(row) {
+    var content = document.createElement("div");
+    var heading = document.createElement("h2");
+    var zonesTable = new CKCatalog.Table(["zoneID", "syncToken", "atomic", "deleted"]).setTextForEmptyRow("No new zones").rowIsSelectable(function(row) {
       return row.data.zoneID && row.data.zoneID.zoneName !== CKCatalog.DEFAULT_ZONE_NAME && !row.data.deleted;
     }).addSelectHandler(function(row) {
-      CKCatalog.tabManager.navigateToCodeSample('sync/fetchRecordZoneChanges', {
-        'zone': row.data.zoneID.zoneName,
-        'owner-record-name': row.data.zoneID.ownerRecordName,
-        'database': databaseScope
+      CKCatalog.tabManager.navigateToCodeSample("sync/fetchRecordZoneChanges", {
+        "zone": row.data.zoneID.zoneName,
+        "owner-record-name": row.data.zoneID.ownerRecordName,
+        "database": databaseScope
       });
     });
-    heading.innerHTML = 'Zones in ' + databaseScope.toLowerCase() + ' database' + (moreComing ? '<span id="more-zones-coming">' + ' (incomplete)' + '</span>:' : ':');
+    heading.innerHTML = "Zones in " + databaseScope.toLowerCase() + " database" + (moreComing ? "<span id=\"more-zones-coming\">" + " (incomplete)" + "</span>:" : ":");
     if (zones.length === 0) {
       zonesTable.appendRow([]);
     } else {
@@ -3145,13 +3145,13 @@ CKCatalog.tabs['sync'] = (function() {
   };
   
   var fetchRecordZoneChangesSample = {
-    title: 'fetchRecordZoneChanges',
+    title: "fetchRecordZoneChanges",
     form: zoneSyncForm,
     run: function() {
-      var zone = this.form.getFieldValue('zone');
-      var database = this.form.getFieldValue('database');
-      var ownerRecordName = database === 'SHARED' && this.form.getFieldValue('owner-record-name');
-      var syncToken = this.form.getFieldValue('sync-token');
+      var zone = this.form.getFieldValue("zone");
+      var database = this.form.getFieldValue("database");
+      var ownerRecordName = database === "SHARED" && this.form.getFieldValue("owner-record-name");
+      var syncToken = this.form.getFieldValue("sync-token");
       return this.sampleCode(database, zone, ownerRecordName, syncToken);
     },
     sampleCode: function demoFetchRecordZoneChanges(databaseScope, zoneName, ownerRecordName, syncToken) {
@@ -3197,11 +3197,11 @@ CKCatalog.tabs['sync'] = (function() {
   };
   
   var fetchDatabaseChangesSample = {
-    title: 'fetchDatabaseChanges',
+    title: "fetchDatabaseChanges",
     form: databaseSyncForm,
     run: function() {
-      var database = this.form.getFieldValue('database');
-      var syncToken = this.form.getFieldValue('sync-token');
+      var database = this.form.getFieldValue("database");
+      var syncToken = this.form.getFieldValue("sync-token");
       return this.sampleCode(database, syncToken);
     },
     sampleCode: function demoFetchDatabaseChanges(databaseScope, syncToken) {
@@ -3243,108 +3243,108 @@ CKCatalog.tabs['sync'] = (function() {
 }
 )();
 
-CKCatalog.tabs['sharing'] = (function() {
+CKCatalog.tabs["sharing"] = (function() {
   
   var renderShareResponse = function(response) {
-    var container = document.createElement('div');
+    var container = document.createElement("div");
     if (response && (response.share || response.record)) {
       if (response.share) {
-        container.appendChild(CKCatalog.renderUtils.renderRecord('Share:', response.share));
+        container.appendChild(CKCatalog.renderUtils.renderRecord("Share:", response.share));
       }
       if (response.record) {
-        container.appendChild(CKCatalog.renderUtils.renderRecord('Record:', response.record));
+        container.appendChild(CKCatalog.renderUtils.renderRecord("Record:", response.record));
       }
     } else {
-      var h2 = document.createElement('h2');
-      h2.textContent = 'Not shared';
+      var h2 = document.createElement("h2");
+      h2.textContent = "Not shared";
       container.appendChild(h2);
     }
     return container;
   };
   
   var render = function(record) {
-    var container = document.createElement('div');
+    var container = document.createElement("div");
     container.appendChild(CKCatalog.renderUtils.renderRecord(null, record));
     if (record.share) {
-      container.appendChild(CKCatalog.renderUtils.renderRecord('Share:', record.share));
+      container.appendChild(CKCatalog.renderUtils.renderRecord("Share:", record.share));
     }
     if (record.rootRecord) {
-      container.appendChild(CKCatalog.renderUtils.renderRecord('Root Record:', record.rootRecord));
+      container.appendChild(CKCatalog.renderUtils.renderRecord("Root Record:", record.rootRecord));
     }
     return container;
   };
   
   var createShortGUIDForm = function() {
     return (new CKCatalog.Form).addInputField({
-      placeholder: 'Short GUID',
-      label: 'shortGUID:',
-      name: 'shortGUID'
+      placeholder: "Short GUID",
+      label: "shortGUID:",
+      name: "shortGUID"
     });
   };
   
   var hideOwnerRecordName = function() {
-    return this.getFieldValue('database-scope') !== 'SHARED';
+    return this.getFieldValue("database-scope") !== "SHARED";
   };
   
   var toggleOwnerRecordName = function() {
-    this.toggleRow('owner-record-name', !hideOwnerRecordName.call(this));
+    this.toggleRow("owner-record-name", !hideOwnerRecordName.call(this));
   };
   
   var shareWithUIForm = (new CKCatalog.Form).addSelectField({
-    name: 'database-scope',
-    label: 'databaseScope:',
+    name: "database-scope",
+    label: "databaseScope:",
     options: [{
-      value: 'PRIVATE'
+      value: "PRIVATE"
     }, {
-      value: 'SHARED'
+      value: "SHARED"
     }],
     onChange: toggleOwnerRecordName
   }).addInputField({
-    placeholder: 'Record name',
-    label: 'recordName:',
-    name: 'record-name'
+    placeholder: "Record name",
+    label: "recordName:",
+    name: "record-name"
   }).addInputField({
-    placeholder: 'Zone name',
-    label: 'zoneName:',
-    name: 'zone-name'
+    placeholder: "Zone name",
+    label: "zoneName:",
+    name: "zone-name"
   }).addInputField({
-    placeholder: 'Owner record name',
-    label: 'ownerRecordName:',
-    name: 'owner-record-name',
+    placeholder: "Owner record name",
+    label: "ownerRecordName:",
+    name: "owner-record-name",
     hidden: hideOwnerRecordName
   }).addInputField({
-    placeholder: 'Share title',
-    label: 'shareTitle:',
-    name: 'share-title'
+    placeholder: "Share title",
+    label: "shareTitle:",
+    name: "share-title"
   }).addSelectField({
-    name: 'supported-access',
-    label: 'supportedAccess:',
+    name: "supported-access",
+    label: "supportedAccess:",
     options: [{
-      value: 'PRIVATE,PUBLIC',
-      title: 'PUBLIC, PRIVATE'
+      value: "PRIVATE,PUBLIC",
+      title: "PUBLIC, PRIVATE"
     }, {
-      value: 'PUBLIC'
+      value: "PUBLIC"
     }, {
-      value: 'PRIVATE'
+      value: "PRIVATE"
     }]
   }).addSelectField({
-    name: 'supported-permissions',
-    label: 'supportedPermissions:',
+    name: "supported-permissions",
+    label: "supportedPermissions:",
     options: [{
-      value: 'READ_WRITE,READ_ONLY',
-      title: 'READ_WRITE, READ_ONLY'
+      value: "READ_WRITE,READ_ONLY",
+      title: "READ_WRITE, READ_ONLY"
     }, {
-      value: 'READ_WRITE'
+      value: "READ_WRITE"
     }, {
-      value: 'READ_ONLY'
+      value: "READ_ONLY"
     }]
   });
   
   var resolveShortGUIDSample = {
-    title: 'fetchRecordInfos',
+    title: "fetchRecordInfos",
     form: createShortGUIDForm(),
     run: function() {
-      var shortGUID = this.form.getFieldValue('shortGUID');
+      var shortGUID = this.form.getFieldValue("shortGUID");
       return this.sampleCode(shortGUID);
     },
     sampleCode: function demoFetchRecordInfos(shortGUID) {
@@ -3366,10 +3366,10 @@ CKCatalog.tabs['sharing'] = (function() {
   };
   
   var acceptShareSample = {
-    title: 'acceptShares',
+    title: "acceptShares",
     form: createShortGUIDForm(),
     run: function() {
-      var shortGUID = this.form.getFieldValue('shortGUID');
+      var shortGUID = this.form.getFieldValue("shortGUID");
       return this.sampleCode(shortGUID);
     },
     sampleCode: function demoAcceptShares(shortGUID) {
@@ -3390,18 +3390,18 @@ CKCatalog.tabs['sharing'] = (function() {
   };
   
   var shareWithUISample = {
-    title: 'shareWithUI',
+    title: "shareWithUI",
     form: shareWithUIForm,
     run: function() {
-      var databaseScope = this.form.getFieldValue('database-scope');
-      var recordName = this.form.getFieldValue('record-name');
-      var zoneName = this.form.getFieldValue('zone-name');
-      var ownerRecordName = databaseScope === 'SHARED' && this.form.getFieldValue('owner-record-name');
-      var shareTitle = this.form.getFieldValue('share-title');
-      var supportedAccess = this.form.getFieldValue('supported-access').split(',');
-      var supportedPermissions = this.form.getFieldValue('supported-permissions').split(',');
+      var databaseScope = this.form.getFieldValue("database-scope");
+      var recordName = this.form.getFieldValue("record-name");
+      var zoneName = this.form.getFieldValue("zone-name");
+      var ownerRecordName = databaseScope === "SHARED" && this.form.getFieldValue("owner-record-name");
+      var shareTitle = this.form.getFieldValue("share-title");
+      var supportedAccess = this.form.getFieldValue("supported-access").split(",");
+      var supportedPermissions = this.form.getFieldValue("supported-permissions").split(",");
       
-      // Hide the dialog as CloudKit JS has it's own spinner for this UI.
+      // Hide the dialog as CloudKit JS has it"s own spinner for this UI.
       CKCatalog.dialog.hide();
       
       return this.sampleCode(databaseScope, recordName, zoneName, ownerRecordName, shareTitle, supportedAccess, supportedPermissions);
@@ -3449,96 +3449,96 @@ CKCatalog.tabs['sharing'] = (function() {
 }
 )();
 
-CKCatalog.tabs['subscriptions'] = (function() {
+CKCatalog.tabs["subscriptions"] = (function() {
   
   var subscriptionTypeForm = (new CKCatalog.Form).addSelectField({
-    name: 'type',
-    label: 'subscriptionType:',
+    name: "type",
+    label: "subscriptionType:",
     options: [{
-      value: 'zone',
+      value: "zone",
       selected: true
     }, {
-      value: 'query'
+      value: "query"
     }]
   }).addInputField({
-    placeholder: 'Zone name',
-    name: 'zone',
-    label: 'zoneName:',
-    value: 'myCustomZone'
+    placeholder: "Zone name",
+    name: "zone",
+    label: "zoneName:",
+    value: "myCustomZone"
   }).addInputField({
-    placeholder: 'Record type',
-    name: 'record-type',
-    label: 'recordType:',
-    value: 'Stations',
+    placeholder: "Record type",
+    name: "record-type",
+    label: "recordType:",
+    value: "Stations",
     hidden: true
   }).addCheckboxes({
-    label: 'firesOn:',
+    label: "firesOn:",
     hidden: true,
     checkboxes: [{
-      name: 'fires-on-create',
-      label: 'create',
-      value: 'create',
+      name: "fires-on-create",
+      label: "create",
+      value: "create",
       checked: true
     }, {
-      name: 'fires-on-update',
-      label: 'update',
-      value: 'update',
+      name: "fires-on-update",
+      label: "update",
+      value: "update",
       checked: true
     }, {
-      name: 'fires-on-delete',
-      label: 'delete',
-      value: 'delete',
+      name: "fires-on-delete",
+      label: "delete",
+      value: "delete",
       checked: true
     }]
   }).addQueryBuilder({
-    name: 'filter-by',
-    label: 'filterBy:',
+    name: "filter-by",
+    label: "filterBy:",
     hidden: true
   });
   
   var createSubscriptionIDForm = function() {
     return (new CKCatalog.Form).addInputField({
-      name: 'subscription-id',
-      label: 'subscriptionID:',
-      placeholder: 'Subscription ID'
+      name: "subscription-id",
+      label: "subscriptionID:",
+      placeholder: "Subscription ID"
     });
   };
   
   var fetchSubscriptionSubscriptionIDForm = createSubscriptionIDForm();
   var deleteSubscriptionSubscriptionIDForm = createSubscriptionIDForm();
   
-  var subscriptionTypeField = subscriptionTypeForm.fields['type'];
-  var zoneNameField = subscriptionTypeForm.fields['zone'];
+  var subscriptionTypeField = subscriptionTypeForm.fields["type"];
+  var zoneNameField = subscriptionTypeForm.fields["zone"];
   var firesOnFields = {
-    create: subscriptionTypeForm.fields['fires-on-create'],
-    update: subscriptionTypeForm.fields['fires-on-update'],
-    delete: subscriptionTypeForm.fields['fires-on-delete']
+    create: subscriptionTypeForm.fields["fires-on-create"],
+    update: subscriptionTypeForm.fields["fires-on-update"],
+    delete: subscriptionTypeForm.fields["fires-on-delete"]
   };
   
-  subscriptionTypeField.addEventListener('change', function() {
-    var isQuerySubscription = subscriptionTypeField.value === 'query';
-    subscriptionTypeForm.toggleRow('fires-on-create', isQuerySubscription);
-    subscriptionTypeForm.toggleRow('record-type', isQuerySubscription);
-    subscriptionTypeForm.toggleFilters('filter-by', isQuerySubscription);
+  subscriptionTypeField.addEventListener("change", function() {
+    var isQuerySubscription = subscriptionTypeField.value === "query";
+    subscriptionTypeForm.toggleRow("fires-on-create", isQuerySubscription);
+    subscriptionTypeForm.toggleRow("record-type", isQuerySubscription);
+    subscriptionTypeForm.toggleFilters("filter-by", isQuerySubscription);
   });
   
   var runSampleCode = function() {
-    var subscriptionID = this.form.getFieldValue('subscription-id');
+    var subscriptionID = this.form.getFieldValue("subscription-id");
     return this.sampleCode(subscriptionID);
   };
   
   var renderSubscriptions = function(title, subscriptions) {
-    var content = document.createElement('div');
-    var heading = document.createElement('h2');
+    var content = document.createElement("div");
+    var heading = document.createElement("h2");
     heading.textContent = title;
-    var table = new CKCatalog.Table(['subscriptionID', 'subscriptionType', 'zoneID', 'firesOn', 'query', 'zoneWide']).setTextForEmptyRow('No subscriptions');
+    var table = new CKCatalog.Table(["subscriptionID", "subscriptionType", "zoneID", "firesOn", "query", "zoneWide"]).setTextForEmptyRow("No subscriptions");
     if (subscriptions.length) {
       subscriptions.forEach(function(subscription, i) {
         if (i === 0) {
           
           // Populate subscription ID form fields with this ID for convenience.
-          fetchSubscriptionSubscriptionIDForm.fields['subscription-id'].value = subscription.subscriptionID;
-          deleteSubscriptionSubscriptionIDForm.fields['subscription-id'].value = subscription.subscriptionID;
+          fetchSubscriptionSubscriptionIDForm.fields["subscription-id"].value = subscription.subscriptionID;
+          deleteSubscriptionSubscriptionIDForm.fields["subscription-id"].value = subscription.subscriptionID;
           
         }
         table.appendRow([subscription.subscriptionID, subscription.subscriptionType, subscription.zoneID, subscription.firesOn, subscription.query, subscription.zoneWide]);
@@ -3552,8 +3552,8 @@ CKCatalog.tabs['subscriptions'] = (function() {
   };
   
   var renderSubscription = function(title, object) {
-    var content = document.createElement('div');
-    var heading = document.createElement('h2');
+    var content = document.createElement("div");
+    var heading = document.createElement("h2");
     heading.textContent = title;
     var table = new CKCatalog.Table().renderObject(object);
     content.appendChild(heading);
@@ -3562,7 +3562,7 @@ CKCatalog.tabs['subscriptions'] = (function() {
   };
   
   var saveSubscriptionSample = {
-    title: 'saveSubscriptions',
+    title: "saveSubscriptions",
     form: subscriptionTypeForm,
     run: function() {
       var subscriptionType = subscriptionTypeField.value;
@@ -3570,15 +3570,15 @@ CKCatalog.tabs['subscriptions'] = (function() {
       var recordType;
       var firesOn;
       var filterBy;
-      if (subscriptionType === 'query') {
+      if (subscriptionType === "query") {
         firesOn = [];
-        recordType = this.form.getFieldValue('record-type');
+        recordType = this.form.getFieldValue("record-type");
         for (var k in firesOnFields) {
           if (firesOnFields[k].checked) {
             firesOn.push(firesOnFields[k].value);
           }
         }
-        filterBy = this.form.getFieldValue('filter-by');
+        filterBy = this.form.getFieldValue("filter-by");
       }
       return this.sampleCode(subscriptionType, zoneName, recordType, firesOn, filterBy);
     },
@@ -3598,11 +3598,11 @@ CKCatalog.tabs['subscriptions'] = (function() {
         };
       }
       
-      if (subscriptionType === 'query' && firesOn) {
+      if (subscriptionType === "query" && firesOn) {
         
         subscription.firesOn = firesOn;
         // An array
-        // like [ 'create', 'update', 'delete' ]
+        // like [ "create", "update", "delete" ]
         
         subscription.query = {
           // A query object.
@@ -3628,7 +3628,7 @@ CKCatalog.tabs['subscriptions'] = (function() {
           throw response.errors[0];
           
         } else {
-          var title = 'Created subscription:';
+          var title = "Created subscription:";
           return renderSubscription(title, response.subscriptions[0]);
         }
       });
@@ -3636,7 +3636,7 @@ CKCatalog.tabs['subscriptions'] = (function() {
   };
   
   var deleteSubscriptionSample = {
-    title: 'deleteSubscriptions',
+    title: "deleteSubscriptions",
     form: deleteSubscriptionSubscriptionIDForm,
     run: runSampleCode,
     sampleCode: function demoDeleteSubscriptions(subscriptionID) {
@@ -3654,7 +3654,7 @@ CKCatalog.tabs['subscriptions'] = (function() {
           throw response.errors[0];
           
         } else {
-          var title = 'Deleted subscription:';
+          var title = "Deleted subscription:";
           return renderSubscription(title, response.subscriptions[0]);
         }
       });
@@ -3662,7 +3662,7 @@ CKCatalog.tabs['subscriptions'] = (function() {
   };
   
   var fetchSubscriptionSample = {
-    title: 'fetchSubscriptions',
+    title: "fetchSubscriptions",
     form: fetchSubscriptionSubscriptionIDForm,
     run: runSampleCode,
     sampleCode: function demoFetchSubscriptions(subscriptionID) {
@@ -3680,7 +3680,7 @@ CKCatalog.tabs['subscriptions'] = (function() {
           throw response.errors[0];
           
         } else {
-          var title = 'Fetched subscription:';
+          var title = "Fetched subscription:";
           return renderSubscription(title, response.subscriptions[0]);
         }
       });
@@ -3688,7 +3688,7 @@ CKCatalog.tabs['subscriptions'] = (function() {
   };
   
   var fetchAllSubscriptionsSample = {
-    title: 'fetchAllSubscriptions',
+    title: "fetchAllSubscriptions",
     sampleCode: function demoFetchAllSubscriptions() {
       var container = CloudKit.getDefaultContainer();
       var privateDB = container.privateCloudDatabase;
@@ -3700,7 +3700,7 @@ CKCatalog.tabs['subscriptions'] = (function() {
           throw response.errors[0];
           
         } else {
-          var title = 'Subscriptions:';
+          var title = "Subscriptions:";
           return renderSubscriptions(title, response.subscriptions);
         }
       });
@@ -3711,55 +3711,55 @@ CKCatalog.tabs['subscriptions'] = (function() {
   
 }
 )();
-CKCatalog.tabs['notifications'] = (function() {
+CKCatalog.tabs["notifications"] = (function() {
   
-  var alertTextContainer = document.getElementById('number-of-alerts');
-  var notificationsAlertContainer = document.querySelector('.menu-item[href="#notifications"] .alert');
-  var notificationsSubtitle = document.getElementById('connected-text');
+  var alertTextContainer = document.getElementById("number-of-alerts");
+  var notificationsAlertContainer = document.querySelector(".menu-item[href=\"#notifications\"] .alert");
+  var notificationsSubtitle = document.getElementById("connected-text");
   var unseenNotifications = 0;
   
   var areNotificationsVisible = function() {
-    return window.location.hash === '#notifications';
+    return window.location.hash === "#notifications";
   };
   
   var setUnseenNotifications = function(val) {
     unseenNotifications = val;
-    alertTextContainer.textContent = val + '';
+    alertTextContainer.textContent = val + "";
   };
   
   var showOrHideAlert = function() {
     if (areNotificationsVisible() || unseenNotifications === 0) {
-      notificationsAlertContainer.classList.add('hide');
-      notificationsAlertContainer.parentNode.classList.remove('notify');
+      notificationsAlertContainer.classList.add("hide");
+      notificationsAlertContainer.parentNode.classList.remove("notify");
     } else {
-      notificationsAlertContainer.classList.remove('hide');
-      notificationsAlertContainer.parentNode.classList.add('notify');
+      notificationsAlertContainer.classList.remove("hide");
+      notificationsAlertContainer.parentNode.classList.add("notify");
     }
   };
   
   var updateNotificationsSubtitle = function(text) {
-    notificationsSubtitle.innerHTML = '<span class="green">' + text + '</span>';
+    notificationsSubtitle.innerHTML = "<span class=\"green\">" + text + "</span>";
   };
   
-  window.addEventListener('hashchange', function(hashChangeEvent) {
+  window.addEventListener("hashchange", function(hashChangeEvent) {
     
-    // Let's remove the 'new' class from the rows when leaving the notifications page and reset unseen notifications.
+    // Let"s remove the "new" class from the rows when leaving the notifications page and reset unseen notifications.
     if (/#notifications/.test(hashChangeEvent.oldURL)) {
       setUnseenNotifications(0);
       var rows = notificationsTable.body.childNodes;
       for (var i = 0; i < rows.length; i++) {
-        rows[i].classList.remove('new');
+        rows[i].classList.remove("new");
       }
     }
     showOrHideAlert();
   });
   
-  var notificationsTable = new CKCatalog.Table(['notificationID', 'notificationType', 'subscriptionID', 'zoneID']).setTextForEmptyRow('No notifications').appendRow([]);
+  var notificationsTable = new CKCatalog.Table(["notificationID", "notificationType", "subscriptionID", "zoneID"]).setTextForEmptyRow("No notifications").appendRow([]);
   
   var renderNotificationsTable = function() {
-    var content = document.createElement('div');
-    var heading = document.createElement('h2');
-    heading.textContent = 'Notifications:';
+    var content = document.createElement("div");
+    var heading = document.createElement("h2");
+    heading.textContent = "Notifications:";
     content.appendChild(heading);
     content.appendChild(notificationsTable.el);
     return content;
@@ -3774,15 +3774,15 @@ CKCatalog.tabs['notifications'] = (function() {
     }
     var tbody = notificationsTable.body;
     var firstRow = tbody.firstChild;
-    if (firstRow.classList.contains('empty')) {
+    if (firstRow.classList.contains("empty")) {
       tbody.removeChild(firstRow);
     }
     notificationsTable.prependRow([notificationID, notificationType, subscriptionID, zoneID]);
-    tbody.firstChild.classList.add('new');
+    tbody.firstChild.classList.add("new");
   };
   
   var addNotificationListenerSample = {
-    title: 'registerForNotifications',
+    title: "registerForNotifications",
     sampleCode: function demoRegisterForNotifications() {
       var container = CloudKit.getDefaultContainer();
       
@@ -3799,13 +3799,13 @@ CKCatalog.tabs['notifications'] = (function() {
       // to the table below.
       container.addNotificationListener(renderNotification);
       
-      // Now let's park a connection with the notification backend so that
+      // Now let"s park a connection with the notification backend so that
       // we can receive notifications.
       return container.registerForNotifications().then(function(container) {
         if (container.isRegisteredForNotifications) {
           
           // Update the subtitle in the left-hand menu.
-          updateNotificationsSubtitle('Connected');
+          updateNotificationsSubtitle("Connected");
           
           return renderNotificationsTable();
         }
@@ -3818,53 +3818,53 @@ CKCatalog.tabs['notifications'] = (function() {
 )();
 CKCatalog.tabManager = (function() {
   var self = {};
-  var page = document.getElementById('page');
+  var page = document.getElementById("page");
   var scrollView = page.parentNode;
-  var menuItems = document.querySelectorAll('.menu-item');
-  var runButton = document.getElementById('run-button');
-  var expandButton = document.getElementById('expand-left-column');
-  var contractButton = document.getElementById('contract-left-column');
-  var leftPane = document.getElementById('left-pane');
+  var menuItems = document.querySelectorAll(".menu-item");
+  var runButton = document.getElementById("run-button");
+  var expandButton = document.getElementById("expand-left-column");
+  var contractButton = document.getElementById("contract-left-column");
+  var leftPane = document.getElementById("left-pane");
   var subTabMenuItems;
   var selectedTabName;
   var selectedSubTabIndex = 0;
   var subTabMenus = {};
   var tabs = {};
-  var defaultRoute = ['readme'];
-  leftPane.addEventListener('transitionend', function() {
-    if (leftPane.classList.contains('expanded')) {
-      contractButton.classList.remove('hide');
-      leftPane.style.overflow = 'visible';
+  var defaultRoute = ["readme"];
+  leftPane.addEventListener("transitionend", function() {
+    if (leftPane.classList.contains("expanded")) {
+      contractButton.classList.remove("hide");
+      leftPane.style.overflow = "visible";
     } else {
-      expandButton.classList.remove('hide');
+      expandButton.classList.remove("hide");
     }
   });
   var expandLeftPane = function() {
-    leftPane.classList.add('expanded');
-    expandButton.classList.add('hide');
+    leftPane.classList.add("expanded");
+    expandButton.classList.add("hide");
   };
   var contractLeftPane = function() {
-    leftPane.classList.remove('expanded');
-    contractButton.classList.add('hide');
-    leftPane.style.overflow = 'hidden';
+    leftPane.classList.remove("expanded");
+    contractButton.classList.add("hide");
+    leftPane.style.overflow = "hidden";
     for (var i = 0; i < menuItems.length; i++) {
-      menuItems[i].parentNode.classList.remove('expanded');
+      menuItems[i].parentNode.classList.remove("expanded");
     }
   };
-  window.addEventListener('resize', function() {
+  window.addEventListener("resize", function() {
     if (window.outerWidth < 1140) {
       contractLeftPane();
     }
   });
   expandButton.onclick = expandLeftPane;
   contractButton.onclick = contractLeftPane;
-  leftPane.addEventListener('click', function(e) {
+  leftPane.addEventListener("click", function(e) {
     var node = e.target;
-    if (!e.target.classList.contains('caret') && !e.target.classList.contains('tab-menu-item')) {
+    if (!e.target.classList.contains("caret") && !e.target.classList.contains("tab-menu-item")) {
       node = e.target.parentNode.parentNode;
     }
-    if (node.classList.contains('caret')) {
-      node.classList.toggle('expanded');
+    if (node.classList.contains("caret")) {
+      node.classList.toggle("expanded");
       e.preventDefault();
       if (leftPane.offsetWidth < 50) {
         expandLeftPane();
@@ -3873,40 +3873,40 @@ CKCatalog.tabManager = (function() {
   });
   var codeHighlightingIsInitialized = false;
   var highlightCode = function() {
-    if (typeof hljs !== 'undefined') {
+    if (typeof hljs !== "undefined") {
       codeHighlightingIsInitialized = true;
       try {
-        var codeSamples = document.querySelectorAll('pre code');
+        var codeSamples = document.querySelectorAll("pre code");
         for (var j = 0; j < codeSamples.length; j++) {
           hljs.highlightBlock(codeSamples[j]);
         }
       } catch (e) {
-        console.error('Unable to highlight sample code: ' + e.message);
+        console.error("Unable to highlight sample code: " + e.message);
       }
     }
   };
   var runCode = function() {
-    if (typeof CloudKit === 'undefined') {
-      CKCatalog.dialog.showError(new Error('The variable CloudKit is not defined. The CloudKit JS library may still be loading or may have failed to load.'));
+    if (typeof CloudKit === "undefined") {
+      CKCatalog.dialog.showError(new Error("The variable CloudKit is not defined. The CloudKit JS library may still be loading or may have failed to load."));
       return;
     }
     if (selectedTabName) {
       var selectedTab = CKCatalog.tabs[selectedTabName];
       var subTab = selectedTab[selectedSubTabIndex];
-      CKCatalog.dialog.show('Executing…');
+      CKCatalog.dialog.show("Executing…");
       var run = subTab.run ? subTab.run : subTab.sampleCode;
       try {
         run.call(subTab).then(function(content) {
           CKCatalog.dialog.hide();
           if (content && content instanceof Node) {
             subTab.content.replaceChild(content, subTab.content.firstChild);
-            var heading = document.createElement('h1');
-            heading.textContent = 'Result';
+            var heading = document.createElement("h1");
+            heading.textContent = "Result";
             content.insertBefore(heading, content.firstChild);
           }
           var padding = 39;
           var change = subTab.content.offsetTop - padding;
-          subTab.content.style.minHeight = (scrollView.offsetHeight - padding) + 'px';
+          subTab.content.style.minHeight = (scrollView.offsetHeight - padding) + "px";
           var start = scrollView.scrollTop;
           var startTime = 0;
           var duration = 500;
@@ -3924,7 +3924,7 @@ CKCatalog.tabManager = (function() {
               window.requestAnimationFrame(animateScroll);
             } else {
               var results = subTab.content.firstChild;
-              results.className = 'results';
+              results.className = "results";
             }
           };
           window.requestAnimationFrame(animateScroll);
@@ -3936,36 +3936,36 @@ CKCatalog.tabManager = (function() {
   };
   runButton.onclick = runCode;
   runButton.onmousedown = function() {
-    runButton.parentNode.classList.add('active');
+    runButton.parentNode.classList.add("active");
   }
   ;
   runButton.onmouseup = function() {
-    runButton.parentNode.classList.remove('active');
+    runButton.parentNode.classList.remove("active");
   }
   ;
   var createSampleCodeSegment = function(tabSegment, selected) {
-    var el = document.createElement('div');
-    el.className = 'page-segment' + (selected ? ' selected' : '');
+    var el = document.createElement("div");
+    el.className = "page-segment" + (selected ? " selected" : "");
     el.appendChild(tabSegment.description);
     if (tabSegment.sampleCode) {
-      var sampleCode = document.createElement('pre');
-      sampleCode.className = 'javascript sample-code';
+      var sampleCode = document.createElement("pre");
+      sampleCode.className = "javascript sample-code";
       var sampleCodeString = tabSegment.sampleCode.toString();
-      var indentationCorrection = sampleCodeString.lastIndexOf('}') - sampleCodeString.lastIndexOf('\n') - 1;
-      var regExp = new RegExp('\n[ ]{' + indentationCorrection + '}','g');
-      sampleCode.innerHTML = '<code>' + sampleCodeString.replace(regExp, '\n') + '</code>';
+      var indentationCorrection = sampleCodeString.lastIndexOf("}") - sampleCodeString.lastIndexOf("\n") - 1;
+      var regExp = new RegExp("\n[ ]{" + indentationCorrection + "}","g");
+      sampleCode.innerHTML = "<code>" + sampleCodeString.replace(regExp, "\n") + "</code>";
       if (!tabSegment.content) {
-        tabSegment.content = document.createElement('div');
-        tabSegment.content.className = 'content';
-        tabSegment.content.innerHTML = '<div class="results"></div>';
+        tabSegment.content = document.createElement("div");
+        tabSegment.content.className = "content";
+        tabSegment.content.innerHTML = "<div class=\"results\"></div>";
       }
       if (tabSegment.form) {
         tabSegment.form.onSubmit(runCode);
-        var formContainer = document.createElement('div');
-        formContainer.className = 'input-fields';
+        var formContainer = document.createElement("div");
+        formContainer.className = "input-fields";
         formContainer.appendChild(tabSegment.form.el);
         el.appendChild(formContainer);
-        sampleCode.classList.add('no-top-border');
+        sampleCode.classList.add("no-top-border");
       }
       el.appendChild(sampleCode);
       el.appendChild(tabSegment.content);
@@ -3973,19 +3973,19 @@ CKCatalog.tabManager = (function() {
     return el;
   };
   var createSubTabMenu = function() {
-    var menu = document.createElement('div');
-    menu.className = 'tab-menu ';
+    var menu = document.createElement("div");
+    menu.className = "tab-menu ";
     return menu;
   };
   var getTransformedTitleForHash = function(title) {
-    return title.replace(/( |\.)/g, '-');
+    return title.replace(/( |\.)/g, "-");
   };
   var createSubTabMenuItem = function(name) {
-    var item = document.createElement('div');
-    item.className = 'tab-menu-item';
+    var item = document.createElement("div");
+    item.className = "tab-menu-item";
     item.textContent = name;
     item.onclick = function() {
-      window.location.hash = item.parentNode.parentNode.querySelector('a.menu-item').getAttribute('href') + '/' + getTransformedTitleForHash(name);
+      window.location.hash = item.parentNode.parentNode.querySelector("a.menu-item").getAttribute("href") + "/" + getTransformedTitleForHash(name);
       scrollView.scrollTop = 0;
     }
     ;
@@ -3994,22 +3994,22 @@ CKCatalog.tabManager = (function() {
   for (var tabName in CKCatalog.tabs) {
     if (CKCatalog.tabs.hasOwnProperty(tabName)) {
       if (CKCatalog.tabs[tabName].length > 1) {
-        var subMenuContainer = document.querySelector('.left-pane .menu-items .menu-item-container.' + tabName);
+        var subMenuContainer = document.querySelector(".left-pane .menu-items .menu-item-container." + tabName);
         var subTabMenu = createSubTabMenu(tabName);
         subTabMenus[tabName] = [];
         CKCatalog.tabs[tabName].forEach(function(subTab) {
           subTabMenus[tabName].push(subTabMenu.appendChild(createSubTabMenuItem(subTab.title)));
         });
         subMenuContainer.appendChild(subTabMenu);
-        subMenuContainer.classList.add('caret');
+        subMenuContainer.classList.add("caret");
       }
     }
   }
   var getRoute = function() {
     var hash = window.location.hash;
-    if (!hash || hash[0] !== '#')
+    if (!hash || hash[0] !== "#")
       return defaultRoute;
-    return hash.substr(1).split('/') || defaultRoute;
+    return hash.substr(1).split("/") || defaultRoute;
   };
   var selectTab = function() {
     var route = getRoute();
@@ -4024,31 +4024,31 @@ CKCatalog.tabManager = (function() {
       return value;
     }, subTabTitle ? -1 : 0);
     if (!tab || subTabIndex < 0) {
-      tabName = 'not-found';
+      tabName = "not-found";
       tab = CKCatalog.tabs[tabName];
       subTabIndex = 0;
     }
     if (tabName !== selectedTabName) {
       if (tab[0] && tab[0].sampleCode) {
         runButton.disabled = false;
-        runButton.parentNode.classList.remove('disabled');
+        runButton.parentNode.classList.remove("disabled");
       } else {
         runButton.disabled = true;
-        runButton.parentNode.classList.add('disabled');
+        runButton.parentNode.classList.add("disabled");
       }
       for (var i = 0; i < menuItems.length; i++) {
         var menuItem = menuItems[i];
-        if (menuItem.attributes.href.value === '#' + tabName) {
-          menuItem.parentNode.classList.add('selected');
+        if (menuItem.attributes.href.value === "#" + tabName) {
+          menuItem.parentNode.classList.add("selected");
         } else {
-          menuItem.parentNode.classList.remove('selected');
+          menuItem.parentNode.classList.remove("selected");
         }
       }
       subTabMenuItems = subTabMenus[tabName];
       if (!tabs.hasOwnProperty(tabName)) {
-        tabs[tabName] = document.createElement('div');
+        tabs[tabName] = document.createElement("div");
         var pageSegments = tabs[tabName];
-        pageSegments.className = 'page-segments';
+        pageSegments.className = "page-segments";
         var descriptions = document.getElementById(tabName);
         tab.forEach(function(tabSegment, index) {
           if (!tabSegment.description) {
@@ -4069,32 +4069,32 @@ CKCatalog.tabManager = (function() {
     var subTabs = tabs[tabName].childNodes;
     for (var index = 0; index < subTabs.length; index++) {
       if (index === subTabIndex) {
-        subTabs[index].classList.add('selected');
+        subTabs[index].classList.add("selected");
       } else {
-        subTabs[index].classList.remove('selected');
+        subTabs[index].classList.remove("selected");
       }
       if (subTabMenuItems) {
         var subTabMenuItem = subTabMenuItems[index];
         if (index === subTabIndex) {
-          subTabMenuItem.classList.add('selected');
+          subTabMenuItem.classList.add("selected");
         } else {
-          subTabMenuItem.classList.remove('selected');
+          subTabMenuItem.classList.remove("selected");
         }
       }
     }
     selectedSubTabIndex = subTabIndex;
-    if (leftPane.classList.contains('expanded')) {
+    if (leftPane.classList.contains("expanded")) {
       setTimeout(contractLeftPane, 300);
     }
     scrollView.scrollTop = 0;
   };
-  window.addEventListener('hashchange', selectTab);
+  window.addEventListener("hashchange", selectTab);
   selectTab();
   self.initializeCodeHighlighting = function() {
-    var link = document.createElement('link');
-    link.setAttribute('rel', 'stylesheet');
-    link.setAttribute('href', 'css/xcode.css');
-    document.getElementsByTagName('head')[0].appendChild(link);
+    var link = document.createElement("link");
+    link.setAttribute("rel", "stylesheet");
+    link.setAttribute("href", "css/xcode.css");
+    document.getElementsByTagName("head")[0].appendChild(link);
     link.onload = function() {
       if (!codeHighlightingIsInitialized) {
         highlightCode();
@@ -4105,7 +4105,7 @@ CKCatalog.tabManager = (function() {
   self.navigateToCodeSample = function(route, formFields) {
     if (!route)
       return;
-    var parsedRoute = route.split('/');
+    var parsedRoute = route.split("/");
     var tab = CKCatalog.tabs[parsedRoute[0]];
     if (!tab)
       return;
@@ -4132,14 +4132,14 @@ CKCatalog.tabManager = (function() {
   return self;
 }
 )();
-window.addEventListener('cloudkitloaded', function() {
+window.addEventListener("cloudkitloaded", function() {
   var getParameterByName = CKCatalog.QueryString.getParameterByName;
-  var containerId = getParameterByName('container') || 'iCloud.cloud.tavitian.commute';
-  var apiToken = getParameterByName('apiToken') || '344dfcee14b597cd1476f3748e35bdcb0cff55bd2dc46432b6a243c06628ee7d';
-  var environment = getParameterByName('environment') || 'production';
-  var privateDBPartition = getParameterByName('privateDBPartition');
-  var publicDBPartition = getParameterByName('publicDBPartition');
-  var username = getParameterByName('user');
+  var containerId = getParameterByName("container") || "iCloud.cloud.tavitian.commute";
+  var apiToken = getParameterByName("apiToken") || "344dfcee14b597cd1476f3748e35bdcb0cff55bd2dc46432b6a243c06628ee7d";
+  var environment = getParameterByName("environment") || "production";
+  var privateDBPartition = getParameterByName("privateDBPartition");
+  var publicDBPartition = getParameterByName("publicDBPartition");
+  var username = getParameterByName("user");
   var useApiTokenAuth = !privateDBPartition || !publicDBPartition;
   var containerConfig = {
     containerIdentifier: containerId,
@@ -4155,11 +4155,11 @@ window.addEventListener('cloudkitloaded', function() {
     };
   } else {
     containerConfig.auth = false;
-    containerConfig.privateDatabasePartition = privateDBPartition.replace('dashboardws', 'databasews');
-    containerConfig.publicDatabasePartition = publicDBPartition.replace('dashboardws', 'databasews');
+    containerConfig.privateDatabasePartition = privateDBPartition.replace("dashboardws", "databasews");
+    containerConfig.publicDatabasePartition = publicDBPartition.replace("dashboardws", "databasews");
     services.fetch = function(url, options, fetch) {
       if (!/feedbackws/.test(url)) {
-        options.credentials = 'include';
+        options.credentials = "include";
       }
       return fetch(url, options);
     }
@@ -4171,17 +4171,17 @@ window.addEventListener('cloudkitloaded', function() {
       services: services
     });
     if (useApiTokenAuth) {
-      CKCatalog.tabs['authentication'][0].sampleCode().catch(CKCatalog.dialog.showError);
+      CKCatalog.tabs["authentication"][0].sampleCode().catch(CKCatalog.dialog.showError);
     } else {
-      document.querySelector('.menu-item-container.authentication').style.display = 'none';
+      document.querySelector(".menu-item-container.authentication").style.display = "none";
       if (username) {
-        document.getElementById('username').textContent = username;
+        document.getElementById("username").textContent = username;
       }
     }
-    document.getElementById('config-container').textContent = containerId;
-    document.getElementById('config-environment').textContent = environment;
-    document.getElementById('config-bar').classList.add('alert-showing');
-    document.getElementById('page').parentNode.classList.add('alert-showing');
+    document.getElementById("config-container").textContent = containerId;
+    document.getElementById("config-environment").textContent = environment;
+    document.getElementById("config-bar").classList.add("alert-showing");
+    document.getElementById("page").parentNode.classList.add("alert-showing");
   } catch (e) {
     CKCatalog.dialog.showError(e);
   }
