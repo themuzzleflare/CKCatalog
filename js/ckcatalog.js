@@ -1356,14 +1356,14 @@ CKCatalog.Form.prototype._toggleDynamicField = function(opts, bool) {
 CKCatalog.Form.prototype.removeRowByFieldName = function(name) {
   try {
     this.table.removeChild(this.getFieldRowForFieldName(name));
-  } catch (e) {}
+  } catch (error) {}
   return this;
 };
 
 CKCatalog.Form.prototype.removeHiddenInputByFieldName = function(name) {
   try {
     this.el.removeChild(this.fields[name]);
-  } catch (e) {}
+  } catch (error) {}
   return this;
 };
 
@@ -3880,8 +3880,8 @@ CKCatalog.tabManager = (function() {
         for (var j = 0; j < codeSamples.length; j++) {
           hljs.highlightBlock(codeSamples[j]);
         }
-      } catch (e) {
-        console.error("Unable to highlight sample code: " + e.message);
+      } catch (error) {
+        console.error("Unable to highlight sample code: " + error.message);
       }
     }
   };
@@ -3929,8 +3929,8 @@ CKCatalog.tabManager = (function() {
           };
           window.requestAnimationFrame(animateScroll);
         }, CKCatalog.dialog.showError);
-      } catch (e) {
-        CKCatalog.dialog.showError(e);
+      } catch (error) {
+        CKCatalog.dialog.showError(error);
       }
     }
   };
@@ -4182,7 +4182,7 @@ window.addEventListener("cloudkitloaded", function() {
     document.getElementById("config-environment").textContent = environment;
     document.getElementById("config-bar").classList.add("alert-showing");
     document.getElementById("page").parentNode.classList.add("alert-showing");
-  } catch (e) {
-    CKCatalog.dialog.showError(e);
+  } catch (error) {
+    CKCatalog.dialog.showError(error);
   }
 });
