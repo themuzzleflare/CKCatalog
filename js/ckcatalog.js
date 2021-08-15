@@ -4143,7 +4143,8 @@ window.addEventListener("cloudkitloaded", function() {
   var useApiTokenAuth = !privateDBPartition || !publicDBPartition;
   var containerConfig = {
     containerIdentifier: containerId,
-    environment: environment
+    environment: environment,
+    apnsEnvironment: environment
   };
   var services = {
     logger: console
