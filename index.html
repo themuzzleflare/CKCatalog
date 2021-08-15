@@ -334,46 +334,46 @@
           <h3>Option #1 - Load CloudKit JS synchronously</h3>
           <pre><code>&lt;script src="https://cdn.apple-cloudkit.com/ck/2/cloudkit.js"&gt;&lt;/script&gt;</code></pre>
           <h3>Option #2 - Load CloudKit JS asynchronously</h3>
-          <pre><code>&lt;!-- Listen for the cloudkitloaded event on the window object. --&gt;
-            &lt;script&gt;
-            window.addEventListener("cloudkitloaded", function() {
-            // Now the global namespace CloudKit is defined and you can proceed
-            // to configure your application.
-            });
-            &lt;/script&gt;
-            
-            &lt;!-- Include the script with the &lsquo;async&rsquo; attribute. --&gt;
-            &lt;script src="https://cdn.apple-cloudkit.com/ck/2/cloudkit.js" async&gt;&lt;/script&gt;</code></pre>
+<pre><code>&lt;!-- Listen for the cloudkitloaded event on the window object. --&gt;
+&lt;script&gt;
+  window.addEventListener("cloudkitloaded", function() {
+  // Now the global namespace CloudKit is defined and you can proceed
+  // to configure your application.
+  });
+&lt;/script&gt;
+
+&lt;!-- Include the script with the &lsquo;async&rsquo; attribute. --&gt;
+&lt;script src="https://cdn.apple-cloudkit.com/ck/2/cloudkit.js" async&gt;&lt;/script&gt;</code></pre>
           <h2>Configuring CloudKit JS</h2>
           <p>The first use of the CloudKit namespace in your javascript app should be configuration code.</p>
-          <pre><code>CloudKit.configure({
-            locale: "en-us",
-            
-            containers: [{
-            
-            // Change this to a container identifier you own.
-            containerIdentifier: "iCloud.cloud.tavitian.commute",
-            
-            apiTokenAuth: {
-            // And generate a web token through CloudKit Dashboard.
-            apiToken: "&lt;insert your token here&gt;",
-            
-            persist: true, // Sets a cookie.
-            
-            signInButton: {
-            id: "apple-sign-in-button",
-            theme: "black" // Other options: "white", "white-with-outline".
-            },
-            
-            signOutButton: {
-            id: "apple-sign-out-button",
-            theme: "black"
-            } 
-            },
-            
-            environment: "production"
-            }]
-          });</code></pre>
+<pre><code>CloudKit.configure({
+  locale: "en-us",
+  
+  containers: [{
+  
+    // Change this to a container identifier you own.
+    containerIdentifier: "iCloud.cloud.tavitian.commute",
+    
+    apiTokenAuth: {
+    // And generate a web token through CloudKit Dashboard.
+      apiToken: "&lt;insert your token here&gt;",
+    
+      persist: true, // Sets a cookie.
+    
+      signInButton: {
+        id: "apple-sign-in-button",
+        theme: "black" // Other options: "white", "white-with-outline".
+      },
+    
+      signOutButton: {
+        id: "apple-sign-out-button",
+        theme: "black"
+      } 
+    },
+    
+    environment: "production"
+  }]
+});</code></pre>
           <p>Change the container identifier to one that you own.
             For more information on how to create a container see <a href="https://developer.apple.com/library/etc/redirect/ios_cloudkit_dashboard_guide">CloudKit Quick Start</a>.
             You can can create a container and generate an API token through the
