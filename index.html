@@ -394,82 +394,80 @@
           </p>
           <h2>Creating a server-to-server key</h2>
           <p>If you are on a Mac, you already have OpenSSL installed and you can generate a private key in Terminal with this command:</p>
-          <pre><code class="bash">openssl ecparam -name prime256v1 -genkey -noout -out eckey.pem
-          </code></pre>
+<pre><code class="bash">openssl ecparam -name prime256v1 -genkey -noout -out eckey.pem</code></pre>
           <p>This will create the file <code>eckey.pem</code> in your working directory. In <a href="https://icloud.developer.apple.com/dashboard/">CloudKit Dashboard</a> navigate
             to <em>API Access -&gt; Server-to-Server Keys -&gt; Add Server-to-Server Key</em> and paste the output of the following command into the <b>Public Key</b> text field of the new key.
           </p>
-          <pre><code class="bash">openssl ec -in eckey.pem -pubout
-          </code></pre>
+<pre><code class="bash">openssl ec -in eckey.pem -pubout</code></pre>
           <p>Hit <em>Save</em> and the <b>Key ID</b> attribute will get populated. You will use this key ID in configuring your node script.
           </p>
           <h2>Installing dependencies</h2>
           <p>In order to use CloudKit JS server-side you will need a <em>fetch</em> implementation such as <b>node-fetch</b> which you can install from NPM. You must also download CloudKit JS itself from Apple&rsquo;s CDN.</p>
-          <pre><code class="bash">npm install node-fetch
-            curl https://cdn.apple-cloudkit.com/ck/2/cloudkit.js &gt; cloudkit.js
-          </code></pre>
+<pre><code class="bash">npm install node-fetch
+curl https://cdn.apple-cloudkit.com/ck/2/cloudkit.js &gt; cloudkit.js
+</code></pre>
           <h2>Configuring CloudKit JS in a node script</h2>
           <p>Create a script file in your working directory and add the following configuration code.</p>
-          <pre><code class="javascript">var fetch = require("node-fetch");
-            var CloudKit = require("./cloudkit");
+<pre><code class="javascript">var fetch = require("node-fetch");
+var CloudKit = require("./cloudkit");
             
-            CloudKit.configure({
-            services: {
-            fetch: fetch,
-            logger: console
-            },
-            containers: [{
-            
-            // Change this to a container identifier that you own.
-            containerIdentifier: "iCloud.cloud.tavitian.commute",
-            
-            environment: "production",
-            
-            serverToServerKeyAuth: {
-            
-            // This is the key ID you generated in CloudKit Dashboard.
-            keyID: "&lt;insert key ID&gt;",
-            
-            // This should reference the private key file that you used to
-            // generate the above key ID.
-            privateKeyFile: __dirname + "/eckey.pem"
-            
-            }
-            }]
-            });
-          </code></pre>
+CloudKit.configure({
+  services: {
+    fetch: fetch,
+    logger: console
+  },
+  containers: [{
+
+    // Change this to a container identifier that you own.
+    containerIdentifier: "iCloud.cloud.tavitian.commute",
+
+    environment: "production",
+
+    serverToServerKeyAuth: {
+
+      // This is the key ID you generated in CloudKit Dashboard.
+      keyID: "&lt;insert key ID&gt;",
+
+      // This should reference the private key file that you used to
+      // generate the above key ID.
+      privateKeyFile: __dirname + "/eckey.pem"
+
+    }
+  }]
+});
+</code></pre>
           <p><b>Note:</b> Never expose or share the above private key with anyone, including Apple, as it has unrestricted access to your CloudKit container.</p>
           <h2>Authenticating and using the APIs</h2>
           <p>Before making API calls your script needs to authenticate with CloudKit using the server-to-server key that was set in the
             configuration code.</p>
-          <pre><code class="javascript">var container = CloudKit.getDefaultContainer();
-            
-            // Server to server keys only allow calls to the public database.
-            var database = container.publicCloudDatabase;
-            
-            
-            // Authenticate with CloudKit using the server-to-server
-            // key set in CloudKit.configure()
-            container.setUpAuth()
-            .then(function(userInfo) {
-            
-            // The userInfo is that of the user who created the key in CloudKit Dashboard.
-            // If this user has permission to write a record of type Item to the
-            // public database, the following call will succeed.
-            return database.saveRecords({ recordType: "Stations" });
-            
-            }).then(function(response) {
-            
-            var savedRecord = response.records[0];
-            console.log("Record name:", savedRecord.recordName);
-            
-            process.exit(0);
-            
-            }).catch(function(error) {
-            // Handle the error.
-            process.exit(1);
-            });
-          </code></pre>
+<pre><code class="javascript">var container = CloudKit.getDefaultContainer();
+  
+// Server to server keys only allow calls to the public database.
+var database = container.publicCloudDatabase;
+
+
+// Authenticate with CloudKit using the server-to-server
+// key set in CloudKit.configure()
+container.setUpAuth()
+  .then(function(userInfo) {
+
+    // The userInfo is that of the user who created the key in CloudKit Dashboard.
+    // If this user has permission to write a record of type Item to the
+    // public database, the following call will succeed.
+    return database.saveRecords({ recordType: "Stations" });
+
+  }).then(function(response) {
+
+    var savedRecord = response.records[0];
+    console.log("Record name:", savedRecord.recordName);
+
+    process.exit(0);
+
+  }).catch(function(error) {
+    // Handle the error.
+    process.exit(1);
+  });
+</code></pre>
           <p>You are now ready to start scripting with CloudKit JS and node.js. You may wish to look at the sections <a href="#query">Query</a> and
             <a href="#records">Records</a> for examples of API calls that you can use in server-side scripts.</p>
           <br>
