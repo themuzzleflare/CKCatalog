@@ -1,10 +1,10 @@
 .normal-sprite {
-  background-image: url('../images/icons/normal.png');
+  background-image: url('../images/icons/normal-sbc44f76bca.png');
   background-repeat: no-repeat
 }
 
 .retina-sprite {
-  background-image: url('../images/icons/retina.png');
+  background-image: url('../images/icons/retina-s7ccf0828d9.png');
   background-repeat: no-repeat
 }
 
@@ -17,41 +17,34 @@
   outline: none
 }
 
-.link,
-body a {
+.link, body a {
   color: #2192d9;
   text-decoration: none;
   padding: 0;
   cursor: pointer
 }
 
-.link[disabled],
-body a[disabled] {
+.link[disabled], body a[disabled] {
   cursor: default
 }
 
-.link:visited,
-body a:visited {
+.link:visited, body a:visited {
   color: #2192d9
 }
 
-.link:hover,
-body a:hover {
+.link:hover, body a:hover {
   color: #0073bc
 }
 
-.link:hover:visited,
-body a:hover:visited {
+.link:hover:visited, body a:hover:visited {
   color: #0073bc
 }
 
-.link:focus,
-body a:focus {
+.link:focus, body a:focus {
   color: #094e96
 }
 
-.link:focus:visited,
-body a:focus:visited {
+.link:focus:visited, body a:focus:visited {
   color: #094e96
 }
 
@@ -95,9 +88,7 @@ body a:focus:visited {
   clear: both
 }
 
-.light,
-.link[disabled],
-body a[disabled] {
+.light, .link[disabled], body a[disabled] {
   color: #bbbbbb
 }
 
@@ -191,8 +182,7 @@ body code {
   color: black
 }
 
-body em,
-body i {
+body em, body i {
   font-weight: 500
 }
 
@@ -227,11 +217,7 @@ body h4 {
   color: #262626
 }
 
-body p,
-body ol,
-body ul,
-body h1,
-body pre:not(.sample-code):not(.object-value) {
+body p, body ol, body ul, body h1, body pre:not(.sample-code):not(.object-value) {
   margin-bottom: 13px
 }
 
@@ -265,14 +251,12 @@ body table tr {
   border-top: 1px solid #e6e6e6
 }
 
-body table tr th,
-body table tr td {
+body table tr th, body table tr td {
   padding: 13px;
   vertical-align: middle
 }
 
-body table tr th:not(:last-child),
-body table tr td:not(:last-child) {
+body table tr th:not(:last-child), body table tr td:not(:last-child) {
   border-right: 1px dotted #e6e6e6
 }
 
@@ -295,15 +279,13 @@ body table thead tr {
   border-top: none
 }
 
-body table thead tr th,
-body table thead tr td {
+body table thead tr th, body table thead tr td {
   padding-bottom: 3px;
   padding-top: 3px;
   text-align: left
 }
 
-body table thead tr th:not(:last-child),
-body table thead tr td:not(:last-child) {
+body table thead tr th:not(:last-child), body table thead tr td:not(:last-child) {
   border-right: none
 }
 
@@ -349,29 +331,21 @@ body table thead tr td:not(:last-child) {
   padding: 0
 }
 
-#dialog #dialog-text .actions .link,
-#dialog #dialog-text .actions body a,
-body #dialog #dialog-text .actions a {
+#dialog #dialog-text .actions .link, #dialog #dialog-text .actions body a, body #dialog #dialog-text .actions a {
   height: 45px;
   position: absolute;
   line-height: 45px
 }
 
-#dialog #dialog-text .actions .link.default-action,
-#dialog #dialog-text .actions body a.default-action,
-body #dialog #dialog-text .actions a.default-action {
+#dialog #dialog-text .actions .link.default-action, #dialog #dialog-text .actions body a.default-action, body #dialog #dialog-text .actions a.default-action {
   font-weight: 400
 }
 
-#dialog #dialog-text .actions .link:first-child,
-#dialog #dialog-text .actions body a:first-child,
-body #dialog #dialog-text .actions a:first-child {
+#dialog #dialog-text .actions .link:first-child, #dialog #dialog-text .actions body a:first-child, body #dialog #dialog-text .actions a:first-child {
   left: 26px
 }
 
-#dialog #dialog-text .actions .link:last-child,
-#dialog #dialog-text .actions body a:last-child,
-body #dialog #dialog-text .actions a:last-child {
+#dialog #dialog-text .actions .link:last-child, #dialog #dialog-text .actions body a:last-child, body #dialog #dialog-text .actions a:last-child {
   right: 26px
 }
 
@@ -393,14 +367,12 @@ body #dialog #dialog-text .actions a:last-child {
   width: 34%
 }
 
-.form table tr.field.multiple.filter.has-6-fields td>div:first-child,
-.form table tr.field.multiple.filter.has-6-fields td>div:nth-child(2) {
+.form table tr.field.multiple.filter.has-6-fields td>div:first-child, .form table tr.field.multiple.filter.has-6-fields td>div:nth-child(2) {
   width: 33%;
   padding-right: 1px
 }
 
-.form table tr.field.multiple.filter.has-6-fields td>div:last-child,
-.form table tr.field.multiple.filter.has-6-fields td>div:nth-child(5) {
+.form table tr.field.multiple.filter.has-6-fields td>div:last-child, .form table tr.field.multiple.filter.has-6-fields td>div:nth-child(5) {
   width: 17%
 }
 
@@ -564,9 +536,7 @@ body #dialog #dialog-text .actions a:last-child {
   z-index: 0
 }
 
-.form table tr.field td .border input,
-.form table tr.field td .border select,
-.form table tr.field td .border textarea {
+.form table tr.field td .border input, .form table tr.field td .border select, .form table tr.field td .border textarea {
   border: none;
   border-radius: 0;
   font-size: 15px;
@@ -587,27 +557,18 @@ body #dialog #dialog-text .actions a:last-child {
   outline-offset: 0
 }
 
-.form table tr.field td .border input:active,
-.form table tr.field td .border input:focus,
-.form table tr.field td .border select:active,
-.form table tr.field td .border select:focus,
-.form table tr.field td .border textarea:active,
-.form table tr.field td .border textarea:focus {
+.form table tr.field td .border input:active, .form table tr.field td .border input:focus, .form table tr.field td .border select:active, .form table tr.field td .border select:focus, .form table tr.field td .border textarea:active, .form table tr.field td .border textarea:focus {
   background-color: transparent;
   border: none;
   box-shadow: none;
   border-radius: 0
 }
 
-.form table tr.field td .border input::-ms-expand,
-.form table tr.field td .border select::-ms-expand,
-.form table tr.field td .border textarea::-ms-expand {
+.form table tr.field td .border input::-ms-expand, .form table tr.field td .border select::-ms-expand, .form table tr.field td .border textarea::-ms-expand {
   display: none
 }
 
-.form table tr.field td .border input:focus,
-.form table tr.field td .border select:focus,
-.form table tr.field td .border textarea:focus {
+.form table tr.field td .border input:focus, .form table tr.field td .border select:focus, .form table tr.field td .border textarea:focus {
   outline: 1px solid #1780fb;
   box-shadow: #3b7fca 0 0 2px
 }
@@ -737,13 +698,11 @@ body #dialog #dialog-text .actions a:last-child {
   height: 178px
 }
 
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.expanded.records,
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.expanded.sharing {
+.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.expanded.records, .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.expanded.sharing {
   height: 148px
 }
 
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.expanded.sync,
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.expanded.readme {
+.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.expanded.sync, .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.expanded.readme {
   height: 118px
 }
 
@@ -754,230 +713,192 @@ body #dialog #dialog-text .actions a:last-child {
   padding-left: 47px
 }
 
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected:not(.caret):not(:first-child),
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected.caret:not(.expanded):not(:first-child) {
+.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected:not(.caret):not(:first-child), .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected.caret:not(.expanded):not(:first-child) {
   box-sizing: content-box;
   margin-top: -1px;
   padding-top: 1px
 }
 
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected:not(.caret):not(:first-child) .border,
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected.caret:not(.expanded):not(:first-child) .border {
+.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected:not(.caret):not(:first-child) .border, .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected.caret:not(.expanded):not(:first-child) .border {
   display: block;
   top: 0;
   background-color: white;
   border-bottom: none
 }
 
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected:not(.caret) .menu-item,
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected.caret:not(.expanded) .menu-item {
+.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected:not(.caret) .menu-item, .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected.caret:not(.expanded) .menu-item {
   background-color: #CAEFFF;
   border-left: 1px solid #B0D0DE;
   border-right: 1px solid #B0D0DE
 }
 
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected:not(.caret) .menu-item .icon,
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected.caret:not(.expanded) .menu-item .icon {
+.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected:not(.caret) .menu-item .icon, .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected.caret:not(.expanded) .menu-item .icon {
   left: 7px
 }
 
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected:not(.caret) .menu-item .name,
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected.caret:not(.expanded) .menu-item .name {
+.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected:not(.caret) .menu-item .name, .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected.caret:not(.expanded) .menu-item .name {
   padding-left: 47px
 }
 
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected:not(.caret) .menu-item .subtitle,
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected.caret:not(.expanded) .menu-item .subtitle {
+.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected:not(.caret) .menu-item .subtitle, .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected.caret:not(.expanded) .menu-item .subtitle {
   left: 47px;
   color: #777777
 }
 
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected:not(.caret) .menu-item .subtitle .green,
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected.caret:not(.expanded) .menu-item .subtitle .green {
+.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected:not(.caret) .menu-item .subtitle .green, .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected.caret:not(.expanded) .menu-item .subtitle .green {
   color: #777777
 }
 
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected:not(.caret) .border,
-.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected.caret:not(.expanded) .border {
+.left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected:not(.caret) .border, .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.selected.caret:not(.expanded) .border {
   display: none
 }
 
 .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.readme .icon {
-  background-image: url('../images/icons/normal.png');
+  background-image: url('../images/icons/normal-sbc44f76bca.png');
   background-position: 0 -254px;
   background-repeat: no-repeat;
   width: 31px;
   height: 31px
 }
 
-@media (-webkit-min-device-pixel-ratio: 1.5),
-(min--moz-device-pixel-ratio: 1.5),
-(-o-min-device-pixel-ratio: 3 / 2),
-(min-resolution: 1.5dppx) {
+@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (min-resolution: 1.5dppx) {
   .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.readme .icon {
-    background-image: url('../images/icons/retina.png');
+    background-image: url('../images/icons/retina-s7ccf0828d9.png');
     background-size: 205px 440px
   }
 }
 
 .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.authentication .icon {
-  background-image: url('../images/icons/normal.png');
+  background-image: url('../images/icons/normal-sbc44f76bca.png');
   background-position: 0 0;
   background-repeat: no-repeat;
   width: 31px;
   height: 31px
 }
 
-@media (-webkit-min-device-pixel-ratio: 1.5),
-(min--moz-device-pixel-ratio: 1.5),
-(-o-min-device-pixel-ratio: 3 / 2),
-(min-resolution: 1.5dppx) {
+@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (min-resolution: 1.5dppx) {
   .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.authentication .icon {
-    background-image: url('../images/icons/retina.png');
+    background-image: url('../images/icons/retina-s7ccf0828d9.png');
     background-size: 205px 440px
   }
 }
 
 .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.discoverability .icon {
-  background-image: url('../images/icons/normal.png');
+  background-image: url('../images/icons/normal-sbc44f76bca.png');
   background-position: 0 -68px;
   background-repeat: no-repeat;
   width: 31px;
   height: 31px
 }
 
-@media (-webkit-min-device-pixel-ratio: 1.5),
-(min--moz-device-pixel-ratio: 1.5),
-(-o-min-device-pixel-ratio: 3 / 2),
-(min-resolution: 1.5dppx) {
+@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (min-resolution: 1.5dppx) {
   .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.discoverability .icon {
-    background-image: url('../images/icons/retina.png');
+    background-image: url('../images/icons/retina-s7ccf0828d9.png');
     background-size: 205px 440px
   }
 }
 
 .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.query .icon {
-  background-image: url('../images/icons/normal.png');
+  background-image: url('../images/icons/normal-sbc44f76bca.png');
   background-position: 0 -223px;
   background-repeat: no-repeat;
   width: 31px;
   height: 31px
 }
 
-@media (-webkit-min-device-pixel-ratio: 1.5),
-(min--moz-device-pixel-ratio: 1.5),
-(-o-min-device-pixel-ratio: 3 / 2),
-(min-resolution: 1.5dppx) {
+@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (min-resolution: 1.5dppx) {
   .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.query .icon {
-    background-image: url('../images/icons/retina.png');
+    background-image: url('../images/icons/retina-s7ccf0828d9.png');
     background-size: 205px 440px
   }
 }
 
 .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.zones .icon {
-  background-image: url('../images/icons/normal.png');
+  background-image: url('../images/icons/normal-sbc44f76bca.png');
   background-position: 0 -409px;
   background-repeat: no-repeat;
   width: 31px;
   height: 31px
 }
 
-@media (-webkit-min-device-pixel-ratio: 1.5),
-(min--moz-device-pixel-ratio: 1.5),
-(-o-min-device-pixel-ratio: 3 / 2),
-(min-resolution: 1.5dppx) {
+@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (min-resolution: 1.5dppx) {
   .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.zones .icon {
-    background-image: url('../images/icons/retina.png');
+    background-image: url('../images/icons/retina-s7ccf0828d9.png');
     background-size: 205px 440px
   }
 }
 
 .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.sharing .icon {
-  background-image: url('../images/icons/normal.png');
+  background-image: url('../images/icons/normal-sbc44f76bca.png');
   background-position: 0 -316px;
   background-repeat: no-repeat;
   width: 31px;
   height: 31px
 }
 
-@media (-webkit-min-device-pixel-ratio: 1.5),
-(min--moz-device-pixel-ratio: 1.5),
-(-o-min-device-pixel-ratio: 3 / 2),
-(min-resolution: 1.5dppx) {
+@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (min-resolution: 1.5dppx) {
   .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.sharing .icon {
-    background-image: url('../images/icons/retina.png');
+    background-image: url('../images/icons/retina-s7ccf0828d9.png');
     background-size: 205px 440px
   }
 }
 
 .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.notifications .icon {
-  background-image: url('../images/icons/normal.png');
+  background-image: url('../images/icons/normal-sbc44f76bca.png');
   background-position: 0 -161px;
   background-repeat: no-repeat;
   width: 31px;
   height: 31px
 }
 
-@media (-webkit-min-device-pixel-ratio: 1.5),
-(min--moz-device-pixel-ratio: 1.5),
-(-o-min-device-pixel-ratio: 3 / 2),
-(min-resolution: 1.5dppx) {
+@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (min-resolution: 1.5dppx) {
   .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.notifications .icon {
-    background-image: url('../images/icons/retina.png');
+    background-image: url('../images/icons/retina-s7ccf0828d9.png');
     background-size: 205px 440px
   }
 }
 
 .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.records .icon {
-  background-image: url('../images/icons/normal.png');
+  background-image: url('../images/icons/normal-sbc44f76bca.png');
   background-position: 0 -285px;
   background-repeat: no-repeat;
   width: 31px;
   height: 31px
 }
 
-@media (-webkit-min-device-pixel-ratio: 1.5),
-(min--moz-device-pixel-ratio: 1.5),
-(-o-min-device-pixel-ratio: 3 / 2),
-(min-resolution: 1.5dppx) {
+@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (min-resolution: 1.5dppx) {
   .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.records .icon {
-    background-image: url('../images/icons/retina.png');
+    background-image: url('../images/icons/retina-s7ccf0828d9.png');
     background-size: 205px 440px
   }
 }
 
 .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.subscriptions .icon {
-  background-image: url('../images/icons/normal.png');
+  background-image: url('../images/icons/normal-sbc44f76bca.png');
   background-position: 0 -347px;
   background-repeat: no-repeat;
   width: 31px;
   height: 31px
 }
 
-@media (-webkit-min-device-pixel-ratio: 1.5),
-(min--moz-device-pixel-ratio: 1.5),
-(-o-min-device-pixel-ratio: 3 / 2),
-(min-resolution: 1.5dppx) {
+@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (min-resolution: 1.5dppx) {
   .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.subscriptions .icon {
-    background-image: url('../images/icons/retina.png');
+    background-image: url('../images/icons/retina-s7ccf0828d9.png');
     background-size: 205px 440px
   }
 }
 
 .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.sync .icon {
-  background-image: url('../images/icons/normal.png');
+  background-image: url('../images/icons/normal-sbc44f76bca.png');
   background-position: 0 -378px;
   background-repeat: no-repeat;
   width: 31px;
   height: 31px
 }
 
-@media (-webkit-min-device-pixel-ratio: 1.5),
-(min--moz-device-pixel-ratio: 1.5),
-(-o-min-device-pixel-ratio: 3 / 2),
-(min-resolution: 1.5dppx) {
+@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (min-resolution: 1.5dppx) {
   .left-pane .left-bar-wrapper .vertical-scroll-container .menu-items .menu-item-container.sync .icon {
-    background-image: url('../images/icons/retina.png');
+    background-image: url('../images/icons/retina-s7ccf0828d9.png');
     background-size: 205px 440px
   }
 }
@@ -1028,19 +949,16 @@ body #dialog #dialog-text .actions a:last-child {
   position: absolute;
   top: 4px;
   left: 5px;
-  background-image: url('../images/icons/normal.png');
+  background-image: url('../images/icons/normal-sbc44f76bca.png');
   background-position: 0 -31px;
   background-repeat: no-repeat;
   width: 205px;
   height: 37px
 }
 
-@media (-webkit-min-device-pixel-ratio: 1.5),
-(min--moz-device-pixel-ratio: 1.5),
-(-o-min-device-pixel-ratio: 3 / 2),
-(min-resolution: 1.5dppx) {
+@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (min-resolution: 1.5dppx) {
   .left-pane .home .icon {
-    background-image: url('../images/icons/retina.png');
+    background-image: url('../images/icons/retina-s7ccf0828d9.png');
     background-size: 205px 440px
   }
 }
@@ -1064,9 +982,7 @@ body #dialog #dialog-text .actions a:last-child {
   height: 45px
 }
 
-.left-pane .menu-item:hover,
-.left-pane .menu-item:visited,
-.left-pane .menu-item:active {
+.left-pane .menu-item:hover, .left-pane .menu-item:visited, .left-pane .menu-item:active {
   color: #44484F
 }
 
@@ -1081,7 +997,7 @@ body #dialog #dialog-text .actions a:last-child {
 }
 
 .left-pane .menu-item.documentation .icon {
-  background-image: url('../images/icons/normal.png');
+  background-image: url('../images/icons/normal-sbc44f76bca.png');
   background-position: 0 -99px;
   background-repeat: no-repeat;
   width: 31px;
@@ -1089,12 +1005,9 @@ body #dialog #dialog-text .actions a:last-child {
   top: 7px
 }
 
-@media (-webkit-min-device-pixel-ratio: 1.5),
-(min--moz-device-pixel-ratio: 1.5),
-(-o-min-device-pixel-ratio: 3 / 2),
-(min-resolution: 1.5dppx) {
+@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (min-resolution: 1.5dppx) {
   .left-pane .menu-item.documentation .icon {
-    background-image: url('../images/icons/retina.png');
+    background-image: url('../images/icons/retina-s7ccf0828d9.png');
     background-size: 205px 440px
   }
 }
@@ -1241,19 +1154,16 @@ body #dialog #dialog-text .actions a:last-child {
 .right-pane .header .left-button .play-icon {
   position: absolute;
   top: 7px;
-  background-image: url('../images/icons/normal.png');
+  background-image: url('../images/icons/normal-sbc44f76bca.png');
   background-position: 0 -192px;
   background-repeat: no-repeat;
   width: 31px;
   height: 31px
 }
 
-@media (-webkit-min-device-pixel-ratio: 1.5),
-(min--moz-device-pixel-ratio: 1.5),
-(-o-min-device-pixel-ratio: 3 / 2),
-(min-resolution: 1.5dppx) {
+@media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (min-resolution: 1.5dppx) {
   .right-pane .header .left-button .play-icon {
-    background-image: url('../images/icons/retina.png');
+    background-image: url('../images/icons/retina-s7ccf0828d9.png');
     background-size: 205px 440px
   }
 }
@@ -1422,24 +1332,20 @@ body #dialog #dialog-text .actions a:last-child {
   max-width: 320px
 }
 
-.right-pane .vertical-scroll-container .page .page-segment .content table td,
-.right-pane .vertical-scroll-container .page .page-segment .content table th {
+.right-pane .vertical-scroll-container .page .page-segment .content table td, .right-pane .vertical-scroll-container .page .page-segment .content table th {
   vertical-align: top
 }
 
-.right-pane .vertical-scroll-container .page .page-segment .content table td ol,
-.right-pane .vertical-scroll-container .page .page-segment .content table th ol {
+.right-pane .vertical-scroll-container .page .page-segment .content table td ol, .right-pane .vertical-scroll-container .page .page-segment .content table th ol {
   margin-bottom: 0;
   list-style-type: decimal
 }
 
-.right-pane .vertical-scroll-container .page .page-segment .content table td ol li,
-.right-pane .vertical-scroll-container .page .page-segment .content table th ol li {
+.right-pane .vertical-scroll-container .page .page-segment .content table td ol li, .right-pane .vertical-scroll-container .page .page-segment .content table th ol li {
   font-weight: 400
 }
 
-.right-pane .vertical-scroll-container .page .page-segment .content table td ol li>div,
-.right-pane .vertical-scroll-container .page .page-segment .content table th ol li>div {
+.right-pane .vertical-scroll-container .page .page-segment .content table td ol li>div, .right-pane .vertical-scroll-container .page .page-segment .content table th ol li>div {
   font-weight: 300;
   display: inline-block;
   vertical-align: top
@@ -1457,6 +1363,7 @@ body #dialog #dialog-text .actions a:last-child {
   .left-pane {
     left: 0
   }
+
   .right-pane {
     left: 305px
   }
@@ -1466,6 +1373,7 @@ body #dialog #dialog-text .actions a:last-child {
   .main-pane {
     background-color: white
   }
+
   .main-pane .left-pane {
     width: 47px;
     max-width: 305px;
@@ -1474,14 +1382,17 @@ body #dialog #dialog-text .actions a:last-child {
     z-index: 3;
     border-right: none
   }
+
   .main-pane .left-pane.expanded {
     width: 305px
   }
+
   .main-pane .left-pane.expanded .left-bar-wrapper {
     box-shadow: 4px 0 8px #eee
   }
+
   .main-pane .left-pane:not(.expanded) .menu-item-container.notifications .menu-item.notify .icon {
-    background-image: url('../images/icons/normal.png');
+    background-image: url('../images/icons/normal-sbc44f76bca.png');
     background-position: 0 -130px;
     background-repeat: no-repeat;
     width: 31px;
@@ -1489,12 +1400,9 @@ body #dialog #dialog-text .actions a:last-child {
   }
 }
 
-@media (max-width: 1140px) and (-webkit-min-device-pixel-ratio: 1.5),
-(max-width: 1140px) and (min--moz-device-pixel-ratio: 1.5),
-(max-width: 1140px) and (-o-min-device-pixel-ratio: 3 / 2),
-(max-width: 1140px) and (min-resolution: 1.5dppx) {
+@media (max-width: 1140px) and (-webkit-min-device-pixel-ratio: 1.5), (max-width: 1140px) and (min--moz-device-pixel-ratio: 1.5), (max-width: 1140px) and (-o-min-device-pixel-ratio: 3 / 2), (max-width: 1140px) and (min-resolution: 1.5dppx) {
   .main-pane .left-pane:not(.expanded) .menu-item-container.notifications .menu-item.notify .icon {
-    background-image: url('../images/icons/retina.png');
+    background-image: url('../images/icons/retina-s7ccf0828d9.png');
     background-size: 205px 440px
   }
 }
@@ -1503,57 +1411,72 @@ body #dialog #dialog-text .actions a:last-child {
   .main-pane .left-pane:not(.expanded) .menu-item-container.caret::after {
     display: none
   }
+
   .main-pane .left-pane:not(.expanded) .menu-item-container .menu-item .alert {
     display: none
   }
+
   .main-pane .left-pane .home {
     width: 100%;
     position: absolute;
     z-index: 2
   }
+
   .main-pane .left-pane .home .mask {
     display: block
   }
+
   .main-pane .left-pane .home .toggle-buttons {
     display: block
   }
+
   .main-pane .left-pane .menu-item.documentation {
     width: 100%;
     border-left: none
   }
+
   .main-pane .left-pane .vertical-scroll-container {
     width: 100%
   }
+
   .main-pane .left-pane .vertical-scroll-container .menu-items {
     width: 100%;
     border-left-color: white
   }
+
   .main-pane .left-pane .vertical-scroll-container .menu-items .menu-item-container .tab-menu-item.selected {
     border-left-color: #CAEFFF
   }
+
   .main-pane .left-pane .vertical-scroll-container .menu-items .menu-item-container.selected:not(.caret) .menu-item {
     border-left-color: #CAEFFF
   }
+
   .main-pane .right-pane {
     left: 47px
   }
-  .main-pane .right-pane .header,
-  .main-pane .right-pane .alert-bar {
+
+  .main-pane .right-pane .header, .main-pane .right-pane .alert-bar {
     width: 100%
   }
+
   .main-pane .right-pane .alert-bar {
     border-right: 0
   }
+
   .main-pane .right-pane .vertical-scroll-container {
     min-width: 721px
   }
+
   .main-pane .right-pane .vertical-scroll-container.alert-showing {
     top: 75px;
     transition: top 0.35s ease-in-out
   }
+
   .main-pane .right-pane .vertical-scroll-container.alert-showing .description {
     padding-top: 0
   }
+
   .main-pane .right-pane .vertical-scroll-container .page {
     max-width: 100%
   }
